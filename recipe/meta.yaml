@@ -10,7 +10,7 @@ source:
   md5: dd01e07a77123c128ff79ba57b97c1d7
 
 build:
-  number: 0
+  number: 1
   osx_is_app: True
 
 requirements:
@@ -32,8 +32,7 @@ requirements:
 
 test:
   commands:
-    - USER=test spyder -h  # [unix]
-    - spyder -h  # [win]
+    - spyder -h
   imports:
     - spyderlib
 
