@@ -16,6 +16,18 @@ environment thanks to the support of IPython and popular Python libraries
 such as NumPy, SciPy, or matplotlib.
 
 
+Current build status
+====================
+
+Linux: [![Circle CI](https://circleci.com/gh/conda-forge/spyder-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/spyder-feedstock)
+OSX: [![TravisCI](https://travis-ci.org/conda-forge/spyder-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/spyder-feedstock)
+Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/spyder-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/spyder-feedstock/branch/master)
+
+Current release info
+====================
+Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/spyder/badges/version.svg)](https://anaconda.org/conda-forge/spyder)
+Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/spyder/badges/downloads.svg)](https://anaconda.org/conda-forge/spyder)
+
 Installing spyder
 =================
 
@@ -36,7 +48,6 @@ It is possible to list all of the versions of `spyder` available on your platfor
 ```
 conda search spyder --channel conda-forge
 ```
-
 
 
 About conda-forge
@@ -72,18 +83,6 @@ Terminology
 
 **conda-forge** - the place where the feedstock and smithy live and work to
                   produce the finished article (built conda distributions)
-
-Current build status
-====================
-
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/spyder-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/spyder-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/spyder-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/spyder-feedstock)
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/spyder-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/spyder-feedstock/branch/master)
-
-Current release info
-====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/spyder/badges/version.svg)](https://anaconda.org/conda-forge/spyder)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/spyder/badges/downloads.svg)](https://anaconda.org/conda-forge/spyder)
 
 
 Updating spyder-feedstock
