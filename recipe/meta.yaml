@@ -10,7 +10,7 @@ source:
   md5: dd01e07a77123c128ff79ba57b97c1d7
 
 build:
-  number: 1
+  number: 2
   osx_is_app: True
 
 requirements:
@@ -18,7 +18,7 @@ requirements:
     - python
   run:
     - python
-    - pyqt
+    - pyqt 4.11.*
     - rope
     - pyflakes
     - jedi  >=0.8
