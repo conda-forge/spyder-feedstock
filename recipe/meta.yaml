@@ -25,10 +25,11 @@ requirements:
     - python
     - pyqt 4.11.*
     - qtpy >=1.1
-    - qtawesome
-    - rope
+    - qtawesome >=0.4.1
+    - rope_py3k  # [py3]
+    - rope >=0.9.4  # [py2]
     - pyflakes
-    - jedi >=0.8
+    - jedi
     - qtconsole >=4.2
     - pickleshare
     - nbconvert
@@ -38,6 +39,8 @@ requirements:
     - psutil
     - pylint
     - pyzmq
+    - chardet >=2.0
+    - numpydoc
     - python.app  # [osx]
 
 test:
