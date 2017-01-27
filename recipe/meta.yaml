@@ -44,7 +44,7 @@ test:
   commands:
     - spyder -h
   imports:
-    - spyderlib
+    - spyder
 
 app:
   entry: spyder
