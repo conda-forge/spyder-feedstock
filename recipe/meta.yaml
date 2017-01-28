@@ -26,7 +26,8 @@ requirements:
     - pyqt 4.11.*
     - qtpy >=1.1
     - qtawesome >=0.4.1
-    - rope >=0.9.4
+    - rope >=0.9.4  # [py2k]
+    - rope 0.9.4  # [py3k]
     - pyflakes
     - jedi
     - qtconsole >=4.2
