@@ -14,7 +14,7 @@ source:
 build:
     entry_points:
         - spyder = spyder.app.start:main
-    number: '0'
+    number: '1'
     osx_is_app: 'True'
 
 requirements:
