@@ -1,7 +1,7 @@
 About spyder
 ============
 
-Home: http://spyder-ide.org
+Home: https://github.com/spyder-ide/spyder
 
 Package license: MIT
 
