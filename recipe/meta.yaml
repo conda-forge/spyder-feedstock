@@ -12,10 +12,10 @@ source:
   sha256: {{ sha256 }}
 
 build:
-    entry_points:
-        - spyder = spyder.app.start:main
-    number: '1'
-    osx_is_app: 'True'
+  number: 2
+  entry_points:
+    - spyder = spyder.app.start:main
+  osx_is_app: True
 
 requirements:
   build:
@@ -23,11 +23,10 @@ requirements:
     - sphinx
   run:
     - python
-    - pyqt 4.11.*
+    - pyqt
     - qtpy >=1.1
     - qtawesome >=0.4.1
-    - rope >=0.9.4  # [py2k]
-    - rope 0.9.4  # [py3k]
+    - rope >=0.9.4
     - pyflakes
     - jedi 0.9.0
     - qtconsole >=4.2
@@ -45,7 +44,8 @@ requirements:
 
 test:
   commands:
-    - spyder -h
+    - USER=test spyder -h  # [unix]
+    - spyder -h  # [win]
   imports:
     - spyder
 
