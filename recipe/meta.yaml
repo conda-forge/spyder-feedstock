@@ -24,6 +24,7 @@ requirements:
   run:
     - python
     - pyqt
+    - pyqt 4.11.*  # [osx]
     - qtpy >=1.1
     - qtawesome >=0.4.1
     - rope >=0.9.4
