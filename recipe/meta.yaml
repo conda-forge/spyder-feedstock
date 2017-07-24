@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "3.1.4" %}
-{% set sha256 = "d0cabd441761d5c439977cba4eb15b72da5874fc7f0d3523ab991670c503f073" %}
+{% set version = "3.2.0" %}
+{% set sha256 = "6bce198134122f494d657a84d42fe36c92a833a94eee706bea883f3213008ffb" %}
 
 package:
   name: {{ name|lower }}
@@ -28,13 +28,13 @@ requirements:
     - qtawesome >=0.4.1
     - rope >=0.9.4
     - pyflakes
-    - jedi
+    - jedi >=0.9
     - qtconsole >=4.2
     - pickleshare
     - nbconvert
     - pygments >=2.0
     - sphinx
-    - pep8
+    - pycodestyle
     - psutil
     - pylint
     - pyzmq
