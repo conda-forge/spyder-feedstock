@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "3.2.3" %}
-{% set sha256 = "714c9b9941c1883c810bf87f34d6d46fc4458053e3d138d9e12435ea236b0dd2" %}
+{% set version = "3.2.4" %}
+{% set sha256 = "638310e720248255395df0fdfe010d51f29509858742c8e9cd5e60f7c2791009" %}
 
 package:
   name: {{ name|lower }}
@@ -24,7 +24,7 @@ requirements:
   run:
     - python
     - pyqt
-    - qtpy >=1.1
+    - qtpy >=1.2.0
     - qtawesome >=0.4.1
     - rope >=0.9.4
     - pyflakes
