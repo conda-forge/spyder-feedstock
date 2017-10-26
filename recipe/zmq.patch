@@ -1,0 +1,14 @@
+diff --git a/spyder/app/start.py b/spyder/app/start.py
+index 8d0a33f..a1c8f72 100644
+--- a/spyder/app/start.py
++++ b/spyder/app/start.py
+@@ -10,7 +10,8 @@ import time
+ 
+ # To prevent a race condition with ZMQ
+ # See issue 5324
+-import zmq
++if not sys.platform == 'darwin':
++    import zmq
+ 
+ # This import is needed to fix errors with OpenGL when installed using pip
+ # See issue 3332
