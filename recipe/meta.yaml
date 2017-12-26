@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "3.2.4" %}
-{% set sha256 = "638310e720248255395df0fdfe010d51f29509858742c8e9cd5e60f7c2791009" %}
+{% set version = "3.2.5" %}
+{% set sha256 = "26e5701fed04e375ca16f145e00968503e76ae32d384a77c8b7c14428cff4285" %}
 
 package:
   name: {{ name|lower }}
@@ -43,6 +43,7 @@ requirements:
     - pyzmq
     - chardet >=2.0
     - numpydoc
+    - cloudpickle
     - python.app  # [osx]
 
 test:
