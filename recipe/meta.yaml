@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "3.2.8" %}
-{% set sha256 = "e56d83875d725c16646338a3769fe1a5e4450c825e207127f85eedbe845f8c47" %}
+{% set version = "3.3.0" %}
+{% set sha256 = "ee65349a4bb60a8e00c25155815f21802845159f4872db3e15548d2476b9b240" %}
 
 package:
   name: {{ name|lower }}
