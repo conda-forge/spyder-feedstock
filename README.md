@@ -19,14 +19,16 @@ such as NumPy, SciPy, or matplotlib.
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/spyder-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/spyder-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/spyder-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/spyder-feedstock)
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/spyder-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/spyder-feedstock/branch/master)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/spyder-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/spyder-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/spyder-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/spyder-feedstock)
+[![Windows](https://img.shields.io/appveyor/ci/conda-forge/spyder-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/spyder-feedstock/branch/master)
 
 Current release info
 ====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/spyder/badges/version.svg)](https://anaconda.org/conda-forge/spyder)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/spyder/badges/downloads.svg)](https://anaconda.org/conda-forge/spyder)
+
+| Name | Downloads | Version | Platforms |
+| --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-spyder-green.svg)](https://anaconda.org/conda-forge/spyder) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/spyder.svg)](https://anaconda.org/conda-forge/spyder) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/spyder.svg)](https://anaconda.org/conda-forge/spyder) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/spyder.svg)](https://anaconda.org/conda-forge/spyder) |
 
 Installing spyder
 =================
