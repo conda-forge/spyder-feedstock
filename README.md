@@ -1,19 +1,28 @@
 About spyder
 ============
 
-Home: https://github.com/spyder-ide/spyder
+Home: https://www.spyder-ide.org/
 
 Package license: MIT
 
 Feedstock license: BSD 3-Clause
 
-Summary: Scientific PYthon Development EnviRonment
+Summary: The Scientific Python Development Environment
 
-Spyder is a powerful interactive development environment for the Python
-language with advanced editing, interactive testing, debugging and
-introspection features. Additionally, Spyder is a numerical computing
-environment thanks to the support of IPython and popular Python libraries
-such as NumPy, SciPy, or matplotlib.
+Spyder is a powerful scientific environment written in Python, for Python,
+and designed by and for scientists, engineers and data analysts.
+It features a unique combination of the advanced editing, analysis,
+debugging and profiling functionality of a comprehensive development tool
+with the data exploration, interactive execution, deep inspection and
+beautiful visualization capabilities of a scientific package.
+Furthermore, Spyder offers built-in integration with many popular
+scientific packages, including NumPy, SciPy, Pandas, IPython, QtConsole,
+Matplotlib, SymPy, and more.
+Beyond its many built-in features, Spyder's abilities can be extended even
+further via first- and third-party plugins.
+Spyder can also be used as a PyQt5 extension library, allowing you to build
+upon its functionality and embed its components, such as the interactive
+console or advanced editor, in your own software.
 
 
 Current build status
