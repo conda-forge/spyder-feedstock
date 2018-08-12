@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "3.3.1" %}
-{% set sha256 = "992d74f07961df9a9b9aa495fa2d87832699ada5323850dc3e26ac0ff640b170" %}
+{% set version = "4.0.0b1" %}
+{% set sha256 = "143538b03bdf85bcd2c55888564022bb334519d9eb4ac38fa4bcb4982cf75c35" %}
 
 package:
   name: {{ name|lower }}
@@ -15,7 +15,7 @@ source:
     - zmq.patch
 
 build:
-  number: 1
+  number: 0
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: True
