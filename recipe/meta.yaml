@@ -15,7 +15,7 @@ source:
     - zmq.patch
 
 build:
-  number: 0
+  number: 1
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: True
@@ -45,7 +45,7 @@ requirements:
     - numpydoc
     - cloudpickle
     - keyring  # [not (linux and py2k)]
-    - spyder-kernels 0.*
+    - spyder-kernels >=1.0
     - python.app  # [osx]
 
 test:
