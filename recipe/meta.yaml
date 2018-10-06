@@ -1,52 +1,51 @@
-{% set name = "spyder" %}
 {% set version = "3.3.1" %}
-{% set sha256 = "992d74f07961df9a9b9aa495fa2d87832699ada5323850dc3e26ac0ff640b170" %}
 
 package:
-  name: {{ name|lower }}
+  name: spyder
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
+  sha256: 992d74f07961df9a9b9aa495fa2d87832699ada5323850dc3e26ac0ff640b170
   patches:
     # Prevent a crash in macOS with Python 3
     - zmq.patch
+    - 0001-Hack-import-zmq-in-start.py.patch
 
 build:
-  number: 2
+  number: 3
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: True
 
 requirements:
-  build:
+  host:
     - python
+    - pip
     - sphinx
   run:
     - python
-    - pyqt =5
-    - qtpy >=1.2.0
-    - qtawesome >=0.4.1
-    - rope >=0.9.4
-    - pyflakes
-    - jedi >=0.9
-    - qtconsole >=4.2
-    - pickleshare
-    - nbconvert
-    - pygments >=2.0
-    - sphinx
-    - pycodestyle
-    - psutil
-    - pylint
-    - pyzmq
     - chardet >=2.0
-    - numpydoc
     - cloudpickle
+    - jedi >=0.9
     - keyring  # [not (linux and py2k)]
-    - spyder-kernels =0
+    - nbconvert
+    - numpydoc
+    - pickleshare
+    - psutil
+    - pycodestyle
+    - pyflakes
+    - pygments >=2.0
+    - pylint
+    - pyqt >=5.6,<5.7
     - python.app  # [osx]
+    - pyzmq
+    - qtawesome >=0.4.1
+    - qtconsole >=4.2
+    - qtpy >=1.2.0
+    - rope >=0.9.4
+    - sphinx
+    - spyder-kernels >=0.1,<1
 
 test:
   commands:
