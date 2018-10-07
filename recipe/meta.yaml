@@ -8,8 +8,6 @@ source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
   sha256: 992d74f07961df9a9b9aa495fa2d87832699ada5323850dc3e26ac0ff640b170
   patches:
-    # Prevent a crash in macOS with Python 3
-    - zmq.patch
     - 0001-Hack-import-zmq-in-start.py.patch
 
 build:
@@ -37,7 +35,7 @@ requirements:
     - pyflakes
     - pygments >=2.0
     - pylint
-    - pyqt >=5.6,<5.7
+    - pyqt >=5.6,<6
     - python.app  # [osx]
     - pyzmq
     - qtawesome >=0.4.1
@@ -75,8 +73,8 @@ about:
     Furthermore, Spyder offers built-in integration with many popular
     scientific packages, including NumPy, SciPy, Pandas, IPython, QtConsole,
     Matplotlib, SymPy, and more.
-    Beyond its many built-in features, Spyder's abilities can be extended even
-    further via first- and third-party plugins.
+    Beyond its many built-in features, Spyder can be extended even further via
+    third-party plugins.
     Spyder can also be used as a PyQt5 extension library, allowing you to build
     upon its functionality and embed its components, such as the interactive
     console or advanced editor, in your own software.
