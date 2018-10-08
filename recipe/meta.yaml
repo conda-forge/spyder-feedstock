@@ -35,7 +35,9 @@ requirements:
     - pyflakes
     - pygments >=2.0
     - pylint
-    - pyqt >=5.6,<6
+    # This is here to avoid mixing default and conda-forge
+    # qt/pyqt packages.
+    - pyqt >=5.6,<5.7
     - python.app  # [osx]
     - pyzmq
     - qtawesome >=0.4.1
