@@ -42,8 +42,8 @@ requirements:
     - pyzmq
     - qtawesome >=0.4.1
     - qtconsole >=4.2
-    - qtpy >=1.2.0
-    - rope >=0.9.4
+    - qtpy >=1.5.0
+    - rope >=0.10.5
     - sphinx
     - spyder-kernels >=0.1,<1
 
@@ -63,7 +63,7 @@ app:
 about:
   home: https://www.spyder-ide.org/
   license: MIT
-  license_file: LICENSE
+  license_file: LICENSE.txt
   summary: The Scientific Python Development Environment
   description: |
     Spyder is a powerful scientific environment written in Python, for Python,
