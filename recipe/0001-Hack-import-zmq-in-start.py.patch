@@ -13,8 +13,10 @@ diff -urN spyder-3.2.3.orig/spyder/app/start.py spyder-3.2.3/spyder/app/start.py
 +# Importing it very early seems to avoid this problem.
 +# Other projects have run into similar issues:
 +# https://github.com/pytorch/pytorch/issues/2507
-+import zmq
-+
++try:
++    import zmq
++except:
++    pass
  # Std imports
  import os
  import os.path as osp

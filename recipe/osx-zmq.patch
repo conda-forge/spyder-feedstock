@@ -1,0 +1,14 @@
+--- spyder/app/start.py 2018-11-26 20:56:21.282478096 -0500
++++ spyder/app/start-new.py     2018-11-26 20:57:49.882753839 -0500
+@@ -11,7 +11,10 @@
+ 
+ # To prevent a race condition with ZMQ
+ # See issue 5324
+-import zmq
++try:
++    import zmq
++except:
++    pass
+ 
+ # Load GL library to prevent segmentation faults on some Linux systems
+ # See issues 3226 and 3332
