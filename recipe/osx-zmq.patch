@@ -1,6 +1,17 @@
 --- spyder/app/start.py 2018-11-26 20:56:21.282478096 -0500
-+++ spyder/app/start-new.py     2018-11-26 20:57:49.882753839 -0500
-@@ -11,7 +11,10 @@
++++ spyder/app/start-new.py     2018-11-26 21:14:53.468507901 -0500
+@@ -1,5 +1,10 @@
+ # -*- coding: utf-8 -*-
+ 
++try:
++    import zmq
++except:
++    pass
++
+ # Std imports
+ import ctypes
+ import os
+@@ -11,7 +16,10 @@
  
  # To prevent a race condition with ZMQ
  # See issue 5324
