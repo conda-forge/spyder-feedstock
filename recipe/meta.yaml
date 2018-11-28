@@ -19,6 +19,7 @@ build:
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
+  skip: True  # [ppc64le]
 
 requirements:
   host:
