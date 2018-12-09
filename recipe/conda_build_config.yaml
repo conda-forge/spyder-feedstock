@@ -1,0 +1,3 @@
+# See https://github.com/conda-forge/spyder-feedstock/pull/49
+channel_targets:
+- conda-forge beta
