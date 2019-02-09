@@ -1,3 +1,7 @@
+<!--
+# -*- mode: jinja -*-
+-->
+
 About spyder
 ============
 
@@ -14,12 +18,12 @@ and designed by and for scientists, engineers and data analysts.
 It features a unique combination of the advanced editing, analysis,
 debugging and profiling functionality of a comprehensive development tool
 with the data exploration, interactive execution, deep inspection and
-beautiful visualization capabilities of a scientific package.
+beautiful visualization capabilities of a scientific package.\n
 Furthermore, Spyder offers built-in integration with many popular
 scientific packages, including NumPy, SciPy, Pandas, IPython, QtConsole,
-Matplotlib, SymPy, and more.
+Matplotlib, SymPy, and more.\n
 Beyond its many built-in features, Spyder can be extended even further via
-third-party plugins.
+third-party plugins.\n
 Spyder can also be used as a PyQt5 extension library, allowing you to build
 upon its functionality and embed its components, such as the interactive
 console or advanced editor, in your own software.
@@ -63,6 +67,8 @@ conda search spyder --channel conda-forge
 
 About conda-forge
 =================
+
+[![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](http://numfocus.org)
 
 conda-forge is a community-led conda channel of installable packages.
 In order to provide high-quality builds, the process has been automated into the
@@ -118,3 +124,10 @@ In order to produce a uniquely identifiable distribution:
  * If the version of a package **is** being increased, please remember to return
    the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string)
    back to 0.
+
+Feedstock Maintainers
+=====================
+
+* [@ccordoba12](https://github.com/ccordoba12/)
+* [@goanpeca](https://github.com/goanpeca/)
+
