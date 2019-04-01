@@ -41,12 +41,12 @@ requirements:
     - pyqt >=5.6,<5.7
     - python.app  # [osx]
     - pyzmq
-    - qtawesome >=0.4.1
+    - qtawesome >=0.5.7
     - qtconsole >=4.2
     - qtpy >=1.5.0
     - rope >=0.10.5
     - sphinx
-    - spyder-kernels >=0.4.2,<1
+    - spyder-kernels >=0.4.3,<1
 
 test:
   commands:
