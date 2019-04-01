@@ -1,4 +1,4 @@
-{% set version = "3.3.3" %}
+{% set version = "3.3.4" %}
 
 package:
   name: spyder
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: ef31de03cf6f149077e64ed5736b8797dbd278e3c925e43f0bfc31bb55f6e5ba
+  sha256: 2a8f17dd86b05780ad541b603b23f39ba2d63dd3e6dce69bc7654a0d38f445b9
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -41,12 +41,12 @@ requirements:
     - pyqt >=5.6,<5.7
     - python.app  # [osx]
     - pyzmq
-    - qtawesome >=0.4.1
+    - qtawesome >=0.5.7
     - qtconsole >=4.2
     - qtpy >=1.5.0
     - rope >=0.10.5
     - sphinx
-    - spyder-kernels >=0.4.2,<1
+    - spyder-kernels >=0.4.3,<1
 
 test:
   commands:
