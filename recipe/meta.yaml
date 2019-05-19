@@ -21,9 +21,9 @@ build:
   osx_is_app: True
 
 requirements:
-  build:
+  host:
     - python
-    - sphinx
+    - pip
   run:
     - python
     - atomicwrites
@@ -65,7 +65,7 @@ app:
 about:
   home: https://www.spyder-ide.org/
   license: MIT
-  license_file: LICENSE
+  license_file: LICENSE.txt
   summary: The Scientific Python Development Environment
   description: |
     Spyder is a powerful scientific environment written in Python, for Python,
