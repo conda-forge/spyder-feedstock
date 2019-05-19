@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "4.0.0b1" %}
-{% set sha256 = "143538b03bdf85bcd2c55888564022bb334519d9eb4ac38fa4bcb4982cf75c35" %}
+{% set version = "4.0.0b2" %}
+{% set sha256 = "9b6a04868f991c351b8f7a73b523ddf16913aaf11f6ebb9847e4a8ff0f261cff" %}
 
 package:
   name: {{ name|lower }}
@@ -15,7 +15,7 @@ source:
     - zmq.patch
 
 build:
-  number: 2
+  number: 0
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: True
@@ -26,27 +26,28 @@ requirements:
     - sphinx
   run:
     - python
-    - pyqt 5.*
-    - qtpy >=1.2.0
-    - qtawesome >=0.4.1
-    - rope >=0.9.4
-    - pyflakes
-    - jedi >=0.9
-    - qtconsole >=4.2
-    - pickleshare
-    - nbconvert
-    - pygments >=2.0
-    - sphinx
-    - pycodestyle
-    - psutil
-    - pylint
-    - pyzmq
+    - atomicwrites
     - chardet >=2.0
-    - numpydoc
     - cloudpickle
     - keyring  # [not (linux and py2k)]
-    - spyder-kernels >=1.0
+    - nbconvert
+    - numpydoc
+    - paramiko  # [not win]
+    - pexpect  # [win]
+    - pickleshare
+    - psutil
+    - pygments >=2.0
+    - pylint
+    - pyqt 5.*
     - python.app  # [osx]
+    - python-language-server <0.25
+    - pyzmq
+    - qdarkstyle >=2.6.4
+    - qtawesome >=0.5.7
+    - qtconsole >=4.2
+    - qtpy >=1.5.0
+    - sphinx
+    - spyder-kernels >=1.2
 
 test:
   commands:
