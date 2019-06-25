@@ -15,7 +15,7 @@ source:
     - zmq.patch
 
 build:
-  number: 0
+  number: 1
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: True
@@ -47,7 +47,7 @@ requirements:
     - qtconsole >=4.2
     - qtpy >=1.5.0
     - sphinx
-    - spyder-kernels >=1.2
+    - spyder-kernels >=1.2,<1.4
 
 test:
   commands:
