@@ -46,7 +46,7 @@ requirements:
     - qtpy >=1.5.0
     - rope >=0.10.5
     - sphinx
-    - spyder-kernels >=0.4.3,<1
+    - spyder-kernels >=0.5.0,<1
 
 test:
   commands:
