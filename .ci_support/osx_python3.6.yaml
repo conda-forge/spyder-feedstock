@@ -1,7 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
 channel_sources:
-- conda-forge,defaults
+- conda-forge/label/beta,conda-forge,defaults
 channel_targets:
 - conda-forge beta
 macos_machine:
