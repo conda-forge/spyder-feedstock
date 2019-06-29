@@ -1,5 +1,5 @@
 channel_sources:
-- conda-forge,defaults
+- conda-forge,defaults,conda-forge/label/beta
 channel_targets:
 - conda-forge beta
 docker_image:

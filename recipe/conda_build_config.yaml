@@ -1,3 +1,7 @@
 # See https://github.com/conda-forge/spyder-feedstock/pull/49
 channel_targets:
 - conda-forge beta
+
+# To get the latest release of spyder-kernels
+channel_sources:
+- conda-forge,defaults,conda-forge/label/beta

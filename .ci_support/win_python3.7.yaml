@@ -1,5 +1,5 @@
 channel_sources:
-- conda-forge,defaults
+- conda-forge,defaults,conda-forge/label/beta
 channel_targets:
 - conda-forge beta
 pin_run_as_build:
