@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "4.0.0b2" %}
-{% set sha256 = "9b6a04868f991c351b8f7a73b523ddf16913aaf11f6ebb9847e4a8ff0f261cff" %}
+{% set version = "4.0.0b3" %}
+{% set sha256 = "49917e640cb27de622cf9fc423d881bcb9444bb2e83f33279fc192be584605c9" %}
 
 package:
   name: {{ name|lower }}
@@ -15,7 +15,7 @@ source:
     - zmq.patch
 
 build:
-  number: 1
+  number: 0
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: True
@@ -27,27 +27,30 @@ requirements:
   run:
     - python
     - atomicwrites
-    - chardet >=2.0
+    - chardet >=2.0.0
     - cloudpickle
+    - diff-match-patch
     - keyring  # [not (linux and py2k)]
     - nbconvert
     - numpydoc
     - paramiko  # [not win]
-    - pexpect  # [win]
+    - pexpect
     - pickleshare
     - psutil
     - pygments >=2.0
     - pylint
     - pyqt 5.*
     - python.app  # [osx]
-    - python-language-server <0.25
+    - python-language-server >=0.27.0
+    - pyxdg
     - pyzmq
-    - qdarkstyle >=2.6.4
+    - qdarkstyle >=2.7
     - qtawesome >=0.5.7
-    - qtconsole >=4.2
+    - qtconsole >=4.5.0
     - qtpy >=1.5.0
     - sphinx
-    - spyder-kernels >=1.2,<1.4
+    - spyder-kernels >=1.4.0,<1.5.0
+    - watchdog
 
 test:
   commands:
