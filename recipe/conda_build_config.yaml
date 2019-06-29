@@ -4,4 +4,4 @@ channel_targets:
 
 # To get the latest release of spyder-kernels
 channel_sources:
-- conda-forge/label/beta,conda-forge,defaults
+- conda-forge,defaults,conda-forge/label/beta
