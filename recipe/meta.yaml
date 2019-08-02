@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "4.0.0b3" %}
-{% set sha256 = "49917e640cb27de622cf9fc423d881bcb9444bb2e83f33279fc192be584605c9" %}
+{% set version = "4.0.0b4" %}
+{% set sha256 = "1d874544ccfbc7b88dcf494a3f9e653a522a3800da8f148ba1f53dac60f58504" %}
 
 package:
   name: {{ name|lower }}
@@ -46,7 +46,7 @@ requirements:
     - pyzmq
     - qdarkstyle >=2.7
     - qtawesome >=0.5.7
-    - qtconsole >=4.5.0
+    - qtconsole >=4.5.2
     - qtpy >=1.5.0
     - sphinx
     - spyder-kernels >=1.4.0,<1.5.0
