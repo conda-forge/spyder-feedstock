@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "4.0.0b5" %}
-{% set sha256 = "810cfc3852ee4b9581f56dc476d93e14be6d9c3bbef97e86121b0f3d067e384e" %}
+{% set version = "4.0.0b6" %}
+{% set sha256 = "d517583d521c8dab72c99f50586104d3fc823142f6cdc1697722d950419a58ce" %}
 
 package:
   name: {{ name|lower }}
@@ -33,7 +33,7 @@ requirements:
     - keyring  # [not (linux and py2k)]
     - nbconvert
     - numpydoc
-    - paramiko  # [not win]
+    - paramiko  # [win]
     - pexpect
     - pickleshare
     - psutil
