@@ -33,7 +33,7 @@ requirements:
     - keyring  # [not (linux and py2k)]
     - nbconvert
     - numpydoc
-    - paramiko  # [not win]
+    - paramiko  # [win]
     - pexpect
     - pickleshare
     - psutil
