@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "4.0.0b6" %}
-{% set sha256 = "d517583d521c8dab72c99f50586104d3fc823142f6cdc1697722d950419a58ce" %}
+{% set version = "4.0.0b7" %}
+{% set sha256 = "b4235be44804c1d2900fc5f118ae7c0a1c12fb3943ba3f42562aa11da5799403" %}
 
 package:
   name: {{ name|lower }}
@@ -51,7 +51,7 @@ requirements:
     - qtpy >=1.5.0
     - rtree
     - sphinx
-    - spyder-kernels >=1.5.0,<1.6.0
+    - spyder-kernels >=1.6.0,<1.7.0
     - watchdog
 
 test:
