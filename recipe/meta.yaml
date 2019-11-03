@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "4.0.0b7" %}
-{% set sha256 = "b4235be44804c1d2900fc5f118ae7c0a1c12fb3943ba3f42562aa11da5799403" %}
+{% set version = "4.0.0rc1" %}
+{% set sha256 = "d31dc9d0b430d690a5d861403c278193459501e0713d6a7526cc33f0fc908f22" %}
 
 package:
   name: {{ name|lower }}
@@ -26,10 +26,12 @@ requirements:
     - pip
   run:
     - python
+    - applaunchservices  # [osx]
     - atomicwrites
     - chardet >=2.0.0
     - cloudpickle
     - diff-match-patch
+    - jedi 0.14.1
     - keyring  # [not (linux and py2k)]
     - nbconvert
     - numpydoc
@@ -42,7 +44,7 @@ requirements:
     - pympler
     - pyqt 5.*
     - python.app  # [osx]
-    - python-language-server >=0.28.2,<0.29.0
+    - python-language-server >=0.29.3,<0.30.0
     - pyxdg
     - pyzmq
     - qdarkstyle >=2.7
@@ -51,7 +53,7 @@ requirements:
     - qtpy >=1.5.0
     - rtree
     - sphinx
-    - spyder-kernels >=1.6.0,<1.7.0
+    - spyder-kernels >=1.7.0,<1.8.0
     - watchdog
 
 test:
