@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "4.0.0rc1" %}
-{% set sha256 = "d31dc9d0b430d690a5d861403c278193459501e0713d6a7526cc33f0fc908f22" %}
+{% set version = "4.0.0rc2" %}
+{% set sha256 = "287e6da4107834d4184aee2b41bb6b46d915b4a90eed92b1a0f211760ef0946e" %}
 
 package:
   name: {{ name|lower }}
@@ -44,16 +44,16 @@ requirements:
     - pympler
     - pyqt 5.*
     - python.app  # [osx]
-    - python-language-server >=0.29.3,<0.30.0
+    - python-language-server >=0.31.0,<0.32.0
     - pyxdg
     - pyzmq
     - qdarkstyle >=2.7
     - qtawesome >=0.5.7
-    - qtconsole >=4.5.5
+    - qtconsole >=4.6.0
     - qtpy >=1.5.0
     - rtree
     - sphinx
-    - spyder-kernels >=1.7.0,<1.8.0
+    - spyder-kernels >=1.8.0,<1.9.0
     - watchdog
 
 test:
