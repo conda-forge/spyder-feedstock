@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "4.0.0rc2" %}
-{% set sha256 = "287e6da4107834d4184aee2b41bb6b46d915b4a90eed92b1a0f211760ef0946e" %}
+{% set version = "4.0.0rc3" %}
+{% set sha256 = "7986e4dc21a541e5a51a1bd7d1a6244ac96663295b192d0375d1a1d043f74097" %}
 
 package:
   name: {{ name|lower }}
@@ -31,6 +31,7 @@ requirements:
     - chardet >=2.0.0
     - cloudpickle
     - diff-match-patch
+    - intervaltree
     - jedi 0.14.1
     - keyring  # [not (linux and py2k)]
     - nbconvert
@@ -44,7 +45,7 @@ requirements:
     - pympler
     - pyqt 5.*
     - python.app  # [osx]
-    - python-language-server >=0.31.0,<0.32.0
+    - python-language-server >=0.31.1,<0.32.0
     - pyxdg
     - pyzmq
     - qdarkstyle >=2.7
@@ -53,7 +54,7 @@ requirements:
     - qtpy >=1.5.0
     - rtree
     - sphinx
-    - spyder-kernels >=1.8.0,<1.9.0
+    - spyder-kernels >=1.8.0,<2.0.0
     - watchdog
 
 test:
