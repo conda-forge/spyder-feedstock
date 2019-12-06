@@ -1,4 +1,4 @@
-{% set version = "3.3.6" %}
+{% set version = "4.0.0" %}
 
 package:
   name: spyder
@@ -6,13 +6,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 61973337e1e210c8ef4cd85123c10ec83df10dffb9a3cdbc088ac13c60e0f8fc
+  sha256: f2bfece9743188e3d1da68f02271a7c6eb7f0a3b692c3df4952458ab96b037a8
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
 
 build:
-  number: 1
+  number: 0
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: True
@@ -21,32 +21,38 @@ requirements:
   host:
     - python
     - pip
-    - sphinx
   run:
     - python
-    - chardet >=2.0
+    - applaunchservices  # [osx]
+    - atomicwrites
+    - chardet >=2.0.0
     - cloudpickle
-    - jedi >=0.9
+    - diff-match-patch
+    - intervaltree
+    - jedi 0.14.1
     - keyring  # [not (linux and py2k)]
     - nbconvert
     - numpydoc
+    - paramiko  # [win]
+    - pexpect
     - pickleshare
     - psutil
-    - pycodestyle
-    - pyflakes
     - pygments >=2.0
     - pylint
-    # This is here to avoid mixing default and conda-forge
-    # qt/pyqt packages.
+    - pympler
     - pyqt >=5.6,<5.13
     - python.app  # [osx]
+    - python-language-server >=0.31.2,<0.32.0
+    - pyxdg  # [linux]
     - pyzmq
+    - qdarkstyle >=2.7
     - qtawesome >=0.5.7
-    - qtconsole >=4.2
+    - qtconsole >=4.6.0
     - qtpy >=1.5.0
-    - rope >=0.10.5
+    - rtree
     - sphinx
-    - spyder-kernels >=0.5.0,<1
+    - spyder-kernels >=1.8.1,<2.0.0
+    - watchdog
 
 test:
   commands:
