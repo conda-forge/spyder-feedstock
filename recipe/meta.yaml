@@ -12,7 +12,7 @@ source:
     - osx-zmq.patch
 
 build:
-  number: 0
+  number: 1
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: True
@@ -34,6 +34,7 @@ requirements:
     - nbconvert
     - numpydoc
     - paramiko  # [win]
+    - parso 0.5.2
     - pexpect
     - pickleshare
     - psutil
