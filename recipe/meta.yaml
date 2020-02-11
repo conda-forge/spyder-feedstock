@@ -12,7 +12,7 @@ source:
     - osx-zmq.patch
 
 build:
-  number: 1
+  number: 2
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: True
@@ -37,7 +37,7 @@ requirements:
     - parso 0.5.2
     - pexpect
     - pickleshare
-    - psutil
+    - psutil >=5.3
     - pygments >=2.0
     - pylint
     - pyqt >=5.6,<5.13
