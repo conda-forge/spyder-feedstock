@@ -9,7 +9,7 @@ source:
   sha256: 61973337e1e210c8ef4cd85123c10ec83df10dffb9a3cdbc088ac13c60e0f8fc
   patches:
     # See spyder-ide/spyder#8316
-    - osx-zmq.patch
+    - osx-zmq.patch  # [osx]
 
 build:
   number: 2
