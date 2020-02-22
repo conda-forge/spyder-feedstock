@@ -26,7 +26,7 @@ requirements:
     - python
     - chardet >=2.0
     - cloudpickle
-    - jedi >=0.9,<0.16
+    - jedi >=0.9,<0.15
     - keyring  # [not (linux and py2k)]
     - nbconvert
     - numpydoc
