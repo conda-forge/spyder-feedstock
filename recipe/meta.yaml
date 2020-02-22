@@ -12,7 +12,7 @@ source:
     - osx-zmq.patch
 
 build:
-  number: 2
+  number: 3
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: True
@@ -51,7 +51,7 @@ requirements:
     - qtpy >=1.5.0
     - rtree
     - sphinx
-    - spyder-kernels >=1.8.1,<2.0.0
+    - spyder-kernels >=1.8.1,<1.9.0
     - watchdog
 
 test:
