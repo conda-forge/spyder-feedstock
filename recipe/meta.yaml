@@ -12,7 +12,7 @@ source:
     - osx-zmq.patch
 
 build:
-  number: 0
+  number: 1
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
@@ -29,7 +29,7 @@ requirements:
     - cloudpickle >=0.5.0
     - diff-match-patch >=20181111
     - intervaltree
-    - jedi 0.14.1
+    - jedi 0.15.2
     - keyring  # [not (linux and py2k)]
     - nbconvert >=4.0
     - numpydoc >=0.6.0
