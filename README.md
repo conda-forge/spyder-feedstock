@@ -212,5 +212,4 @@ Feedstock Maintainers
 =====================
 
 * [@ccordoba12](https://github.com/ccordoba12/)
-* [@goanpeca](https://github.com/goanpeca/)
 
