@@ -5,7 +5,7 @@ Home: https://www.spyder-ide.org/
 
 Package license: MIT
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: The Scientific Python Development Environment
 
@@ -212,4 +212,5 @@ Feedstock Maintainers
 =====================
 
 * [@ccordoba12](https://github.com/ccordoba12/)
+* [@dalthviz](https://github.com/dalthviz/)
 
