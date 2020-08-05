@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "4.0.0rc3" %}
-{% set sha256 = "7986e4dc21a541e5a51a1bd7d1a6244ac96663295b192d0375d1a1d043f74097" %}
+{% set version = "5.0.0a1" %}
+{% set sha256 = "ba0b90952e1bf68825cf6bbc14be7854b97c098b967ad6fd5dfd7079785113be" %}
 
 package:
   name: {{ name|lower }}
@@ -24,37 +24,39 @@ requirements:
   host:
     - python
     - pip
+    - setuptools
   run:
     - python
-    - applaunchservices  # [osx]
-    - atomicwrites
+    - applaunchservices >=0.1.7  # [osx]
+    - atomicwrites >=1.2.0
     - chardet >=2.0.0
-    - cloudpickle
-    - diff-match-patch
+    - cloudpickle >=0.5.0
+    - cookiecutter >=1.6.0
+    - diff-match-patch >=20181111
     - intervaltree
-    - jedi 0.14.1
-    - keyring  # [not (linux and py2k)]
-    - nbconvert
-    - numpydoc
-    - paramiko  # [win]
-    - pexpect
-    - pickleshare
-    - psutil
+    - jedi 0.17.1
+    - keyring
+    - nbconvert >=4.0
+    - numpydoc >=0.6.0
+    - paramiko >=2.4.0  # [win]
+    - parso 0.7.0
+    - pexpect >=4.4.0
+    - pickleshare >=0.4
+    - psutil >=5.3
     - pygments >=2.0
-    - pylint
-    - pympler
-    - pyqt 5.*
+    - pylint >=1.0
+    - pyqt >=5.6,<5.13
     - python.app  # [osx]
-    - python-language-server >=0.31.1,<0.32.0
-    - pyxdg
-    - pyzmq
-    - qdarkstyle >=2.7
+    - python-language-server >=0.34.0,<1.0.0
+    - pyxdg >=0.26  # [linux]
+    - pyzmq >=17
+    - qdarkstyle >=2.8
     - qtawesome >=0.5.7
     - qtconsole >=4.6.0
     - qtpy >=1.5.0
-    - rtree
-    - sphinx
-    - spyder-kernels >=1.8.0,<2.0.0
+    - rtree >=0.8.3
+    - sphinx >=0.6.6
+    - spyder-kernels >=1.9.2,<1.10.0
     - watchdog
 
 test:
