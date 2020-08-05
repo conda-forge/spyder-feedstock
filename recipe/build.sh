@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$PYTHON setup.py install
+$PYTHON -m pip install . --no-deps --ignore-installed -vvv
 
 rm -rf $PREFIX/man
 rm -f $PREFIX/bin/spyder_win_post_install.py
