@@ -5,9 +5,13 @@ Home: https://www.spyder-ide.org/
 
 Package license: MIT
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/spyder-feedstock/blob/master/LICENSE.txt)
 
 Summary: The Scientific Python Development Environment
+
+Development: https://github.com/spyder-ide/spyder
+
+Documentation: https://docs.spyder-ide.org/
 
 Spyder is a powerful scientific environment written in Python, for Python,
 and designed by and for scientists, engineers and data analysts.
