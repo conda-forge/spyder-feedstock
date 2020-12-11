@@ -1,4 +1,4 @@
-{% set version = "4.1.5" %}
+{% set version = "4.2.0" %}
 
 package:
   name: spyder
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: d467f020b694193873a237ce6744ae36bd5a59f4d2b7ffbeb15dda68b03f5aa1
+  sha256: 44f51473b81c1bfde76097bfb957ec14f580a262b229ae8e90d18f5b82104c95
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -29,9 +29,10 @@ requirements:
     - chardet >=2.0.0
     - cloudpickle >=0.5.0
     - diff-match-patch >=20181111
-    - intervaltree
-    - jedi 0.17.1
-    - keyring  # [not (linux and py2k)]
+    - intervaltree >=3.0.2
+    - jedi 0.17.2
+    - jsonschema >=3.2.0
+    - keyring >=17.0.0  # [not (linux and py2k)]
     - nbconvert >=4.0
     - numpydoc >=0.6.0
     - paramiko >=2.4.0  # [win]
@@ -41,19 +42,23 @@ requirements:
     - psutil >=5.3
     - pygments >=2.0
     - pylint >=1.0
+    - pyls-black >=0.4.6
+    - pyls-spyder >=0.1.1
     - pyqt >=5.6,<5.13
     - python.app  # [osx]
-    - python-language-server >=0.34.0,<1.0.0
+    - python-language-server >=0.36.1,<1.0.0
     - pyxdg >=0.26  # [linux]
     - pyzmq >=17
     - qdarkstyle >=2.8
     - qtawesome >=0.5.7
-    - qtconsole >=4.6.0
+    - qtconsole >=4.7.7
     - qtpy >=1.5.0
     - rtree >=0.8.3
+    - setuptools >=39.0.0
     - sphinx >=0.6.6
-    - spyder-kernels >=1.9.4,<1.10.0
-    - watchdog
+    - spyder-kernels >=1.10.0,<1.11.0
+    - three-merge >=0.1.1
+    - watchdog >=0.10.3
 
 test:
   commands:
