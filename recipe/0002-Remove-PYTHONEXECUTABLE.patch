@@ -1,0 +1,11 @@
+--- spyder/plugins/ipythonconsole/utils/kernelspec.py.old	2020-11-20 15:44:12.000000000 -0500
++++ spyder/plugins/ipythonconsole/utils/kernelspec.py	2021-01-10 12:56:04.050476445 -0500
+@@ -194,6 +194,8 @@
+             env_vars.pop('PYTHONHOME', None)
+             env_vars.pop('PYTHONPATH', None)
+ 
++        env_vars.pop('PYTHONEXECUTABLE', None)
++
+         # Making all env_vars strings
+         clean_env_vars = clean_env(env_vars)
+ 
