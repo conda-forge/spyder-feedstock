@@ -12,9 +12,10 @@ source:
     - osx-zmq.patch
     # Remove when 4.2.2 is released!
     - 0001-Don-t-open-script-that-starts-Spyder-at-startup.patch
+    - 0002-Remove-PYTHONEXECUTABLE.patch
 
 build:
-  number: 1
+  number: 2
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
