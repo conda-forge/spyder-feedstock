@@ -1,4 +1,4 @@
-{% set version = "4.2.1" %}
+{% set version = "4.2.2" %}
 
 package:
   name: spyder
@@ -6,16 +6,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 7f93bc5b8b119cc1e195ce3efcc1598386e082c4096334c1fa2b018938ac79b9
+  sha256: db198418ff1acf8c87dbb02db67f19545fba46539caf49442d622351896576dc
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
-    # Remove when 4.2.2 is released!
-    - 0001-Don-t-open-script-that-starts-Spyder-at-startup.patch
-    - 0002-Remove-PYTHONEXECUTABLE.patch
 
 build:
-  number: 3
+  number: 0
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
@@ -46,7 +43,7 @@ requirements:
     - pygments >=2.0
     - pylint >=1.0
     - pyls-black >=0.4.6
-    - pyls-spyder >=0.3.0
+    - pyls-spyder >=0.3.2
     - pyqt >=5.6,<5.13
     - python.app  # [osx]
     - python-language-server >=0.36.2,<1.0.0
@@ -59,10 +56,10 @@ requirements:
     - rtree >=0.8.3
     - setuptools >=39.0.0
     - sphinx >=0.6.6
-    - spyder-kernels >=1.10.1,<1.11.0
+    - spyder-kernels >=1.10.2,<1.11.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
-    - watchdog >=0.10.3
+    - watchdog >=0.10.3,<2.0.0
 
 test:
   commands:
