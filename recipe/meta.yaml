@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "5.0.0a4" %}
-{% set sha256 = "da9fab757573852139b9785fee9e7d61b522e1a1181844db914bf1b26ae6eed6" %}
+{% set version = "5.0.0a5" %}
+{% set sha256 = "ffd72865623a1ce609c0abe0f9c05b9e789ae9e41220dd70154076a538ef52b3" %}
 
 package:
   name: {{ name|lower }}
@@ -48,7 +48,7 @@ requirements:
     - pygments >=2.0
     - pylint >=1.0
     - pyls-black >=0.4.6
-    - pyls-spyder >=0.3.0
+    - pyls-spyder >=0.3.2
     - pyqt >=5.6,<5.13
     - python.app  # [osx]
     - python-language-server >=0.36.2,<1.0.0
@@ -61,10 +61,10 @@ requirements:
     - rtree >=0.8.3
     - setuptools >=39.0.0
     - sphinx >=0.6.6
-    - spyder-kernels >=1.10.1,<1.11.0
+    - spyder-kernels >=1.10.2,<1.11.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
-    - watchdog >=0.10.3
+    - watchdog >=0.10.3,<2.0.0
 
 test:
   commands:
