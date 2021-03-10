@@ -22,7 +22,8 @@ requirements:
     - python
     - pip
   run:
-    - python
+    - python # [not win]
+    - python >=3.9.1 # [win]
     - applaunchservices >=0.1.7  # [osx]
     - atomicwrites >=1.2.0
     - chardet >=2.0.0
