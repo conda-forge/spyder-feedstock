@@ -1,6 +1,6 @@
 {% set name = "spyder" %}
-{% set version = "5.0.0a5" %}
-{% set sha256 = "ffd72865623a1ce609c0abe0f9c05b9e789ae9e41220dd70154076a538ef52b3" %}
+{% set version = "5.0.0a7" %}
+{% set sha256 = "28b429f1d660ea992ad1667c5c06e6cd62967798d6f0d56c95f4c573213dca31" %}
 
 package:
   name: {{ name|lower }}
@@ -56,7 +56,7 @@ requirements:
     - pyzmq >=17
     - qdarkstyle >=2.8
     - qtawesome >=0.5.7
-    - qtconsole >=5.0.1
+    - qtconsole >=5.0.3
     - qtpy >=1.5.0
     - rtree >=0.8.3
     - setuptools >=39.0.0
