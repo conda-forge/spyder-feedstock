@@ -1,4 +1,4 @@
-{% set version = "4.2.4" %}
+{% set version = "4.2.5" %}
 
 package:
   name: spyder
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: ec3a6949a3210f7a35142ddd0e8ec529bdd382ae0cae9d1537f2009f557214c8
+  sha256: 03159003f6ea51458e10000091e65e77888b095dba48e64ca2b36c75a648580c
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -23,8 +23,7 @@ requirements:
     - python
     - pip
   run:
-    - python # [not win]
-    - python >=3.9.1 # [win]
+    - python
     - applaunchservices >=0.1.7  # [osx]
     - atomicwrites >=1.2.0
     - chardet >=2.0.0
@@ -51,9 +50,9 @@ requirements:
     - python-language-server >=0.36.2,<1.0.0
     - pyxdg >=0.26  # [linux]
     - pyzmq >=17
-    - qdarkstyle >=2.8
+    - qdarkstyle >=2.8,<3.0
     - qtawesome >=0.5.7
-    - qtconsole >=5.0.1
+    - qtconsole >=5.0.3
     - qtpy >=1.5.0
     - rtree >=0.8.3
     - setuptools >=39.0.0
@@ -103,3 +102,5 @@ extra:
   recipe-maintainers:
     - ccordoba12
     - dalthviz
+    - andfoy
+    - steff456
