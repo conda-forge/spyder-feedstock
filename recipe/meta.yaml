@@ -68,6 +68,10 @@ requirements:
     - watchdog >=0.10.3,<2.0.0
 
 test:
+  # NOTE: Since this is a GUI application, built packages should be uploaded to
+  # a staging channel and manual testing performed before releasing to
+  # defaults; at the very least, you should ensure the application start,
+  # editing more or less works, and the iPython console works.
   commands:
     - USER=test spyder -h  # [unix]
     - spyder -h  # [win]
