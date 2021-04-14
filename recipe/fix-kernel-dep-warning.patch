@@ -1,0 +1,24 @@
+From 3efb608149d5a59a27c6a0934113c7f0415e741f Mon Sep 17 00:00:00 2001
+From: stonebig <stonebig34@gmail.com>
+Date: Sat, 3 Apr 2021 15:57:38 +0200
+Subject: [PATCH] correct the "," vs ";" typo
+
+---
+ spyder/dependencies.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Source: https://github.com/spyder-ide/spyder/pull/15097.patch
+
+diff --git a/spyder/dependencies.py b/spyder/dependencies.py
+index f3cbbc8403..237e3371ee 100644
+--- a/spyder/dependencies.py
++++ b/spyder/dependencies.py
+@@ -63,7 +63,7 @@
+ RTREE_REQVER = '>=0.8.3'
+ SETUPTOOLS_REQVER = '>=39.0.0'
+ SPHINX_REQVER = '>=0.6.6'
+-SPYDER_KERNELS_REQVER = '>=2.0.1,<2.1.0'
++SPYDER_KERNELS_REQVER = '>=2.0.1;<2.1.0'
+ TEXTDISTANCE_REQVER = '>=4.2.0'
+ THREE_MERGE_REQVER = '>=0.1.1'
+ # None for pynsist install for now

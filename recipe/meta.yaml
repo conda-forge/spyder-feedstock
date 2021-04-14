@@ -10,9 +10,11 @@ source:
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
+    # Remove once 5.0.1 is released
+    - fix-kernel-dep-warning.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [ppc64le]
   entry_points:
     - spyder = spyder.app.start:main
@@ -22,15 +24,17 @@ requirements:
   host:
     - python
     - pip
+    - setuptools
   run:
     - python
     - applaunchservices >=0.1.7  # [osx]
     - atomicwrites >=1.2.0
     - chardet >=2.0.0
     - cloudpickle >=0.5.0
+    - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
     - intervaltree >=3.0.2
-    - IPython >=7.6.0
+    - ipython >=7.6.0
     - jedi 0.17.2
     - jsonschema >=3.2.0
     - keyring >=17.0.0
@@ -50,19 +54,24 @@ requirements:
     - python-language-server >=0.36.2,<1.0.0
     - pyxdg >=0.26  # [linux]
     - pyzmq >=17
-    - qdarkstyle >=2.8,<3.0
+    - qdarkstyle 3.0.2
+    - qstylizer >=0.1.10
     - qtawesome >=0.5.7
     - qtconsole >=5.0.3
     - qtpy >=1.5.0
     - rtree >=0.8.3
     - setuptools >=39.0.0
     - sphinx >=0.6.6
-    - spyder-kernels >=1.10.2,<1.11.0
+    - spyder-kernels >=2.0.1,<2.1.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
     - watchdog >=0.10.3,<2.0.0
 
 test:
+  # NOTE: Since this is a GUI application, built packages should be uploaded to
+  # a staging channel and manual testing performed before releasing to
+  # defaults; at the very least, you should ensure the application start,
+  # editing more or less works, and the iPython console works.
   commands:
     - USER=test spyder -h  # [unix]
     - spyder -h  # [win]
