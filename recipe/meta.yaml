@@ -10,6 +10,9 @@ source:
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
+    # This is only necessary for Python 3.6 on Windows because there is no
+    # rtree 0.9.7 package available.
+    - py36-rtree-0.9.4.patch  # [win and py==36]
 
 build:
   number: 0
@@ -56,7 +59,8 @@ requirements:
     - qtawesome >=1.0.2
     - qtconsole >=5.1.0
     - qtpy >=1.5.0
-    - rtree >=0.9.7
+    - rtree >=0.9.7  # [unix or (win and py>=37)]
+    - rtree >=0.9.4  # [win and py==36]
     - setuptools >=39.0.0
     - sphinx >=0.6.6
     - spyder-kernels >=2.0.3,<2.1.0
