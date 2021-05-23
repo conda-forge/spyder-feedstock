@@ -1,0 +1,13 @@
+diff --git a/spyder/dependencies.py b/spyder/dependencies.py
+index 27f11d7ea..ede5ffb37 100644
+--- a/spyder/dependencies.py
++++ b/spyder/dependencies.py
+@@ -62,7 +62,7 @@
+ QTAWESOME_REQVER = '>=1.0.2'
+ QTCONSOLE_REQVER = '>=5.1.0'
+ QTPY_REQVER = '>=1.5.0'
+-RTREE_REQVER = '>=0.9.7'
++RTREE_REQVER = '>=0.9.4'
+ SETUPTOOLS_REQVER = '>=39.0.0'
+ SPHINX_REQVER = '>=0.6.6'
+ SPYDER_KERNELS_REQVER = '>=2.0.3;<2.1.0'

@@ -1,4 +1,4 @@
-{% set version = "5.0.2" %}
+{% set version = "5.0.3" %}
 
 package:
   name: spyder
@@ -6,10 +6,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 6a8cee80447086d998ffa9bb81413215d64c733bac90f5690c045c958e1bedb3
+  sha256: 3422de6446286abe80a362d72cd8f1a96bf8cd323f485b0fc30fd51704062ed2
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
+    # This is only necessary for Python 3.6 on Windows because there is no
+    # rtree 0.9.7 package available.
+    - py36-rtree-0.9.4.patch  # [win and py==36]
 
 build:
   number: 0
@@ -56,10 +59,11 @@ requirements:
     - qtawesome >=1.0.2
     - qtconsole >=5.1.0
     - qtpy >=1.5.0
-    - rtree >=0.8.3
+    - rtree >=0.9.7  # [unix or (win and py>=37)]
+    - rtree >=0.9.4  # [win and py==36]
     - setuptools >=39.0.0
     - sphinx >=0.6.6
-    - spyder-kernels >=2.0.2,<2.1.0
+    - spyder-kernels >=2.0.3,<2.1.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
     - watchdog >=0.10.3,<2.0.0
