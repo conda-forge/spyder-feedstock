@@ -1,4 +1,4 @@
-{% set version = "5.0.4" %}
+{% set version = "5.0.5" %}
 
 package:
   name: spyder
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: a5b51f6b34fe688fcfb671f2560707f3511cd14836abc50df08c45f82c7e40d3
+  sha256: b1b5c06b5cd9902f9746a083fd760bb4de3fa4129bc8c1c1ef2bcd84002bc45f
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
