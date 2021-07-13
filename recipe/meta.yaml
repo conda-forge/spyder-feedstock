@@ -1,4 +1,4 @@
-{% set version = "5.0.3" %}
+{% set version = "5.0.5" %}
 
 package:
   name: spyder
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 3422de6446286abe80a362d72cd8f1a96bf8cd323f485b0fc30fd51704062ed2
+  sha256: b1b5c06b5cd9902f9746a083fd760bb4de3fa4129bc8c1c1ef2bcd84002bc45f
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -14,7 +14,7 @@ source:
     #- fix-kernel-dep-warning.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [ppc64le]
   entry_points:
     - spyder = spyder.app.start:main
@@ -22,13 +22,14 @@ build:
 
 requirements:
   host:
-    - python
+    - python >=3.6
     - pip
     - setuptools
     - wheel
-    - patch        # [not win]
+    - patch     # [not win]
+    - m2-patch  # [win]
   run:
-    - python
+    - python >=3.6
     - applaunchservices >=0.1.7  # [osx]
     - atomicwrites >=1.2.0
     - chardet >=2.0.0
@@ -42,6 +43,7 @@ requirements:
     - keyring >=17.0.0
     - nbconvert >=4.0
     - numpydoc >=0.6.0
+    # Required to get SSH connections to remote kernels
     - paramiko >=2.4.0  # [win]
     - parso 0.7.0
     - pexpect >=4.4.0
@@ -64,10 +66,10 @@ requirements:
     - rtree >=0.9.7
     - setuptools >=39.0.0
     - sphinx >=0.6.6
-    - spyder-kernels >=2.0.3,<2.1.0
+    - spyder-kernels >=2.0.4,<2.1.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
-    - watchdog >=0.10.3,<2.0.0
+    - watchdog >=0.10.3
 
 test:
   # NOTE: Since this is a GUI application, built packages should be uploaded to
@@ -89,6 +91,7 @@ app:
 about:
   home: https://www.spyder-ide.org/
   license: MIT
+  license_family: MIT
   license_file: LICENSE.txt
   summary: The Scientific Python Development Environment
   description: |
