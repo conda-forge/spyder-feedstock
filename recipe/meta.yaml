@@ -22,14 +22,14 @@ build:
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
     - setuptools
     - wheel
     - patch     # [not win]
     - m2-patch  # [win]
   run:
-    - python >=3.6
+    - python
     - applaunchservices >=0.1.7  # [osx]
     - atomicwrites >=1.2.0
     - chardet >=2.0.0
