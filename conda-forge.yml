@@ -3,3 +3,4 @@ provider:
 conda_forge_output_validation: true
 bot:
   inspection: false
+provider: {linux_aarch64: default}
