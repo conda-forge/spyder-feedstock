@@ -16,6 +16,7 @@ source:
 
 build:
   number: 1
+  skip: true  # [py36 and aarch64]
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
