@@ -68,6 +68,8 @@ requirements:
     - textdistance >=4.2.0
     - three-merge >=0.1.1
     - watchdog >=0.10.3
+  run_constrained:
+    - menuinst >=1.4.17
 
 test:
   commands:
