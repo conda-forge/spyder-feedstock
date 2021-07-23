@@ -15,7 +15,8 @@ source:
     - py36-rtree-0.9.4.patch  # [win and py==36]
 
 build:
-  number: 0
+  number: 1
+  skip: true  # [py36 and aarch64]
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
