@@ -15,7 +15,7 @@ source:
     - py36-rtree-0.9.4.patch  # [win and py==36]
 
 build:
-  number: 1
+  number: 2
   skip: true  # [py36 and aarch64]
   entry_points:
     - spyder = spyder.app.start:main
@@ -68,6 +68,8 @@ requirements:
     - textdistance >=4.2.0
     - three-merge >=0.1.1
     - watchdog >=0.10.3
+  run_constrained:
+    - menuinst >=1.4.17
 
 test:
   commands:
