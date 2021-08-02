@@ -77,7 +77,7 @@ test:
   commands:
     - USER=test spyder -h  # [unix]
     - spyder -h  # [win]
-    - python -m pip check
+    - python -m pip check  # [linux or (win and py>=37)]
   imports:
     - spyder
 
