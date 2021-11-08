@@ -15,7 +15,7 @@ source:
     - py36-rtree-0.9.4.patch  # [win and py==36]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py36 and aarch64]
   entry_points:
     - spyder = spyder.app.start:main
@@ -58,7 +58,7 @@ requirements:
     - qdarkstyle 3.0.2
     - qstylizer >=0.1.10
     - qtawesome >=1.0.2
-    - qtconsole >=5.1.0
+    - qtconsole >=5.1.0,<5.2.0
     - qtpy >=1.5.0
     - rtree >=0.9.7  # [unix or (win and py>=37)]
     - rtree >=0.9.4  # [win and py==36]
