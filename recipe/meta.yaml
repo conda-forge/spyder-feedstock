@@ -45,6 +45,8 @@ requirements:
     - parso >=0.7.0,<0.9.0
     - pexpect >=4.4.0
     - pickleshare >=0.4
+    # This is here to work around a bug in mamba
+    - ptyprocess >=0.5  # [win]
     - psutil >=5.3
     - pygments >=2.0
     - pylint >=2.5.0,<2.10.0
