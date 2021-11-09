@@ -15,7 +15,7 @@ source:
     - py36-rtree-0.9.4.patch  # [win and py==36]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py36 and aarch64]
   entry_points:
     - spyder = spyder.app.start:main
@@ -45,6 +45,8 @@ requirements:
     - parso >=0.7.0,<0.9.0
     - pexpect >=4.4.0
     - pickleshare >=0.4
+    # This is here to work around a bug in mamba
+    - ptyprocess >=0.5  # [win]
     - psutil >=5.3
     - pygments >=2.0
     - pylint >=2.5.0,<2.10.0
@@ -58,7 +60,7 @@ requirements:
     - qdarkstyle 3.0.2
     - qstylizer >=0.1.10
     - qtawesome >=1.0.2
-    - qtconsole >=5.1.0
+    - qtconsole >=5.1.0,<5.2.0
     - qtpy >=1.5.0
     - rtree >=0.9.7  # [unix or (win and py>=37)]
     - rtree >=0.9.4  # [win and py==36]
