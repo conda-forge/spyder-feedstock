@@ -12,7 +12,7 @@ source:
     - osx-zmq.patch
 
 build:
-  number: 0
+  number: 1
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
@@ -30,6 +30,10 @@ requirements:
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
+    # This is here to work around what seems to be a bug with noarch
+    # packages. In particular, flake8 requires this constraint on
+    # importlib-metadata, but it's not enforced by conda nor mamba.
+    - importlib-metadata <4.3  # [py==3.7]
     - intervaltree >=3.0.2
     - ipython >=7.6.0
     - jedi >=0.17.2,<0.19.0
