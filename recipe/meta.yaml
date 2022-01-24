@@ -30,12 +30,11 @@ requirements:
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
-    # This is here to work around what seems to be a bug with noarch
-    # packages. In particular, flake8 requires this constraint on
-    # importlib-metadata, but it's not enforced by conda nor mamba.
+    # This is here to work around a bug with one of the flake8
+    # builds.
     - importlib_metadata <4.3  # [py==3.7]
     - intervaltree >=3.0.2
-    - ipython <8.0.0,>=7.6.0
+    - ipython >=7.6.0,<8.0.0
     - jedi >=0.17.2,<0.19.0
     - jellyfish >=0.7
     - jsonschema >=3.2.0
@@ -65,7 +64,7 @@ requirements:
     - qtpy >=1.5.0
     - rtree >=0.9.7
     - setuptools >=49.6.0
-    - sphinx <4.4.0,>=0.6.6
+    - sphinx >=0.6.6,<4.4.0
     - spyder-kernels >=2.2.1,<2.3.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
