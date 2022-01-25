@@ -1,4 +1,4 @@
-{% set version = "5.2.1" %}
+{% set version = "5.2.2" %}
 
 package:
   name: spyder
@@ -6,13 +6,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: b318a70a75acd200018a547d2ff2d2f55e7507054469d0c77ec6f967ac3c2d28
+  sha256: dc322291096c73b3ed6a08bc75d47989afaedb8757781769a519089ffc69ddb8
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
 
 build:
-  number: 1
+  number: 0
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
@@ -30,12 +30,8 @@ requirements:
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
-    # This is here to work around what seems to be a bug with noarch
-    # packages. In particular, flake8 requires this constraint on
-    # importlib-metadata, but it's not enforced by conda nor mamba.
-    - importlib-metadata <4.3  # [py==3.7]
     - intervaltree >=3.0.2
-    - ipython >=7.6.0
+    - ipython >=7.6.0,<8.0.0
     - jedi >=0.17.2,<0.19.0
     - jellyfish >=0.7
     - jsonschema >=3.2.0
@@ -66,7 +62,7 @@ requirements:
     - rtree >=0.9.7
     - setuptools >=49.6.0
     - sphinx >=0.6.6
-    - spyder-kernels >=2.2.0,<2.3.0
+    - spyder-kernels >=2.2.1,<2.3.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
     - watchdog >=0.10.3
