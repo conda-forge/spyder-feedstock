@@ -1,4 +1,4 @@
-{% set version = "5.2.2" %}
+{% set version = "5.3.0" %}
 
 package:
   name: spyder
@@ -6,13 +6,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: dc322291096c73b3ed6a08bc75d47989afaedb8757781769a519089ffc69ddb8
+  sha256: 820085bd851d526e5f552a5366837f3a134f24040ec9e870ad0a6b613ce9adb7
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
 
 build:
-  number: 3
+  number: 0
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
@@ -31,7 +31,7 @@ requirements:
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
     - intervaltree >=3.0.2
-    - ipython >=7.6.0,<8.0.0
+    - ipython >=7.31.1,<8.0.0
     - jedi >=0.17.2,<0.19.0
     - jellyfish >=0.7
     - jsonschema >=3.2.0
@@ -47,25 +47,29 @@ requirements:
     - psutil >=5.3
     - pygments >=2.0
     - pylint >=2.5.0
-    - python-lsp-black >=1.0.0
+    - python-lsp-black >=1.2.0
     - pyls-spyder >=0.4.0
     - pyqt >=5.6,<5.16
+    - pyqtwebengine <5.16
     - python.app  # [osx]
-    - python-lsp-server >=1.3.2,<1.4.0
+    - python-lsp-server >=1.4.1,<1.5.0
     - pyxdg >=0.26  # [linux]
     - pyzmq >=17
-    - qdarkstyle 3.0.2
+    - qdarkstyle >=3.0.2,<3.1.0
     - qstylizer >=0.1.10
     - qtawesome >=1.0.2
-    - qtconsole >=5.2.1,<5.3.0
-    - qtpy >=1.5.0
+    - qtconsole >=5.3.0,<5.4.0
+    - qtpy >=2.0.1
     - rtree >=0.9.7
     - setuptools >=49.6.0
     - sphinx >=0.6.6
-    - spyder-kernels >=2.2.1,<2.3.0
+    - spyder-kernels >=2.3.0,<2.4.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
     - watchdog >=0.10.3
+    # This is here to workaround an inconsistency with flake8
+    # See: https://github.com/conda-forge/flake8-feedstock/issues/52
+    - importlib-metadata <4.3  # [py < 38]
   run_constrained:
     - menuinst >=1.4.17
 
