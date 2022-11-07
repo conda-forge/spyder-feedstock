@@ -1,4 +1,4 @@
-{% set version = "5.3.3" %}
+{% set version = "5.4.0" %}
 
 package:
   name: spyder
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: bd68709f4ef38075fbffbb80cf47a43709c088a2c408207306ae3b4ed4da1df1
+  sha256: 9d9fabc39a802d276efa76da02d180ecf2d6e978dc8de66fb8f7786b95ad664c
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -50,23 +50,24 @@ requirements:
     - psutil >=5.3
     - pygments >=2.0
     - pylint >=2.5.0,<3.0
+    - pylint-venv >=2.1.1
     - python-lsp-black >=1.2.0
     - pyls-spyder >=0.4.0
     - pyqt >=5.6,<5.16
     - pyqtwebengine <5.16
     - python.app  # [osx]
-    - python-lsp-server >=1.5.0,<1.6.0
+    - python-lsp-server >=1.6.0,<1.7.0
     - pyxdg >=0.26  # [linux]
     - pyzmq >=22.1.0
     - qdarkstyle >=3.0.2,<3.1.0
-    - qstylizer >=0.1.10
-    - qtawesome >=1.0.2
-    - qtconsole >=5.3.2,<5.4.0
+    - qstylizer >=0.2.2
+    - qtawesome >=1.2.1
+    - qtconsole >=5.4.0,<5.5.0
     - qtpy >=2.1.0
     - rtree >=0.9.7
     - setuptools >=49.6.0
     - sphinx >=0.6.6
-    - spyder-kernels >=2.3.3,<2.4.0
+    - spyder-kernels >=2.4.0,<2.5.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
     - watchdog >=0.10.3
