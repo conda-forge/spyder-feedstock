@@ -12,7 +12,7 @@ source:
     - osx-zmq.patch
 
 build:
-  number: 0
+  number: 1
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
@@ -34,8 +34,8 @@ requirements:
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
     - intervaltree >=3.0.2
-    - ipython >=7.31.1,<9.0.0,!=8.8.0,!=8.9.0,!=8.10.0,!=8.11.0,!=8.12.0,!=8.12.1,!=8.17.1
-    - jedi >=0.17.2,<0.19.0
+    - ipython >=8.12.2,<9.0.0,!=8.17.1
+    - jedi >=0.17.2,<0.20.0
     - jellyfish >=0.7
     - jsonschema >=3.2.0
     - keyring >=17.0.0
@@ -54,7 +54,7 @@ requirements:
     - python-lsp-black >=1.2.0
     - pyls-spyder >=0.4.0
     - pyqt >=5.10,<5.16
-    - pyqtwebengine <5.16
+    - pyqtwebengine >=5.10,<5.16
     - python.app  # [osx]
     - python-lsp-server >=1.9.0,<1.10.0
     - pyxdg >=0.26  # [linux]
