@@ -28,7 +28,7 @@ requirements:
     - setuptools
   run:
     - python
-    - applaunchservices >=0.3.0  # [osx and (x86_64 or (arm64 and py >= 39))]
+    - applaunchservices >=0.3.0  # [osx]
     - atomicwrites >=1.2.0
     - chardet >=2.0.0
     - cloudpickle >=0.5.0
