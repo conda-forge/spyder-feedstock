@@ -13,6 +13,7 @@ source:
 
 build:
   number: 0
+  skip: true  # [osx and arm64 and py < 39]
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
