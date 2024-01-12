@@ -1,10 +1,10 @@
 {
     "$schema": "https://json-schema.org/draft-07/schema",
     "$id": "https://schemas.conda.io/menuinst-1.schema.json",
-    "menu_name": "spyder",
+    "menu_name": "{{ DISTRIBUTION_NAME }} spyder",
     "menu_items": [
         {
-            "name": "Spyder",
+            "name": "Spyder __PKG_MAJOR_VER__ ({{ ENV_NAME }})",
             "description": "Scientific PYthon Development EnviRonment",
             "icon": "{{ MENU_DIR }}/spyder.{{ ICON_EXT }}",
             "activate": false,
@@ -25,16 +25,11 @@
                     "StartupWMClass": "Spyder"
                 },
                 "osx": {
-                    "command": [
-                        "$(dirname $0)/python",
-                        "{{ PREFIX }}/bin/spyder",
-                        "$@"
-                    ],
+                    "command": ["$(dirname $0)/python", "{{ PREFIX }}/bin/spyder", "$@"],
                     "link_in_bundle": {
                         "{{ PREFIX }}/bin/python": "{{ MENU_ITEM_LOCATION }}/Contents/MacOS/python"
                     },
-                    "CFBundleName": "Spyder",
-                    "CFBundleDisplayName": "Spyder",
+                    "CFBundleName": "Spyder __PKG_MAJOR_VER__",
                     "CFBundleIdentifier": "org.spyder-ide.Spyder",
                     "CFBundleVersion": "__PKG_VERSION__"
                 }
