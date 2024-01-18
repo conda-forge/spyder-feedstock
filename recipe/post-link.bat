@@ -1,8 +1,7 @@
 @echo off
 setlocal ENABLEDELAYEDEXPANSION
 
-set PREFIX=C:\Users\rclary\Documents\Repos\spyder-feedstock\recipe
-
+set menudir=%PREFIX%\Menu
 
 if exist "%menudir%\conda-based-app" (
     :: Installed in installer environment, abridge shortcut name
@@ -18,7 +17,6 @@ if exist "%PREFIX%\condabin\" if exist "%PREFIX%\envs\" (
 exit /b %errorlevel%
 
 :patch
-    set menudir=%PREFIX%
     set menu=%menudir%\spyder-menu.json
     set tmpmenu=%menudir%\spyder-menu-tmp.json
     set findreplace=%~1
