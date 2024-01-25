@@ -81,7 +81,15 @@
                         "Science"
                     ],
                     "command": ["{{ PREFIX }}/bin/spyder", "$@"],
-                    "StartupWMClass": "Spyder"
+                    "StartupWMClass": "Spyder",
+                    "MimeType": [
+                        "text/x-script.python",
+                        "text/plain",
+                        "text/html",
+                        "text/xml",
+                        "text/x-c",
+                        "text/x-perl"
+                    ]
                 },
                 "osx": {
                     "precommand": "pushd \"$(dirname \"$0\")\" &>/dev/null",
