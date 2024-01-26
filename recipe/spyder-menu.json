@@ -18,14 +18,15 @@
                 },
                 "linux": {
                     "Categories": [
-                        "Graphics",
+                        "Development",
                         "Science"
                     ],
                     "command": ["{{ PREFIX }}/bin/spyder", "$@"],
                     "StartupWMClass": "Spyder"
                 },
                 "osx": {
-                    "command": ["$(dirname $0)/python", "{{ PREFIX }}/bin/spyder", "$@"],
+                    "precommand": "pushd \"$(dirname \"$0\")\" &>/dev/null",
+                    "command": ["./python", "{{ PREFIX }}/bin/spyder", "$@"],
                     "link_in_bundle": {
                         "{{ PREFIX }}/bin/python": "{{ MENU_ITEM_LOCATION }}/Contents/MacOS/python"
                     },
