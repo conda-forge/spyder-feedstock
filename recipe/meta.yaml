@@ -1,4 +1,4 @@
-{% set version = "5.5.0" %}
+{% set version = "5.5.1" %}
 
 package:
   name: spyder
@@ -6,13 +6,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: ce342652692ac2d5cd9d92acb0da65db8a78150b1c64a1a28898f98b0625d943
+  sha256: fb3f098f4780fe6607d6bf19414c98505324ee1d660718e84c3e58664d1c1f49
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
 
 build:
-  number: 3
+  number: 0
   skip: true  # [osx and arm64 and py < 39]
   entry_points:
     - spyder = spyder.app.start:main
@@ -51,19 +51,19 @@ requirements:
     - psutil >=5.3
     - pygments >=2.0
     - pylint >=2.5.0,<3.1
-    - pylint-venv >=3.0.2
-    - python-lsp-black >=1.2.0
+    - pylint-venv >=3.0.2 
     - pyls-spyder >=0.4.0
     - pyqt >=5.10,<5.16
     - pyqtwebengine >=5.10,<5.16
     - python.app  # [osx]
-    - python-lsp-server >=1.9.0,<1.10.0
+    - python-lsp-black >=2.0.0,<3.0.0
+    - python-lsp-server >=1.10.0,<1.11.0
     - pyxdg >=0.26  # [linux]
     - pyzmq >=22.1.0
     - qdarkstyle >=3.2.0,<3.3.0
     - qstylizer >=0.2.2
     - qtawesome >=1.2.1
-    - qtconsole >=5.5.0,<5.6.0
+    - qtconsole >=5.5.1,<5.6.0
     - qtpy >=2.1.0
     - rtree >=0.9.7
     - setuptools >=49.6.0
@@ -72,9 +72,6 @@ requirements:
     - textdistance >=4.2.0
     - three-merge >=0.1.1
     - watchdog >=0.10.3
-    # This is here to workaround an inconsistency with flake8
-    # See: https://github.com/conda-forge/flake8-feedstock/issues/52
-    - importlib-metadata <4.3  # [py < 38]
   run_constrained:
     - menuinst >=1.4.17
 
