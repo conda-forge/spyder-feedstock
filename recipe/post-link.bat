@@ -41,15 +41,12 @@ call :base_env
         set isv1=%%~i
     )
     if "%isv1%"=="True" (
-        :: Rename v2 json
-        move /y "%menu%" "%menu%.bak"
-
-        :: Rename v1 json
-        set menu=%menudir%\spyder-menu-v1.json
-        move /y "%menu%.bak" "%menu%"
+        copy /y "%menudir%\spyder-menu-v1.json.bak" "%menu%"
 
         :: Notify user
-        echo Warning! Using menuinst v1. Please update to menuinst v2 in the base environment and reinstall Spyder>> %PREFIX%\.messages.txt
+        echo. >> %PREFIX%\.messages.txt
+        echo Warning! Using menuinst v1.>> %PREFIX%\.messages.txt
+        echo Please update to menuinst v2 in the base environment and reinstall Spyder>> %PREFIX%\.messages.txt
     )
     goto :eof
 
