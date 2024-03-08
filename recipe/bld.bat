@@ -16,6 +16,12 @@ for /f "delims=" %%i in (%RECIPE_DIR%\spyder-menu.json) do (
     echo !s:__PKG_MAJOR_VER__=%PKG_MAJOR_VER%!>> %MENU_DIR%\spyder-menu.json
 )
 
+for /f "delims=" %%i in (%RECIPE_DIR%\spyder-menu-v1.json) do (
+    set s=%%i
+    set s=!s:__PKG_VERSION__=%PKG_VERSION%!
+    echo !s:__PKG_MAJOR_VER__=%PKG_MAJOR_VER%!>> %MENU_DIR%\spyder-menu-v1.json.bak
+)
+
 del %SCRIPTS%\spyder_win_post_install.py
 del %SCRIPTS%\spyder.bat
 del %SCRIPTS%\spyder
