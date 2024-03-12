@@ -23,7 +23,7 @@ if not exist "%conda_python_exe%" (
 
 rem  Check menuinst version
 for /F "tokens=*" %%i in (
-    '%conda_python_exe% -c "from importlib.metadata import version; from packaging.version import parse; print(parse(version('menuinst')) < parse('2'))"'
+    '%conda_python_exe% -c "import menuinst; print(int(menuinst.__version__[0]) < 2)"'
 ) do (
     if "%%~i"=="True" call :use_menu_v1
 )
