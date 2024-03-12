@@ -1,0 +1,12 @@
+{
+    "menu_name": "${DISTRIBUTION_NAME} spyder",
+    "menu_items":
+    [
+        {
+            "name": "Spyder __PKG_MAJOR_VER__",
+            "pywscript": "${PYTHON_SCRIPTS}/spyder-script.py",
+            "workdir": "${PERSONALDIR}/Python Scripts",
+            "icon": "${MENU_DIR}/spyder.ico"
+        }
+    ]
+}
