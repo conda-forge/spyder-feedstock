@@ -26,6 +26,7 @@ requirements:
     - python
     - pip
     - setuptools
+    - packaging
   run:
     - python
     - applaunchservices >=0.3.0  # [osx]
