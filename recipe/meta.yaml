@@ -1,4 +1,4 @@
-{% set version = "6.0.0a4" %}
+{% set version = "6.0.0a5" %}
 
 package:
   name: spyder
