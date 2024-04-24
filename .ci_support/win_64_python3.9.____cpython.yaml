@@ -1,7 +1,5 @@
 c_stdlib:
 - vs
-c_stdlib_version:
-- '2019'
 channel_sources:
 - conda-forge/label/spyder_kernels_rc,conda-forge
 channel_targets:
