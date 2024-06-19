@@ -1,4 +1,4 @@
-{% set version = "6.0.0b1" %}
+{% set version = "6.0.0b2" %}
 
 package:
   name: spyder
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: ba4b20c03d67e83fae01f93537916dbfb24b027f9625ed86073eaabaa8926a7b
+  sha256: 17bf203bbe5390ff2b4474fa5ea998f9f3720c4cdfed0ba058ed98902577b16d
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -54,6 +54,7 @@ requirements:
     # This is here to work around a bug in mamba
     - ptyprocess >=0.5  # [win]
     - psutil >=5.3
+    - pygithub >=2.3.0
     - pygments >=2.0
     - pylint >=3.1,<4
     - pylint-venv >=3.0.2
@@ -74,8 +75,8 @@ requirements:
     - rtree >=0.9.7
     - setuptools >=49.6.0
     - sphinx >=0.6.6
-    - spyder-kernels >=3.0.0b6,<3.0.0b7
-    - superqt >=0.6.1,<1.0.0
+    - spyder-kernels >=3.0.0b7,<3.0.0b8
+    - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
     - watchdog >=0.10.3
