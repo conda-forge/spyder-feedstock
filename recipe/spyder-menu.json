@@ -4,7 +4,10 @@
     "menu_name": "{{ DISTRIBUTION_NAME }} spyder",
     "menu_items": [
         {
-            "name": "Spyder __PKG_MAJOR_VER__ ({{ ENV_NAME }})",
+            "name": {
+                "target_environment_is_base": "Spyder __PKG_MAJOR_VER__ ({{ DISTRIBUTION_NAME }})",
+                "target_environment_is_not_base": "Spyder __PKG_MAJOR_VER__ ({{ ENV_NAME }})"
+            },
             "description": "Scientific PYthon Development EnviRonment",
             "icon": "{{ MENU_DIR }}/spyder.{{ ICON_EXT }}",
             "activate": false,
