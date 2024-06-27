@@ -18,7 +18,7 @@ rem  Check for CONDA_PYTHON_EXE
 if not exist "%conda_python_exe%" (
     rem  CONDA_PYTHON_EXE environment variable does not exist.
     rem  v1 type shortcuts will not work
-    goto :base_env
+    goto :exit
 )
 
 rem  Check menuinst version
@@ -27,13 +27,6 @@ for /F "tokens=*" %%i in (
 ) do (
     if "%%~i"=="True" call :use_menu_v1
 )
-
-:base_env
-    if exist "%PREFIX%\condabin\" if exist "%PREFIX%\envs\" (
-        rem  Installed in a base environment, use distribution name
-        call :patch "ENV_NAME=DISTRIBUTION_NAME"
-    )
-    goto :exit
 
 :exit
     exit /b %errorlevel%
