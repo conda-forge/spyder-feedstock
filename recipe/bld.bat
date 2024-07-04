@@ -14,6 +14,17 @@ for /F "delims=. tokens=1" %%i in ("%PKG_VERSION%") do set PKG_MAJOR_VER=%%i
 call :replace spyder-menu.json spyder-menu.json
 call :replace spyder-menu-v1.json spyder-menu-v1.json.bak
 
+rem  Copy GUI executable stub
+for /F "tokens=*" %%i in (
+    '%CONDA_PYTHON_EXE% -c "import conda_build, pathlib; print(pathlib.Path(conda_build.__file__).parent / 'gui-64.exe')"'
+) do (
+    set exe_path=%%i
+)
+copy /y /b %exe_path% %SCRIPTS%
+
+rem  Copy launch script
+copy /y %RECIPE_DIR%\spyder-script.pyw %SCRIPTS%
+
 :exit
     exit /b %errorlevel%
 

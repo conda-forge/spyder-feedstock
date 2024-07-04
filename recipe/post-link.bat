@@ -4,6 +4,11 @@ setlocal ENABLEDELAYEDEXPANSION
 set menudir=%PREFIX%\Menu
 set menu=%menudir%\spyder-menu.json
 set logfile=%PREFIX%\.messages.txt
+set scriptsdir=%PREFIX%\Scripts
+
+rem  Cleanup GUI files
+move /y %scriptsdir%\gui-64.exe %scriptsdir%\spyder.exe
+del %scriptsdir%\spyder-script.py
 
 rem  Check for conda-based install
 if exist "%menudir%\conda-based-app" (
