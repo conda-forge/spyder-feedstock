@@ -82,10 +82,10 @@
                         "Development",
                         "Science"
                     ],
-                    "command": ["{{ PREFIX }}/bin/spyder", "$@"],
+                    "command": ["{{ PREFIX }}/bin/spyder", "%F"],
                     "StartupWMClass": "Spyder",
                     "MimeType": [
-                        "text/x-script.python",
+                        "text/x-python",
                         "text/plain",
                         "text/html",
                         "text/xml",
