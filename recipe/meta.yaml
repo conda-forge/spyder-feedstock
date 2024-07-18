@@ -1,4 +1,4 @@
-{% set version = "6.0.0b2" %}
+{% set version = "6.0.0b3" %}
 
 package:
   name: spyder
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 17bf203bbe5390ff2b4474fa5ea998f9f3720c4cdfed0ba058ed98902577b16d
+  sha256: 8683879510d38543d4769965f3c4ceef0994b70b3c580bcc1c177320a5cb5e86
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -47,7 +47,6 @@ requirements:
     - keyring >=17.0.0
     - nbconvert >=4.0
     - numpydoc >=0.6.0
-    - paramiko >=2.4.0  # [win]
     - parso >=0.7.0,<0.9.0
     - pexpect >=4.4.0
     - pickleshare >=0.4
