@@ -1,4 +1,4 @@
-{% set version = "6.0.0b3" %}
+{% set version = "6.0.0rc1" %}
 
 package:
   name: spyder
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 8683879510d38543d4769965f3c4ceef0994b70b3c580bcc1c177320a5cb5e86
+  sha256: cd971736a2adf29a287e2f00c7d9d6c27c66d4f3a2b7d0b45fe096abd8474e5f
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -31,7 +31,7 @@ requirements:
     - python
     - aiohttp >=3.9.3
     - applaunchservices >=0.3.0  # [osx]
-    - asyncssh >=2.0.0,<3.0.0
+    - asyncssh >=2.14.0,<3.0.0
     - atomicwrites >=1.2.0
     - chardet >=2.0.0
     - cloudpickle >=0.5.0
@@ -74,7 +74,7 @@ requirements:
     - rtree >=0.9.7
     - setuptools >=49.6.0
     - sphinx >=0.6.6
-    - spyder-kernels >=3.0.0b7,<3.0.0b8
+    - spyder-kernels >=3.0.0b8,<3.0.0b9
     - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
