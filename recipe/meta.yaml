@@ -81,7 +81,7 @@ requirements:
     - watchdog >=0.10.3
     - yarl >=1.9.4
   run_constrained:
-    - menuinst >=2.1
+    - menuinst >=2.1.2
 
 test:
   requires:
