@@ -4,7 +4,7 @@
     [
         {
             "name": "Spyder __PKG_MAJOR_VER__",
-            "pywscript": "${PYTHON_SCRIPTS}/spyder-script.py",
+            "pywscript": "${PYTHON_SCRIPTS}/spyder-script.pyw",
             "workdir": "${PERSONALDIR}/Python Scripts",
             "icon": "${MENU_DIR}/spyder.ico"
         }
