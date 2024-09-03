@@ -1,4 +1,4 @@
-{% set version = "5.5.6" %}
+{% set version = "6.0.0" %}
 
 package:
   name: spyder
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 958b669f4a015c5c391050eb6effa8d84656a8bfc47a5f46adba297849d82bdd
+  sha256: fd452d4a94a4b7584978865f04b7bca303fcda3471d3691417a4dd7c2b2ae826
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -26,14 +26,19 @@ requirements:
     - python
     - pip
     - setuptools
+    - packaging
   run:
     - python
+    - aiohttp >=3.9.3
     - applaunchservices >=0.3.0  # [osx]
+    - asyncssh >=2.14.0,<3.0.0
     - atomicwrites >=1.2.0
     - chardet >=2.0.0
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
+    - fcitx-qt5 >=1.2.7  # [linux64]
+    - fzf >=0.42.0
     - importlib-metadata >=4.6.0
     - intervaltree >=3.0.2
     - ipython >=8.12.2,<9.0.0,!=8.17.1
@@ -43,38 +48,41 @@ requirements:
     - keyring >=17.0.0
     - nbconvert >=4.0
     - numpydoc >=0.6.0
-    - paramiko >=2.4.0  # [win]
     - parso >=0.7.0,<0.9.0
     - pexpect >=4.4.0
     - pickleshare >=0.4
     # This is here to work around a bug in mamba
     - ptyprocess >=0.5  # [win]
     - psutil >=5.3
+    - pygithub >=2.3.0
     - pygments >=2.0
     - pylint >=3.1,<4
     - pylint-venv >=3.0.2
     - pyls-spyder >=0.4.0
-    - pyqt >=5.10,<5.16
-    - pyqtwebengine >=5.10,<5.16
+    - pyqt >=5.15,<5.16
+    - pyqtwebengine >=5.15,<5.16
     - python.app  # [osx]
     - python-lsp-black >=2.0.0,<3.0.0
     - python-lsp-server >=1.12.0,<1.13.0
+    - pyuca >=1.2
     - pyxdg >=0.26  # [linux]
     - pyzmq >=24.0.0
     - qdarkstyle >=3.2.0,<3.3.0
     - qstylizer >=0.2.2
     - qtawesome >=1.3.1,<1.4.0
-    - qtconsole >=5.5.1,<5.6.0
-    - qtpy >=2.1.0
+    - qtconsole >=5.6.0,<5.7.0
+    - qtpy >=2.4.0
     - rtree >=0.9.7
     - setuptools >=49.6.0
     - sphinx >=0.6.6
-    - spyder-kernels >=2.5.2,<2.6.0
+    - spyder-kernels >=3.0.0,<3.1.0
+    - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
     - watchdog >=0.10.3
+    - yarl >=1.9.4
   run_constrained:
-    - menuinst >=1.4.17
+    - menuinst >=2.1.2
 
 test:
   requires:
@@ -89,7 +97,7 @@ test:
 
 app:
   entry: spyder
-  icon: logo.png
+  icon: spyder.png
   summary: The Scientific Python Development Environment
   type: desk
 
