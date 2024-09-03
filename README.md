@@ -204,14 +204,14 @@ Current release info
 Installing spyder
 =================
 
-Installing `spyder` from the `conda-forge/label/spyder_dev` channel can be achieved by adding `conda-forge/label/spyder_dev` to your channels with:
+Installing `spyder` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
-conda config --add channels conda-forge/label/spyder_dev
+conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge/label/spyder_dev` channel has been enabled, `spyder` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `spyder` can be installed with `conda`:
 
 ```
 conda install spyder
@@ -226,26 +226,26 @@ mamba install spyder
 It is possible to list all of the versions of `spyder` available on your platform with `conda`:
 
 ```
-conda search spyder --channel conda-forge/label/spyder_dev
+conda search spyder --channel conda-forge
 ```
 
 or with `mamba`:
 
 ```
-mamba search spyder --channel conda-forge/label/spyder_dev
+mamba search spyder --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search spyder --channel conda-forge/label/spyder_dev
+mamba repoquery search spyder --channel conda-forge
 
 # List packages depending on `spyder`:
-mamba repoquery whoneeds spyder --channel conda-forge/label/spyder_dev
+mamba repoquery whoneeds spyder --channel conda-forge
 
 # List dependencies of `spyder`:
-mamba repoquery depends spyder --channel conda-forge/label/spyder_dev
+mamba repoquery depends spyder --channel conda-forge
 ```
 
 
