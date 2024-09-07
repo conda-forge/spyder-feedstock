@@ -16,7 +16,7 @@
             "platforms": {
                 "win": {
                     "desktop": true,
-                    "app_user_model_id": "spyder.Spyder",
+                    "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}",
                     "command": ["{{ PREFIX }}/Scripts/spyder.exe", "%*"],
                     "file_extensions": [
                         ".enaml",
@@ -33,7 +33,7 @@
                         "Science"
                     ],
                     "command": ["{{ PREFIX }}/bin/spyder", "%F"],
-                    "StartupWMClass": "Spyder",
+                    "StartupWMClass": "Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}",
                     "MimeType": [
                         "text/x-python"
                     ]
@@ -45,7 +45,7 @@
                         "{{ PREFIX }}/bin/python": "{{ MENU_ITEM_LOCATION }}/Contents/MacOS/python"
                     },
                     "CFBundleName": "Spyder __PKG_MAJOR_VER__",
-                    "CFBundleIdentifier": "org.spyder-ide.Spyder",
+                    "CFBundleIdentifier": "org.spyder-ide.Spyder-__PKG_MAJOR_VER__-__CFBID_ENV__",
                     "CFBundleVersion": "__PKG_VERSION__",
                     "CFBundleDocumentTypes": [
                         {
