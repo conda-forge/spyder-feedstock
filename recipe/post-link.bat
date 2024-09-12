@@ -28,9 +28,9 @@ if not exist "%conda_python_exe%" (
 
 rem  Check menuinst version
 for /F "tokens=*" %%i in (
-    '%conda_python_exe% -c "import menuinst; print(int(menuinst.__version__[0]) < 2)"'
+    '%conda_python_exe% -c "import menuinst; print(menuinst.__version__)"'
 ) do (
-    if "%%~i"=="True" call :use_menu_v1
+    if "%%~i" lss "2.1.2" call :use_menu_v1
 )
 
 :exit
@@ -52,5 +52,5 @@ for /F "tokens=*" %%i in (
     rem  Notify user
     echo. >> %logfile%
     echo Warning: Using menuinst v1 >> %logfile%
-    echo Please update to menuinst v2 in the base environment and reinstall Spyder >> %logfile%
+    echo Please update to menuinst >=2.1.2 in the base environment and reinstall Spyder >> %logfile%
     goto :eof

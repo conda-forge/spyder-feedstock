@@ -12,7 +12,7 @@ source:
     - osx-zmq.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [osx and arm64 and py < 39]
   entry_points:
     - spyder = spyder.app.start:main
