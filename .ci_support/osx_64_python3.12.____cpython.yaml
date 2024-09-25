@@ -3,9 +3,9 @@ MACOSX_DEPLOYMENT_TARGET:
 MACOSX_SDK_VERSION:
 - '10.13'
 channel_sources:
-- conda-forge
+- conda-forge/label/spyder_kernels_rc,conda-forge
 channel_targets:
-- conda-forge main
+- conda-forge spyder_rc
 macos_machine:
 - x86_64-apple-darwin13.4.0
 pin_run_as_build:
