@@ -1,0 +1,4 @@
+channel_sources:
+  - conda-forge,conda-forge/label/spyder_kernels_rc
+channel_targets:
+  - conda-forge spyder_rc
