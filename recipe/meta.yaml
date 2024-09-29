@@ -16,22 +16,16 @@ build:
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
-  # https://github.com/conda/conda-build/issues/5385
-  noarch: python  # [not win]
+  noarch: python
 
 requirements:
-  build:
-    - python >=3.8                           # [unix and (build_platform != target_platform)]
-    - python                                 # [win  and (build_platform != target_platform)]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
   host:
-    - python >=3.8   # [unix]
-    - python         # [win]
+    - python >=3.8
     - pip
     - setuptools
     - packaging
   run:
-    - python
+    - python >=3.8
     - aiohttp >=3.9.3
     - applaunchservices >=0.3.0  # [osx]
     - asyncssh >=2.14.0,<3.0.0
