@@ -31,7 +31,8 @@ requirements:
     - setuptools
     - packaging
   run:
-    - python
+    - python >=3.8   # [unix]
+    - python         # [win]
     - aiohttp >=3.9.3
     - applaunchservices >=0.3.0  # [osx]
     - asyncssh >=2.14.0,<3.0.0
