@@ -15,6 +15,7 @@ build:
   number: 2
   entry_points:
     - spyder = spyder.app.start:main
+  detect_binary_files_with_prefix: false   # [win]
   osx_is_app: true
   noarch: python
 
