@@ -7,6 +7,12 @@
             "pywscript": "${PYTHON_SCRIPTS}/spyder-script.pyw",
             "workdir": "${PERSONALDIR}/Python Scripts",
             "icon": "${MENU_DIR}/spyder.ico"
+        },
+        {
+            "name": "Spyder __PKG_MAJOR_VER__ Reset",
+            "pyscript": "${PYTHON_SCRIPTS}/spyder-script.py --reset",
+            "workdir": "${USERPROFILE}",
+            "icon": "${MENU_DIR}/spyder.ico"
         }
     ]
 }

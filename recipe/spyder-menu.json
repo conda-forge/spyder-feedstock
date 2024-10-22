@@ -156,6 +156,23 @@
                     ]
                 }
             }
+        },
+        {
+            "platforms": {
+                "win": {
+                    "name": {
+                        "target_environment_is_base": "Spyder __PKG_MAJOR_VER__ ({{ DISTRIBUTION_NAME }}) Reset",
+                        "target_environment_is_not_base": "Spyder __PKG_MAJOR_VER__ ({{ ENV_NAME }}) Reset"
+                    },
+                    "description": "Scientific PYthon Development EnviRonment",
+                    "icon": "{{ MENU_DIR }}/spyder.{{ ICON_EXT }}",
+                    "activate": false,
+                    "terminal": false,
+                    "desktop": true,
+                    "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}.Reset",
+                    "command": ["{{ PREFIX }}/Scripts/spyder.exe", "--reset"]
+                }
+            }
         }
     ]
 }
