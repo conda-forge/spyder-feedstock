@@ -88,7 +88,6 @@ requirements:
     # https://conda-forge.org/docs/maintainer/knowledge_base/#noarch-python
     - __linux  # [linux]
     - __osx    # [osx]
-    - __win    # [win]
   run_constrained:
     - menuinst >=2.1.2
 
