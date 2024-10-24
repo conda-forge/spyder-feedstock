@@ -9,10 +9,9 @@
             "icon": "${MENU_DIR}/spyder.ico"
         },
         {
-            "name": "Spyder __PKG_MAJOR_VER__ Reset",
+            "name": "Reset Spyder __PKG_MAJOR_VER__ to default settings",
             "pyscript": "${PYTHON_SCRIPTS}/spyder-script.py --reset",
             "workdir": "${USERPROFILE}",
-            "icon": "${MENU_DIR}/spyder.ico"
         }
     ]
 }
