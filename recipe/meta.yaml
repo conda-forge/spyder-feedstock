@@ -12,23 +12,27 @@ source:
     - osx-zmq.patch
 
 build:
-  number: 2
-  skip: true  # [osx and arm64 and py < 39]
+  number: 3
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
+  # https://github.com/conda/conda-build/issues/5385
+  noarch: python  # [not win]
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
+    - python >=3.8                           # [unix and (build_platform != target_platform)]
+    - python                                 # [win  and (build_platform != target_platform)]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
   host:
-    - python
+    - python >=3.8   # [unix]
+    - python         # [win]
     - pip
     - setuptools
     - packaging
   run:
-    - python
+    - python >=3.8   # [unix]
+    - python         # [win]
     - aiohttp >=3.9.3
     - applaunchservices >=0.3.0  # [osx]
     - asyncssh >=2.14.0,<3.0.0
@@ -37,7 +41,7 @@ requirements:
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
-    - fcitx-qt5 >=1.2.7  # [linux64]
+    - fcitx-qt5 >=1.2.7  # [linux]
     - fzf >=0.42.0
     - importlib-metadata >=4.6.0
     - intervaltree >=3.0.2
@@ -81,6 +85,9 @@ requirements:
     - three-merge >=0.1.1
     - watchdog >=0.10.3
     - yarl >=1.9.4
+    # https://conda-forge.org/docs/maintainer/knowledge_base/#noarch-python
+    - __linux  # [linux]
+    - __osx    # [osx]
   run_constrained:
     - menuinst >=2.1.2
 
