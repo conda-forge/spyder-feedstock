@@ -222,6 +222,3 @@ Feedstock Maintainers
 * [@dalthviz](https://github.com/dalthviz/)
 * [@steff456](https://github.com/steff456/)
 
-
-<!-- dummy commit to enable rerendering -->
-
