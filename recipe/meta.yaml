@@ -5,7 +5,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
   sha256: 98f52b018167de4e4d42bb24ec1d9a3c59e4031292282e08f7b0e714f2b5a6f3
   patches:
     # See spyder-ide/spyder#8316
