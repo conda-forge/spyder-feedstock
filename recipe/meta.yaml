@@ -12,12 +12,14 @@ source:
     - osx-zmq.patch
 
 build:
-  number: 0
+  number: 1
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
   # https://github.com/conda/conda-build/issues/5385
   noarch: python  # [not win]
+  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [osx]
+  string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
 
 requirements:
   build:
