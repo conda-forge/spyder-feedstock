@@ -52,5 +52,5 @@ for /F "tokens=*" %%i in (
     rem  Notify user
     echo. >> %logfile%
     echo Warning: Using menuinst v1 >> %logfile%
-    echo Please update to menuinst >=2.1.2 in the base environment and reinstall Spyder >> %logfile%
+    echo Please update to menuinst ^>=2.1.2 in the base environment and reinstall Spyder >> %logfile%
     goto :eof
