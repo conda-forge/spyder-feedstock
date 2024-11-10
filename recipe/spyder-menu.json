@@ -34,6 +34,7 @@
                     ],
                     "command": ["{{ PREFIX }}/bin/spyder", "%F"],
                     "StartupWMClass": "Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}",
+                    "SingleMainWindow": true,
                     "MimeType": [
                         "text/x-python"
                     ]
