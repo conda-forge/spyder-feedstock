@@ -12,7 +12,7 @@ source:
     - osx-zmq.patch
 
 build:
-  number: 2
+  number: 3
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
