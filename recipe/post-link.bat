@@ -3,6 +3,7 @@ setlocal ENABLEDELAYEDEXPANSION
 
 set menudir=%PREFIX%\Menu
 set menu=%menudir%\spyder-menu.json
+set menu_reset=%menudir%\spyder-menu-reset.json
 set logfile=%PREFIX%\.messages.txt
 set scriptsdir=%PREFIX%\Scripts
 
@@ -13,7 +14,8 @@ del %scriptsdir%\spyder-script.py
 rem  Check for conda-based install
 if exist "%menudir%\conda-based-app" (
     rem  Abridge shortcut name
-    call :patch " ^({{ ENV_NAME }}^)="
+    call :patch " ^({{ ENV_NAME }}^)=" %menu%
+    call :patch " ^({{ ENV_NAME }}^)=" %menu_reset%
 
     rem  Nothing more to do for conda-based install
     goto :exit
@@ -37,17 +39,21 @@ for /F "tokens=*" %%i in (
     exit /b %errorlevel%
 
 :patch
-    set tmpmenu=%menudir%\spyder-menu-tmp.json
+    set tmpmenu=%menudir%\tmp.json
     set findreplace=%~1
-    for /f "delims=" %%a in (%menu%) do (
+    for /f "delims=" %%a in (%~2) do (
         set s=%%a
         echo !s:%findreplace%!>> "%tmpmenu%"
     )
-    move /y "%tmpmenu%" "%menu%"
+    move /y "%tmpmenu%" "%~2"
     goto :eof
 
 :use_menu_v1
+    rem  Replace spyder-menu.json with version 1 instance
     copy /y "%menudir%\spyder-menu-v1.json.bak" "%menu%"
+
+    rem  Do not use v2 spyder-menu-reset.json
+    move /y "%menu_reset%" "%menu_reset%.bak"
 
     rem  Notify user
     echo. >> %logfile%
