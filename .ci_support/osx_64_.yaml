@@ -8,5 +8,7 @@ channel_targets:
 - conda-forge spyder_rc
 macos_machine:
 - x86_64-apple-darwin13.4.0
+python_min:
+- '3.9'
 target_platform:
 - osx-64
