@@ -11,7 +11,7 @@
         {
             "name": "Reset Spyder __PKG_MAJOR_VER__ to default settings",
             "pyscript": "${PYTHON_SCRIPTS}/spyder-script.py --reset",
-            "workdir": "${USERPROFILE}",
+            "workdir": "${USERPROFILE}"
         }
     ]
 }
