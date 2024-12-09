@@ -14,19 +14,6 @@
             "terminal": false,
             "command": [""],
             "platforms": {
-                "win": {
-                    "desktop": true,
-                    "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}",
-                    "command": ["{{ PREFIX }}/Scripts/spyder.exe", "%*"],
-                    "file_extensions": [
-                        ".enaml",
-                        ".ipy",
-                        ".py",
-                        ".pyi",
-                        ".pyw",
-                        ".pyx"
-                    ]
-                },
                 "linux": {
                     "Categories": [
                         "Development",
