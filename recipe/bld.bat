@@ -11,9 +11,8 @@ copy %RECIPE_DIR%\spyder.ico %MENU_DIR%\spyder.ico
 
 rem  Replace variables in menu files
 for /F "delims=. tokens=1" %%i in ("%PKG_VERSION%") do set PKG_MAJOR_VER=%%i
-call :replace spyder-menu.json
-call :replace spyder-menu-reset.json
-call :replace spyder-menu-v1.json.bak
+call :replace spyder-menu-win.json spyder-menu.json
+call :replace spyder-menu-v1.json spyder-menu-v1.json.bak
 
 rem  Copy GUI executable stub
 for /F "tokens=*" %%i in (
@@ -33,6 +32,6 @@ copy /y %RECIPE_DIR%\spyder-script.pyw %SCRIPTS%
     for /f "delims=" %%i in (%RECIPE_DIR%\%1) do (
         set s=%%i
         set s=!s:__PKG_VERSION__=%PKG_VERSION%!
-        echo !s:__PKG_MAJOR_VER__=%PKG_MAJOR_VER%!>> %MENU_DIR%\%1
+        echo !s:__PKG_MAJOR_VER__=%PKG_MAJOR_VER%!>> %MENU_DIR%\%2
     )
     goto :eof
