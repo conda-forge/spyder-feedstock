@@ -102,6 +102,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-spyder-green.svg)](https://anaconda.org/conda-forge/spyder) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/spyder.svg)](https://anaconda.org/conda-forge/spyder) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/spyder.svg)](https://anaconda.org/conda-forge/spyder) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/spyder.svg)](https://anaconda.org/conda-forge/spyder) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-spyder--base-green.svg)](https://anaconda.org/conda-forge/spyder-base) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/spyder-base.svg)](https://anaconda.org/conda-forge/spyder-base) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/spyder-base.svg)](https://anaconda.org/conda-forge/spyder-base) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/spyder-base.svg)](https://anaconda.org/conda-forge/spyder-base) |
 
 Installing spyder
 =================
@@ -113,16 +114,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `spyder` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `spyder, spyder-base` can be installed with `conda`:
 
 ```
-conda install spyder
+conda install spyder spyder-base
 ```
 
 or with `mamba`:
 
 ```
-mamba install spyder
+mamba install spyder spyder-base
 ```
 
 It is possible to list all of the versions of `spyder` available on your platform with `conda`:
