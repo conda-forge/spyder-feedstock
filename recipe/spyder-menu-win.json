@@ -14,7 +14,7 @@
             "terminal": false,
             "desktop": true,
             "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}",
-            "command": ["{{ PREFIX }}/Scripts/spyder.exe", "%*"],
+            "command": ["{{ PREFIX }}/Scripts/spyder.exe", "%1 "],
             "file_extensions": [
                 ".enaml",
                 ".ipy",
