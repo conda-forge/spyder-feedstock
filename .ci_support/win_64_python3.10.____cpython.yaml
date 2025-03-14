@@ -1,5 +1,5 @@
 channel_sources:
-- conda-forge/label/spyder_kernels_rc,conda-forge
+- conda-forge/label/spyder_kernels_dev,conda-forge/label/spyder_kernels_rc,conda-forge
 channel_targets:
 - conda-forge spyder_dev
 pin_run_as_build:
@@ -8,5 +8,7 @@ pin_run_as_build:
     max_pin: x.x
 python:
 - 3.10.* *_cpython
+python_min:
+- '3.9'
 target_platform:
 - win-64

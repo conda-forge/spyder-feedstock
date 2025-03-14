@@ -13,3 +13,8 @@ provider:
   linux_aarch64: default
   win: azure
 test: native_and_emulated
+noarch_platforms:
+  - linux_64
+  - osx_64
+azure:
+  store_build_artifacts: True

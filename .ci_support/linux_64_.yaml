@@ -1,14 +1,12 @@
+cdt_name:
+- conda
 channel_sources:
 - conda-forge/label/spyder_kernels_dev,conda-forge/label/spyder_kernels_rc,conda-forge
 channel_targets:
 - conda-forge spyder_dev
-pin_run_as_build:
-  python:
-    min_pin: x.x
-    max_pin: x.x
-python:
-- 3.11.* *_cpython
+docker_image:
+- quay.io/condaforge/linux-anvil-x86_64:alma9
 python_min:
 - '3.9'
 target_platform:
-- win-64
+- linux-64

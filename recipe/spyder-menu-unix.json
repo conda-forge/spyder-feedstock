@@ -14,26 +14,14 @@
             "terminal": false,
             "command": [""],
             "platforms": {
-                "win": {
-                    "desktop": true,
-                    "app_user_model_id": "spyder.Spyder",
-                    "command": ["{{ PREFIX }}/Scripts/spyder.exe", "%*"],
-                    "file_extensions": [
-                        ".enaml",
-                        ".ipy",
-                        ".py",
-                        ".pyi",
-                        ".pyw",
-                        ".pyx"
-                    ]
-                },
                 "linux": {
                     "Categories": [
                         "Development",
                         "Science"
                     ],
                     "command": ["{{ PREFIX }}/bin/spyder", "%F"],
-                    "StartupWMClass": "Spyder",
+                    "StartupWMClass": "Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}",
+                    "SingleMainWindow": true,
                     "MimeType": [
                         "text/x-python"
                     ]
@@ -45,7 +33,7 @@
                         "{{ PREFIX }}/bin/python": "{{ MENU_ITEM_LOCATION }}/Contents/MacOS/python"
                     },
                     "CFBundleName": "Spyder __PKG_MAJOR_VER__",
-                    "CFBundleIdentifier": "org.spyder-ide.Spyder",
+                    "CFBundleIdentifier": "org.spyder-ide.Spyder-__PKG_MAJOR_VER__-__CFBID_ENV__",
                     "CFBundleVersion": "__PKG_VERSION__",
                     "CFBundleDocumentTypes": [
                         {
