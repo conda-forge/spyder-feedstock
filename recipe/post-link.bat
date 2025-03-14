@@ -13,7 +13,7 @@ del %scriptsdir%\spyder-script.py
 rem  Check for conda-based install
 if exist "%menudir%\conda-based-app" (
     rem  Abridge shortcut name
-    call :patch " ^({{ ENV_NAME }}^)="
+    call :patch " ^({{ ENV_NAME }}^)=" %menu%
 
     rem  Nothing more to do for conda-based install
     goto :exit
@@ -28,29 +28,30 @@ if not exist "%conda_python_exe%" (
 
 rem  Check menuinst version
 for /F "tokens=*" %%i in (
-    '%conda_python_exe% -c "import menuinst; print(int(menuinst.__version__[0]) < 2)"'
+    '%conda_python_exe% -c "import menuinst; print(menuinst.__version__)"'
 ) do (
-    if "%%~i"=="True" call :use_menu_v1
+    if "%%~i" lss "2.1.2" call :use_menu_v1
 )
 
 :exit
     exit /b %errorlevel%
 
 :patch
-    set tmpmenu=%menudir%\spyder-menu-tmp.json
+    set tmpmenu=%menudir%\tmp.json
     set findreplace=%~1
-    for /f "delims=" %%a in (%menu%) do (
+    for /f "delims=" %%a in (%~2) do (
         set s=%%a
         echo !s:%findreplace%!>> "%tmpmenu%"
     )
-    move /y "%tmpmenu%" "%menu%"
+    move /y "%tmpmenu%" "%~2"
     goto :eof
 
 :use_menu_v1
+    rem  Replace spyder-menu.json with version 1 instance
     copy /y "%menudir%\spyder-menu-v1.json.bak" "%menu%"
 
     rem  Notify user
     echo. >> %logfile%
     echo Warning: Using menuinst v1 >> %logfile%
-    echo Please update to menuinst v2 in the base environment and reinstall Spyder >> %logfile%
+    echo Please update to menuinst ^>=2.1.2 in the base environment and reinstall Spyder >> %logfile%
     goto :eof

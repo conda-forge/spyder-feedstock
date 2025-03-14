@@ -1,34 +1,42 @@
-{% set version = "6.0.0rc2" %}
+{% set version = "6.0.4" %}
+{% set python_min = "3.8" %}
+{% set build = 1 %}
 
 package:
-  name: spyder
+  name: spyder-base
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 13492fe04bd6278a457c9daf56afb5a8eef2a47e439d3000a1cbb2804b3ea58c
+  url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
+  sha256: e00b1a3bbe66007d2b4439eb1c68b0c1fb904bb03fd3f9d0ed83e8b7acb4cbe6
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
 
 build:
-  number: 0
-  skip: true  # [osx and arm64 and py < 39]
+  number: {{ build }}
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
+  # https://github.com/conda/conda-build/issues/5385
+  noarch: python  # [unix]
+  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
+  string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - python >={{ python_min }}           # [unix and (build_platform != target_platform)]
+    - python                              # [win  and (build_platform != target_platform)]
+    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
   host:
-    - python
+    - python {{ python_min }}  # [unix]
+    - python                   # [win]
     - pip
     - setuptools
     - packaging
   run:
-    - python
+    - python >={{ python_min }}  # [unix]
+    - python                     # [win]
     - aiohttp >=3.9.3
     - applaunchservices >=0.3.0  # [osx]
     - asyncssh >=2.14.0,<3.0.0
@@ -37,8 +45,9 @@ requirements:
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
-    - fcitx-qt5 >=1.2.7  # [linux64]
+    - fcitx-qt5 >=1.2.7  # [linux]
     - fzf >=0.42.0
+    - importlib-metadata >=4.6.0
     - intervaltree >=3.0.2
     - ipython >=8.12.2,<9.0.0,!=8.17.1
     - jedi >=0.17.2,<0.20.0
@@ -50,47 +59,47 @@ requirements:
     - parso >=0.7.0,<0.9.0
     - pexpect >=4.4.0
     - pickleshare >=0.4
+    - psutil >=5.3
     # This is here to work around a bug in mamba
     - ptyprocess >=0.5  # [win]
-    - psutil >=5.3
     - pygithub >=2.3.0
     - pygments >=2.0
     - pylint >=3.1,<4
     - pylint-venv >=3.0.2
     - pyls-spyder >=0.4.0
-    - pyqt >=5.15,<5.16
-    - pyqtwebengine >=5.15,<5.16
     - python.app  # [osx]
     - python-lsp-black >=2.0.0,<3.0.0
-    - python-lsp-server >=1.11.0,<1.12.0
+    - python-lsp-server >=1.12.0,<1.13.0
     - pyuca >=1.2
     - pyxdg >=0.26  # [linux]
     - pyzmq >=24.0.0
     - qdarkstyle >=3.2.0,<3.3.0
     - qstylizer >=0.2.2
     - qtawesome >=1.3.1,<1.4.0
-    - qtconsole >=5.5.1,<5.6.0
+    - qtconsole-base >=5.6.1,<5.7.0
     - qtpy >=2.4.0
     - rtree >=0.9.7
     - setuptools >=49.6.0
-    - sphinx >=0.6.6,<7.4.0
-    - spyder-kernels >=3.0.0b9,<3.0.0b10
+    - sphinx >=0.6.6
+    - spyder-kernels >=3.0.3,<3.1.0
     - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
     - watchdog >=0.10.3
     - yarl >=1.9.4
+    # https://conda-forge.org/docs/maintainer/knowledge_base/#noarch-python
+    - __linux  # [linux]
+    - __osx    # [osx]
   run_constrained:
     - menuinst >=2.1.2
+    - spyder =={{ version }}=*{{ build }}
 
 test:
   requires:
     - pip
   commands:
-    - USER=test spyder -h  # [unix]
-    - spyder -h  # [win]
-    # Pip fails when running but the package is installed correctly
-    - python -m pip check  # [not aarch64]
+    - spyder -h
+    - python -m pip check
   imports:
     - spyder
 
@@ -99,6 +108,26 @@ app:
   icon: spyder.png
   summary: The Scientific Python Development Environment
   type: desk
+
+outputs:
+  - name: spyder-base
+  - name: spyder
+    build:
+      noarch: python
+    requirements:
+      run:
+        - spyder-base =={{ version }}=*{{ build }}
+        - pyqt >=5.15,<5.16
+        - pyqtwebengine >=5.15,<5.16
+        - qtconsole >=5.6.1,<5.7.0
+    test:
+      requires:
+        - pip
+      commands:
+        - spyder -h
+        - python -m pip check
+      imports:
+        - spyder
 
 about:
   home: https://www.spyder-ide.org/
@@ -124,8 +153,8 @@ about:
   dev_url: https://github.com/spyder-ide/spyder
 
 extra:
+  feedstock-name: spyder
   recipe-maintainers:
     - ccordoba12
     - dalthviz
-    - andfoy
-    - steff456
+    - mrclary
