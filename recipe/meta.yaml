@@ -1,6 +1,6 @@
 {% set version = "6.0.5" %}
 {% set python_min = "3.8" %}
-{% set build = 0 %}
+{% set build = 1 %}
 
 package:
   name: spyder-base
@@ -12,6 +12,10 @@ source:
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
+    # https://github.com/spyder-ide/spyder/pull/24095
+    # https://github.com/spyder-ide/spyder/pull/23703
+    # https://github.com/conda-forge/spyder-feedstock/issues/175
+    - 24095-make-qtwebengine-optional-for-helping-spyder.patch
 
 build:
   number: {{ build }}
