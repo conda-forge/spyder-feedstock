@@ -58,7 +58,6 @@ index 80c89caf0e8..66f21c346d6 100644
 +            # See https://github.com/spyder-ide/spyder/pull/23703
 +            import webbrowser
 +            webbrowser.open("https://www.spyder-ide.org/donate")
-+            pass
  
      # ---- StatusBarWidget API
      # -------------------------------------------------------------------------
