@@ -19,5 +19,5 @@ noarch_platforms:
 azure:
   store_build_artifacts: True
 linter:
-    skip:
-        - lint_noarch_selectors  # the linter misunderstands
+  skip:
+    - lint_noarch_selectors  # the linter misunderstands
