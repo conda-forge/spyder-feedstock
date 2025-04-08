@@ -115,7 +115,7 @@ outputs:
   - name: spyder-base
   - name: spyder
     build:
-      noarch: python
+      noarch: python  # [unix]
     requirements:
       host:
         - python {{ python_min }}
