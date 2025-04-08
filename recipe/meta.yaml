@@ -114,6 +114,7 @@ outputs:
   - name: spyder
     build:
       noarch: python
+      skip: true  # [py >=313]
     requirements:
       run:
         - spyder-base =={{ version }}=*{{ build }}
