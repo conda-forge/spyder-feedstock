@@ -120,7 +120,8 @@ outputs:
       string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
     requirements:
       host:
-        - python {{ python_min }}
+        - python {{ python_min }}  # [unix]
+        - python                   # [not unix]
       run:
         - python >={{ python_min }}
         - spyder-base =={{ version }}=*{{ build }}
