@@ -1,5 +1,5 @@
 {% set version = "6.0.5" %}
-{% set python_min = "3.8" %}
+{% set python_min = "3.9" %}
 {% set build = 0 %}
 
 package:
