@@ -126,13 +126,14 @@ outputs:
         - pyqtwebengine >=5.15,<5.16
         - qtconsole >=5.6.1,<5.7.0
     test:
+      # Skip on Windows 3.13+ as no qtwebengine there
+      skip: true # [py>=313 and win]
       requires:
         - python {{ python_min }}  # [unix]
         - python  # [not unix]
         - pip
       commands:
-        # Skip on Windows 3.13+ as no qtwebengine there
-        - spyder -h  # [py<313 or not win]
+        - spyder -h
         - python -m pip check
       imports:
         - spyder
