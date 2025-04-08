@@ -26,7 +26,7 @@ build:
 requirements:
   build:
     - python >={{ python_min }}           # [unix and (build_platform != target_platform)]
-    - python                              # [win  and (build_platform != target_platform)]
+    - python                              # [win and (build_platform != target_platform)]
     - cross-python_{{ target_platform }}  # [build_platform != target_platform]
   host:
     - python {{ python_min }}  # [unix]
@@ -95,8 +95,6 @@ requirements:
     - spyder =={{ version }}=*{{ build }}
 
 test:
-  # Skip on Windows 3.13+ as no qtwebengine there
-  skip: true # [py>=313 and win]
   requires:
     - python {{ python_min }}  # [unix]
     - python  # [not unix]
@@ -125,7 +123,7 @@ outputs:
         - python >={{ python_min }}
         - spyder-base =={{ version }}=*{{ build }}
         - pyqt >=5.15,<5.16
-        - pyqtwebengine >=5.15,<5.16
+        - pyqtwebengine >=5.15,<5.16  # [py<313 or not win]
         - qtconsole >=5.6.1,<5.7.0
     test:
       requires:
