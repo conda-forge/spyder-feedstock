@@ -12,10 +12,11 @@ source:
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
+    # https://github.com/spyder-ide/spyder/pull/24156
     # https://github.com/spyder-ide/spyder/pull/24095
     # https://github.com/spyder-ide/spyder/pull/23703
     # https://github.com/conda-forge/spyder-feedstock/issues/175
-    - 24095-make-qtwebengine-optional-for-helping-spyder.patch
+    - 24095_24156_qtwebengine_optional.patch
 
 build:
   number: {{ build }}
