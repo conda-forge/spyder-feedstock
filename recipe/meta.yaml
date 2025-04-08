@@ -116,6 +116,8 @@ outputs:
   - name: spyder
     build:
       noarch: python  # [unix]
+      string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
+      string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
     requirements:
       host:
         - python {{ python_min }}
