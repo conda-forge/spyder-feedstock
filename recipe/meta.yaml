@@ -96,7 +96,7 @@ requirements:
 
 test:
   requires:
-    - python {{ python_min }} # [unix]
+    - python {{ python_min }}  # [unix]
     - python  # [not unix]
     - pip
   commands:
@@ -127,11 +127,12 @@ outputs:
         - qtconsole >=5.6.1,<5.7.0
     test:
       requires:
-        - python {{ python_min }} # [unix]
+        - python {{ python_min }}  # [unix]
         - python  # [not unix]
         - pip
       commands:
-        - spyder -h
+        # Skip on Windows 3.13+ as no qtwebengine there
+        - spyder -h  # [py<313 or not win]
         - python -m pip check
       imports:
         - spyder
