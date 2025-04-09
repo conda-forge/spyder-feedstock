@@ -1,6 +1,6 @@
 {% set version = "6.0.5" %}
-{% set python_min = "3.8" %}
-{% set build = 1 %}
+{% set python_min = "3.9" %}
+{% set build = 2 %}
 
 package:
   name: spyder-base
@@ -31,7 +31,7 @@ build:
 requirements:
   build:
     - python >={{ python_min }}           # [unix and (build_platform != target_platform)]
-    - python                              # [win  and (build_platform != target_platform)]
+    - python                              # [win and (build_platform != target_platform)]
     - cross-python_{{ target_platform }}  # [build_platform != target_platform]
   host:
     - python {{ python_min }}  # [unix]
@@ -101,6 +101,8 @@ requirements:
 
 test:
   requires:
+    - python {{ python_min }}  # [unix]
+    - python  # [not unix]
     - pip
   commands:
     - spyder -h
@@ -118,15 +120,24 @@ outputs:
   - name: spyder-base
   - name: spyder
     build:
-      noarch: python
+      noarch: python  # [unix]
+      string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
+      string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
+      skip: true  # [win and py>=313]
     requirements:
+      host:
+        - python {{ python_min }}  # [unix]
+        - python                   # [not unix]
       run:
+        - python >={{ python_min }}  # [unix]
+        - python                     # [not unix]
         - spyder-base =={{ version }}=*{{ build }}
         - pyqt >=5.15,<5.16
         - pyqtwebengine >=5.15,<5.16
-        - qtconsole >=5.6.1,<5.7.0
     test:
       requires:
+        - python {{ python_min }}  # [unix]
+        - python  # [not unix]
         - pip
       commands:
         - spyder -h
