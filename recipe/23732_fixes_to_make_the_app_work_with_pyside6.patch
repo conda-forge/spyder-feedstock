@@ -1,0 +1,1277 @@
+diff --git a/spyder/api/config/mixins.py b/spyder/api/config/mixins.py
+index e0eac09d2c4..e6e6209dfaa 100644
+--- a/spyder/api/config/mixins.py
++++ b/spyder/api/config/mixins.py
+@@ -13,6 +13,9 @@
+ from typing import Any, Callable, Optional, Union
+ import warnings
+ 
++# Third-party imports
++from qtpy import PYSIDE6
++
+ # Local imports
+ from spyder.config.manager import CONF
+ from spyder.config.types import ConfigurationKey
+@@ -239,10 +242,13 @@ def __init__(self):
+             section = self.CONF_SECTION if section is None else section
+             observed_options = self._configuration_listeners[section]
+             for option in observed_options:
+-                logger.debug(
+-                    f'{self} is observing option "{option}" in section '
+-                    f'"{section}"'
+-                )
++                # Avoid a crash at startup due to MRO
++                if not PYSIDE6:
++                    logger.debug(
++                        f'{self} is observing option "{option}" in section '
++                        f'"{section}"'
++                    )
++
+                 CONF.observe_configuration(self, section, option)
+ 
+     def __del__(self):
+@@ -252,6 +258,16 @@ def __del__(self):
+     def _gather_observers(self):
+         """Gather all the methods decorated with `on_conf_change`."""
+         for method_name in dir(self):
++            # Avoid crash at startup due to MRO
++            if PYSIDE6 and method_name in {
++                # PySide seems to require that the class is instantiated to
++                # access this method
++                "painters",
++                # Method is debounced
++                "restart_kernel",
++            }:
++                continue
++
+             method = getattr(self, method_name, None)
+             if hasattr(method, '_conf_listen'):
+                 info = method._conf_listen
+diff --git a/spyder/api/widgets/comboboxes.py b/spyder/api/widgets/comboboxes.py
+index 6985740a1df..53a8a7fa947 100644
+--- a/spyder/api/widgets/comboboxes.py
++++ b/spyder/api/widgets/comboboxes.py
+@@ -15,7 +15,6 @@
+ 
+ # Third-party imports
+ import qstylizer.style
+-from qtpy import PYQT5, PYQT6
+ from qtpy.QtCore import QSize, Qt, Signal
+ from qtpy.QtGui import QColor, QPainter, QFontMetrics
+ from qtpy.QtWidgets import (
+@@ -256,7 +255,7 @@ def _generate_stylesheet(self):
+         return css
+ 
+ 
+-class SpyderComboBox(QComboBox, _SpyderComboBoxMixin):
++class SpyderComboBox(_SpyderComboBoxMixin, QComboBox):
+     """Default combobox widget for Spyder."""
+ 
+     def __init__(self, parent=None, items_elide_mode=None):
+@@ -270,11 +269,8 @@ def __init__(self, parent=None, items_elide_mode=None):
+         items_elide_mode: Qt.TextElideMode, optional
+             Elide mode for the combobox items.
+         """
+-        if PYQT5 or PYQT6:
+-            super().__init__(parent)
+-        else:
+-            QComboBox.__init__(self, parent)
+-            _SpyderComboBoxMixin.__init__(self)
++        QComboBox.__init__(self, parent)
++        _SpyderComboBoxMixin.__init__(self)
+ 
+         self.is_editable = None
+         self._is_shown = False
+@@ -375,14 +371,11 @@ def __init__(self, parent=None, items_elide_mode=None):
+         self.setStyleSheet(self._css.toString())
+ 
+ 
+-class SpyderFontComboBox(QFontComboBox, _SpyderComboBoxMixin):
++class SpyderFontComboBox(_SpyderComboBoxMixin, QFontComboBox):
+ 
+     def __init__(self, parent=None):
+-        if PYQT5 or PYQT6:
+-            super().__init__(parent)
+-        else:
+-            QFontComboBox.__init__(self, parent)
+-            _SpyderComboBoxMixin.__init__(self)
++        QFontComboBox.__init__(self, parent)
++        _SpyderComboBoxMixin.__init__(self)
+ 
+         # Avoid font name eliding because it confuses users.
+         # Fixes spyder-ide/spyder#22683
+diff --git a/spyder/api/widgets/main_container.py b/spyder/api/widgets/main_container.py
+index 2d10f39905d..ff889612ba9 100644
+--- a/spyder/api/widgets/main_container.py
++++ b/spyder/api/widgets/main_container.py
+@@ -12,7 +12,7 @@
+ status bar widgets or toolbars.
+ """
+ 
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.QtCore import Signal
+ from qtpy.QtWidgets import QWidget
+ 
+@@ -113,7 +113,7 @@ class PluginMainContainer(QWidget, SpyderWidgetMixin):
+     """
+ 
+     def __init__(self, name, plugin, parent=None):
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent=parent, class_parent=plugin)
+         else:
+             QWidget.__init__(self, parent)
+diff --git a/spyder/api/widgets/main_widget.py b/spyder/api/widgets/main_widget.py
+index ba49ffde503..7927b7546d1 100644
+--- a/spyder/api/widgets/main_widget.py
++++ b/spyder/api/widgets/main_widget.py
+@@ -17,7 +17,7 @@
+ from typing import Optional
+ 
+ # Third party imports
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.QtCore import QByteArray, QSize, Qt, Signal, Slot
+ from qtpy.QtGui import QFocusEvent, QIcon
+ from qtpy.QtWidgets import (QApplication, QHBoxLayout, QSizePolicy,
+@@ -206,7 +206,7 @@ class PluginMainWidget(QWidget, SpyderWidgetMixin):
+     """
+ 
+     def __init__(self, name, plugin, parent=None):
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent=parent, class_parent=plugin)
+         else:
+             QWidget.__init__(self, parent)
+diff --git a/spyder/api/widgets/mixins.py b/spyder/api/widgets/mixins.py
+index 36bd147a816..691c13f604b 100644
+--- a/spyder/api/widgets/mixins.py
++++ b/spyder/api/widgets/mixins.py
+@@ -672,7 +672,7 @@ class SpyderWidgetMixin(
+     # Context name used to store actions, toolbars, toolbuttons and menus
+     CONTEXT_NAME = None
+ 
+-    def __init__(self, class_parent=None):
++    def __init__(self, class_parent=None, parent=None):
+         for attr in ['CONF_SECTION', 'PLUGIN_NAME']:
+             if getattr(self, attr, None) is None:
+                 if hasattr(class_parent, attr):
+diff --git a/spyder/api/widgets/status.py b/spyder/api/widgets/status.py
+index 72836bfdaf0..fe3de5d95a9 100644
+--- a/spyder/api/widgets/status.py
++++ b/spyder/api/widgets/status.py
+@@ -9,7 +9,7 @@
+ 
+ # Third party imports
+ import qstylizer.parser
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.QtCore import Qt, QSize, QTimer, Signal
+ from qtpy.QtGui import QIcon
+ from qtpy.QtWidgets import QHBoxLayout, QLabel, QWidget
+@@ -82,7 +82,7 @@ def __init__(self, parent=None, show_icon=True, show_label=True,
+         1. To use an icon, you need to redefine the ``get_icon`` method.
+         2. To use a label, you need to call ``set_value``.
+         """
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent, class_parent=parent)
+         else:
+             QWidget.__init__(self, parent)
+diff --git a/spyder/app/tests/test_mainwindow.py b/spyder/app/tests/test_mainwindow.py
+index acb49e4a725..7e5ce9f813e 100644
+--- a/spyder/app/tests/test_mainwindow.py
++++ b/spyder/app/tests/test_mainwindow.py
+@@ -5414,7 +5414,7 @@ def test_goto_find(main_window, qtbot, tmpdir):
+     for i in range(5):
+         item = file_item.child(i)
+         findinfiles.result_browser.setCurrentItem(item)
+-        findinfiles.result_browser.activated(item)
++        findinfiles.result_browser.on_item_activated(item)
+         cursor = code_editor.textCursor()
+         position = (cursor.selectionStart(), cursor.selectionEnd())
+         assert position == match_positions[i]
+diff --git a/spyder/plugins/completion/api.py b/spyder/plugins/completion/api.py
+index fb55fc218f5..12f44ae0f05 100644
+--- a/spyder/plugins/completion/api.py
++++ b/spyder/plugins/completion/api.py
+@@ -16,6 +16,7 @@
+ from typing import Any, Optional, Tuple, Union
+ 
+ # Third party imports
++from qtpy import PYSIDE6
+ from qtpy.QtCore import Signal, QObject, Slot, Qt
+ 
+ # Local imports
+@@ -675,6 +676,13 @@ class CompletionConfigurationObserver(SpyderConfigurationObserver):
+     def _gather_observers(self):
+         """Gather all the methods decorated with `on_conf_change`."""
+         for method_name in dir(self):
++            # Avoid crash at startup due to MRO
++            if PYSIDE6 and method_name in {
++                # Method is debounced
++                "interpreter_changed"
++            }:
++                continue
++
+             method = getattr(self, method_name, None)
+             if hasattr(method, '_conf_listen'):
+                 info = method._conf_listen
+diff --git a/spyder/plugins/debugger/widgets/breakpoint_table_view.py b/spyder/plugins/debugger/widgets/breakpoint_table_view.py
+index 0b0b187923e..76e0ca6791a 100644
+--- a/spyder/plugins/debugger/widgets/breakpoint_table_view.py
++++ b/spyder/plugins/debugger/widgets/breakpoint_table_view.py
+@@ -17,7 +17,7 @@
+ 
+ # Third party imports
+ import qstylizer.style
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.compat import to_qvariant
+ from qtpy.QtCore import QAbstractTableModel, QModelIndex, Qt, Signal
+ from qtpy.QtWidgets import QAbstractItemView, QTableView
+@@ -175,7 +175,7 @@ class BreakpointTableView(QTableView, SpyderWidgetMixin):
+     sig_conditional_breakpoint_requested = Signal()
+ 
+     def __init__(self, parent, data):
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent, class_parent=parent)
+         else:
+             QTableView.__init__(self, parent)
+diff --git a/spyder/plugins/debugger/widgets/framesbrowser.py b/spyder/plugins/debugger/widgets/framesbrowser.py
+index 456d3433bfc..75c90208443 100644
+--- a/spyder/plugins/debugger/widgets/framesbrowser.py
++++ b/spyder/plugins/debugger/widgets/framesbrowser.py
+@@ -492,13 +492,13 @@ def __init__(self, parent):
+ 
+         # Signals
+         self.header().sectionClicked.connect(self.sort_section)
+-        self.itemActivated.connect(self.activated)
+-        self.itemClicked.connect(self.activated)
++        self.itemActivated.connect(self.on_item_activated)
++        self.itemClicked.connect(self.on_item_activated)
+ 
+     def set_title(self, title):
+         self.setHeaderLabels([title])
+ 
+-    def activated(self, item):
++    def on_item_activated(self, item):
+         """Double-click event."""
+         itemdata = self.data.get(id(self.currentItem()))
+         if itemdata is not None:
+diff --git a/spyder/plugins/editor/api/decoration.py b/spyder/plugins/editor/api/decoration.py
+index 29b4e09f2b2..a8dee4322b7 100644
+--- a/spyder/plugins/editor/api/decoration.py
++++ b/spyder/plugins/editor/api/decoration.py
+@@ -111,14 +111,23 @@ def __init__(self, cursor_or_bloc_or_doc, start_pos=None, end_pos=None,
+         if start_pos is not None:
+             self.cursor.setPosition(start_pos)
+         if end_pos is not None:
+-            self.cursor.setPosition(end_pos, QTextCursor.KeepAnchor)
++            self.cursor.setPosition(end_pos, QTextCursor.MoveMode.KeepAnchor)
+         if start_line is not None:
+-            self.cursor.movePosition(self.cursor.Start, self.cursor.MoveAnchor)
+-            self.cursor.movePosition(self.cursor.Down, self.cursor.MoveAnchor,
+-                                     start_line)
++            self.cursor.movePosition(
++                QTextCursor.MoveOperation.Start,
++                QTextCursor.MoveMode.MoveAnchor
++            )
++            self.cursor.movePosition(
++                QTextCursor.MoveOperation.Down,
++                QTextCursor.MoveMode.MoveAnchor,
++                start_line
++            )
+         if end_line is not None:
+-            self.cursor.movePosition(self.cursor.Down, self.cursor.KeepAnchor,
+-                                     end_line - start_line)
++            self.cursor.movePosition(
++                QTextCursor.MoveOperation.Down,
++                QTextCursor.MoveMode.KeepAnchor,
++                end_line - start_line
++            )
+         if font is not None:
+             self.format.setFont(font)
+ 
+@@ -173,12 +182,14 @@ def select_line(self):
+         and stops at the non-whitespace character.
+         :return:
+         """
+-        self.cursor.movePosition(self.cursor.StartOfBlock)
++        self.cursor.movePosition(QTextCursor.MoveOperation.StartOfBlock)
+         text = self.cursor.block().text()
+         lindent = len(text) - len(text.lstrip())
+         self.cursor.setPosition(self.cursor.block().position() + lindent)
+-        self.cursor.movePosition(self.cursor.EndOfBlock,
+-                                 self.cursor.KeepAnchor)
++        self.cursor.movePosition(
++            QTextCursor.MoveOperation.EndOfBlock,
++            QTextCursor.MoveMode.KeepAnchor
++        )
+ 
+     def set_full_width(self, flag=True, clear=True):
+         """
+diff --git a/spyder/plugins/editor/utils/editor.py b/spyder/plugins/editor/utils/editor.py
+index 4705578324a..8889947269a 100644
+--- a/spyder/plugins/editor/utils/editor.py
++++ b/spyder/plugins/editor/utils/editor.py
+@@ -209,11 +209,17 @@ def goto_line(self, line, column=0, end_column=0, move=True, word=''):
+         line = min(line, self.line_count())
+         text_cursor = self._move_cursor_to(line)
+         if column:
+-            text_cursor.movePosition(text_cursor.Right, text_cursor.MoveAnchor,
+-                                     column)
++            text_cursor.movePosition(
++                QTextCursor.MoveOperation.Right,
++                QTextCursor.MoveMode.MoveAnchor,
++                column
++            )
+         if end_column:
+-            text_cursor.movePosition(text_cursor.Right, text_cursor.KeepAnchor,
+-                                     end_column)
++            text_cursor.movePosition(
++                QTextCursor.MoveOperation.Right,
++                QTextCursor.MoveMode.KeepAnchor,
++                end_column
++            )
+         if move:
+             block = text_cursor.block()
+             self.unfold_if_colapsed(text_cursor)
+@@ -294,7 +300,10 @@ def word_under_cursor(self, select_whole_word=False, text_cursor=None):
+         # select char by char until we are at the original cursor position.
+         while not text_cursor.atStart():
+             text_cursor.movePosition(
+-                text_cursor.Left, text_cursor.KeepAnchor, 1)
++                QTextCursor.MoveOperation.Left,
++                QTextCursor.MoveMode.KeepAnchor,
++                1
++            )
+             try:
+                 char = text_cursor.selectedText()[0]
+                 word_separators = editor.word_separators
+@@ -311,8 +320,11 @@ def word_under_cursor(self, select_whole_word=False, text_cursor=None):
+             # select the resot of the word
+             text_cursor.setPosition(end_pos)
+             while not text_cursor.atEnd():
+-                text_cursor.movePosition(text_cursor.Right,
+-                                         text_cursor.KeepAnchor, 1)
++                text_cursor.movePosition(
++                    QTextCursor.MoveOperation.Right,
++                    QTextCursor.MoveMode.KeepAnchor,
++                    1
++                )
+                 char = text_cursor.selectedText()[0]
+                 selected_txt = text_cursor.selectedText()
+                 if (selected_txt in word_separators and
+@@ -323,7 +335,7 @@ def word_under_cursor(self, select_whole_word=False, text_cursor=None):
+                 text_cursor.setPosition(end_pos)
+         # now that we habe the boundaries, we can select the text
+         text_cursor.setPosition(start_pos)
+-        text_cursor.setPosition(end_pos, text_cursor.KeepAnchor)
++        text_cursor.setPosition(end_pos, QTextCursor.MoveMode.KeepAnchor)
+         return text_cursor
+ 
+     def word_under_mouse_cursor(self):
+@@ -411,7 +423,7 @@ def set_line_text(self, line_nbr, new_text):
+         """
+         editor = self._editor
+         text_cursor = self._move_cursor_to(line_nbr)
+-        text_cursor.select(text_cursor.LineUnderCursor)
++        text_cursor.select(QTextCursor.SelectionType.LineUnderCursor)
+         text_cursor.insertText(new_text)
+         editor.setTextCursor(text_cursor)
+ 
+@@ -419,8 +431,11 @@ def remove_last_line(self):
+         """Removes the last line of the document."""
+         editor = self._editor
+         text_cursor = editor.textCursor()
+-        text_cursor.movePosition(text_cursor.End, text_cursor.MoveAnchor)
+-        text_cursor.select(text_cursor.LineUnderCursor)
++        text_cursor.movePosition(
++            QTextCursor.MoveOperation.End,
++            QTextCursor.MoveMode.MoveAnchor
++        )
++        text_cursor.select(QTextCursor.SelectionType.LineUnderCursor)
+         text_cursor.removeSelectedText()
+         text_cursor.deletePreviousChar()
+         editor.setTextCursor(text_cursor)
+@@ -455,21 +470,33 @@ def select_lines(self, start=0, end=-1, apply_selection=True):
+             start = 0
+         text_cursor = self._move_cursor_to(start)
+         if end > start:  # Going down
+-            text_cursor.movePosition(text_cursor.Down,
+-                                     text_cursor.KeepAnchor, end - start)
+-            text_cursor.movePosition(text_cursor.EndOfLine,
+-                                     text_cursor.KeepAnchor)
++            text_cursor.movePosition(
++                QTextCursor.MoveOperation.Down,
++                QTextCursor.MoveMode.KeepAnchor,
++                end - start
++            )
++            text_cursor.movePosition(
++                QTextCursor.MoveOperation.EndOfLine,
++                QTextCursor.MoveMode.KeepAnchor
++            )
+         elif end < start:  # going up
+             # don't miss end of line !
+-            text_cursor.movePosition(text_cursor.EndOfLine,
+-                                     text_cursor.MoveAnchor)
+-            text_cursor.movePosition(text_cursor.Up,
+-                                     text_cursor.KeepAnchor, start - end)
+-            text_cursor.movePosition(text_cursor.StartOfLine,
+-                                     text_cursor.KeepAnchor)
++            text_cursor.movePosition(QTextCursor.MoveOperation.EndOfLine,
++                                     QTextCursor.MoveMode.MoveAnchor)
++            text_cursor.movePosition(
++                QTextCursor.MoveOperation.Up,
++                QTextCursor.MoveMode.KeepAnchor,
++                start - end
++            )
++            text_cursor.movePosition(
++                QTextCursor.MoveOperation.StartOfLine,
++                QTextCursor.MoveMode.KeepAnchor
++            )
+         else:
+-            text_cursor.movePosition(text_cursor.EndOfLine,
+-                                     text_cursor.KeepAnchor)
++            text_cursor.movePosition(
++                QTextCursor.MoveOperation.EndOfLine,
++                QTextCursor.MoveMode.KeepAnchor
++            )
+         if apply_selection:
+             editor.setTextCursor(text_cursor)
+         return text_cursor
+@@ -513,7 +540,7 @@ def mark_whole_doc_dirty(self):
+         Marks the whole document as dirty to force a full refresh. **SLOW**
+         """
+         text_cursor = self._editor.textCursor()
+-        text_cursor.select(text_cursor.Document)
++        text_cursor.select(QTextCursor.SelectionType.Document)
+         self._editor.document().markContentsDirty(text_cursor.selectionStart(),
+                                                   text_cursor.selectionEnd())
+ 
+@@ -533,7 +560,7 @@ def insert_text(self, text, keep_position=True):
+         text_cursor.insertText(text)
+         if keep_position:
+             text_cursor.setPosition(s)
+-            text_cursor.setPosition(e, text_cursor.KeepAnchor)
++            text_cursor.setPosition(e, QTextCursor.MoveMode.KeepAnchor)
+         self._editor.setTextCursor(text_cursor)
+ 
+     def search_text(self, text_cursor, search_txt, search_flags):
+diff --git a/spyder/plugins/editor/utils/switcher_manager.py b/spyder/plugins/editor/utils/switcher_manager.py
+index 820d2369b5a..8c02aa94415 100644
+--- a/spyder/plugins/editor/utils/switcher_manager.py
++++ b/spyder/plugins/editor/utils/switcher_manager.py
+@@ -241,8 +241,10 @@ def handle_switcher_item_change(self, current):
+ 
+         if mode == '@' and current is not None:
+             editorstack = self._editorstack()
+-            line_number = int(current.get_data()['line_number'])
+-            editorstack.go_to_line(line_number)
++            data = current.get_data()
++            if isinstance(data, dict):
++                line_number = int(data['line_number'])
++                editorstack.go_to_line(line_number)
+ 
+     def editor_switcher_handler(self, data):
+         """Populate switcher with FileInfo data."""
+diff --git a/spyder/plugins/editor/widgets/codeeditor/codeeditor.py b/spyder/plugins/editor/widgets/codeeditor/codeeditor.py
+index d20ffdf16ad..7207c0c1797 100644
+--- a/spyder/plugins/editor/widgets/codeeditor/codeeditor.py
++++ b/spyder/plugins/editor/widgets/codeeditor/codeeditor.py
+@@ -1477,10 +1477,8 @@ def get_selection(self, cursor, foreground_color=None,
+         if background_color is not None:
+             selection.format.setBackground(background_color)
+         if underline_color is not None:
+-            selection.format.setProperty(QTextFormat.TextUnderlineStyle,
+-                                         to_qvariant(underline_style))
+-            selection.format.setProperty(QTextFormat.TextUnderlineColor,
+-                                         to_qvariant(underline_color))
++            selection.format.setUnderlineColor(underline_color)
++            selection.format.setUnderlineStyle(underline_style)
+         if outline_color is not None:
+             selection.set_outline(outline_color)
+         return selection
+@@ -1663,18 +1661,30 @@ def select_lines(self, linenumber_pressed, linenumber_released):
+         # Select/drag downwards
+         if move_n_blocks > 0:
+             for n in range(abs(move_n_blocks) + 1):
+-                cursor.movePosition(cursor.NextBlock, cursor.KeepAnchor)
++                cursor.movePosition(
++                    QTextCursor.MoveOperation.NextBlock,
++                    QTextCursor.MoveMode.KeepAnchor
++                )
+         # Select/drag upwards or select single line
+         else:
+-            cursor.movePosition(cursor.NextBlock)
++            cursor.movePosition(QTextCursor.MoveOperation.NextBlock)
+             for n in range(abs(move_n_blocks) + 1):
+-                cursor.movePosition(cursor.PreviousBlock, cursor.KeepAnchor)
++                cursor.movePosition(
++                    QTextCursor.MoveOperation.PreviousBlock,
++                    QTextCursor.MoveMode.KeepAnchor
++                )
+ 
+         # Account for last line case
+         if linenumber_released == self.blockCount():
+-            cursor.movePosition(cursor.EndOfBlock, cursor.KeepAnchor)
++            cursor.movePosition(
++                QTextCursor.MoveOperation.EndOfBlock,
++                QTextCursor.MoveMode.KeepAnchor
++            )
+         else:
+-            cursor.movePosition(cursor.StartOfBlock, cursor.KeepAnchor)
++            cursor.movePosition(
++                QTextCursor.MoveOperation.StartOfBlock,
++                QTextCursor.MoveMode.KeepAnchor
++            )
+ 
+         self.setTextCursor(cursor)
+ 
+@@ -4082,10 +4092,10 @@ def get_pattern_cursor_at(self, pattern, coordinates):
+                     line_start_position = cursor.position()
+ 
+                     cursor.setPosition(line_start_position + start,
+-                                       cursor.MoveAnchor)
++                                       QTextCursor.MoveMode.MoveAnchor)
+                     start_rect = self.cursorRect(cursor)
+                     cursor.setPosition(line_start_position + end,
+-                                       cursor.MoveAnchor)
++                                       QTextCursor.MoveMode.MoveAnchor)
+                     end_rect = self.cursorRect(cursor)
+                     bounding_rect = start_rect.united(end_rect)
+ 
+@@ -4093,7 +4103,7 @@ def get_pattern_cursor_at(self, pattern, coordinates):
+                     if bounding_rect.contains(coordinates):
+                         text = line[start:end]
+                         cursor.setPosition(line_start_position + start,
+-                                           cursor.KeepAnchor)
++                                           QTextCursor.MoveMode.KeepAnchor)
+                         break_loop = True
+                         break
+ 
+diff --git a/spyder/plugins/editor/widgets/editorstack/editorstack.py b/spyder/plugins/editor/widgets/editorstack/editorstack.py
+index 4058c3f1035..5c75919bfaf 100644
+--- a/spyder/plugins/editor/widgets/editorstack/editorstack.py
++++ b/spyder/plugins/editor/widgets/editorstack/editorstack.py
+@@ -21,7 +21,7 @@
+ 
+ # Third party imports
+ import qstylizer.style
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.compat import getsavefilename
+ from qtpy.QtCore import QFileInfo, Qt, QTimer, Signal, Slot
+ from qtpy.QtGui import QTextCursor
+@@ -207,7 +207,7 @@ class EditorStack(QWidget, SpyderWidgetMixin):
+     """
+ 
+     def __init__(self, parent, actions, use_switcher=True):
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent, class_parent=parent)
+         else:
+             QWidget.__init__(self, parent)
+@@ -271,7 +271,7 @@ def __init__(self, parent, actions, use_switcher=True):
+         self.close_all_but_this = self.create_action(
+             EditorStackActions.CloseAllButThis,
+             text=_("Close all but this"),
+-            triggered=self.close_all_but_this,
++            triggered=self.on_close_all_but_this,
+             register_action=False
+         )
+         self.sort_tabs = self.create_action(
+@@ -1677,7 +1677,7 @@ def close_all_right(self):
+         for __ in range(num, n - 1):
+             self.close_file(num + 1)
+ 
+-    def close_all_but_this(self):
++    def on_close_all_but_this(self):
+         """Close all files but the current one"""
+         self.close_all_right()
+         for __ in range(0, self.get_stack_count() - 1):
+diff --git a/spyder/plugins/editor/widgets/main_widget.py b/spyder/plugins/editor/widgets/main_widget.py
+index ed108452792..11c2f1c999c 100644
+--- a/spyder/plugins/editor/widgets/main_widget.py
++++ b/spyder/plugins/editor/widgets/main_widget.py
+@@ -2038,7 +2038,7 @@ def new(self, fname=None, editorstack=None, text=None):
+         else:
+             current_es = editorstack
+ 
+-        created_from_here = fname is None
++        created_from_here = fname is None or isinstance(fname, bool)
+         if created_from_here:
+             if self.untitled_num == 0:
+                 for finfo in current_es.data:
+@@ -2453,6 +2453,8 @@ def close_all_files(self):
+     @Slot()
+     def save(self, index=None, force=False):
+         """Save file"""
++        if isinstance(index, bool):
++            index = None
+         editorstack = self.get_current_editorstack()
+         return editorstack.save(index=index, force=force)
+ 
+diff --git a/spyder/plugins/editor/widgets/splitter.py b/spyder/plugins/editor/widgets/splitter.py
+index 022eb7731f6..f6b75ad559c 100644
+--- a/spyder/plugins/editor/widgets/splitter.py
++++ b/spyder/plugins/editor/widgets/splitter.py
+@@ -16,7 +16,7 @@
+ 
+ # Third party imports
+ import qstylizer.style
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.QtCore import QByteArray, Qt, Slot
+ from qtpy.QtWidgets import QSplitter
+ 
+@@ -57,7 +57,7 @@ def __init__(self, parent, main_widget, menu_actions, first=False,
+                         Defaults to main_widget.unregister_editorstack() to
+                         unregister the EditorStack with the EditorMainWidget.
+         """
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent, class_parent=main_widget)
+         else:
+             QSplitter.__init__(self, parent)
+diff --git a/spyder/plugins/explorer/widgets/explorer.py b/spyder/plugins/explorer/widgets/explorer.py
+index 1e3f4c90226..86f5554e2fd 100644
+--- a/spyder/plugins/explorer/widgets/explorer.py
++++ b/spyder/plugins/explorer/widgets/explorer.py
+@@ -19,7 +19,7 @@
+ import sys
+ 
+ # Third party imports
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.compat import getexistingdirectory, getsavefilename
+ from qtpy.QtCore import (
+     QDir,
+@@ -31,7 +31,7 @@
+     Signal,
+     Slot,
+ )
+-from qtpy.QtGui import QDrag
++from qtpy.QtGui import QClipboard, QDrag
+ from qtpy.QtWidgets import (
+     QAbstractItemView,
+     QApplication,
+@@ -334,7 +334,7 @@ def __init__(self, parent=None):
+         parent: QWidget
+             Parent QWidget of the widget.
+         """
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent=parent, class_parent=parent)
+         else:
+             QTreeView.__init__(self, parent)
+@@ -987,7 +987,10 @@ def get_index(self, filename):
+     def get_selected_filenames(self):
+         """Return selected filenames"""
+         fnames = []
+-        if self.selectionMode() == self.ExtendedSelection:
++        if (
++            self.selectionMode()
++            == QAbstractItemView.SelectionMode.ExtendedSelection
++        ):
+             if self.selectionModel() is not None:
+                 fnames = [self.get_filename(idx) for idx in
+                           self.selectionModel().selectedRows()]
+@@ -1270,7 +1273,7 @@ def rename(self, fnames=None):
+     @Slot()
+     def move(self, fnames=None, directory=None):
+         """Move files/directories"""
+-        if fnames is None:
++        if fnames is None or isinstance(fnames, bool):
+             fnames = self.get_selected_filenames()
+         orig = fixpath(osp.dirname(fnames[0]))
+         while True:
+@@ -1444,7 +1447,7 @@ def copy_path(self, fnames=None, method="absolute"):
+                                              clipboard_files)
+             else:
+                 clipboard_files = clipboard_files[0]
+-        cb.setText(clipboard_files, mode=cb.Clipboard)
++        cb.setText(clipboard_files, mode=QClipboard.Mode.Clipboard)
+ 
+     @Slot()
+     def copy_absolute_path(self):
+@@ -1467,7 +1470,7 @@ def copy_file_clipboard(self, fnames=None):
+             file_content = QMimeData()
+             file_content.setUrls([QUrl.fromLocalFile(_fn) for _fn in fnames])
+             cb = QApplication.clipboard()
+-            cb.setMimeData(file_content, mode=cb.Clipboard)
++            cb.setMimeData(file_content, mode=QClipboard.Mode.Clipboard)
+         except Exception as e:
+             QMessageBox.critical(
+                 self, _('File/Folder copy error'),
+@@ -1801,7 +1804,7 @@ def convert_notebooks(self):
+     def new_package(self, basedir=None):
+         """New package"""
+ 
+-        if basedir is None or isinstance(basedir, None):
++        if basedir is None or isinstance(basedir, bool):
+             basedir = self.get_selected_dir()
+ 
+         title = _('New package')
+diff --git a/spyder/plugins/findinfiles/widgets/main_widget.py b/spyder/plugins/findinfiles/widgets/main_widget.py
+index 6bf53dd4685..62762e250fa 100644
+--- a/spyder/plugins/findinfiles/widgets/main_widget.py
++++ b/spyder/plugins/findinfiles/widgets/main_widget.py
+@@ -11,7 +11,7 @@
+ import re
+ 
+ # Third party imports
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.QtCore import Signal
+ from qtpy.QtGui import QFontMetricsF
+ from qtpy.QtWidgets import QInputDialog, QLabel, QStackedWidget, QVBoxLayout
+@@ -128,7 +128,7 @@ class FindInFilesWidget(PluginMainWidget):
+     """
+ 
+     def __init__(self, name=None, plugin=None, parent=None):
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(name, plugin, parent=parent)
+         else:
+             PluginMainWidget.__init__(self, name, plugin, parent=parent)
+diff --git a/spyder/plugins/findinfiles/widgets/results_browser.py b/spyder/plugins/findinfiles/widgets/results_browser.py
+index 3126978c119..b8ab030b451 100644
+--- a/spyder/plugins/findinfiles/widgets/results_browser.py
++++ b/spyder/plugins/findinfiles/widgets/results_browser.py
+@@ -223,7 +223,7 @@ def __init__(self, parent, text_color, max_results=1000):
+         # Signals
+         self.header().sectionClicked.connect(self.sort_section)
+ 
+-    def activated(self, item):
++    def on_item_activated(self, item):
+         """Double-click event."""
+         itemdata = self.data.get(id(self.currentItem()))
+         if itemdata is not None:
+@@ -240,7 +240,7 @@ def set_sorting(self, flag):
+     def sort_section(self, idx):
+         self.setSortingEnabled(True)
+ 
+-    def clicked(self, item):
++    def on_item_clicked(self, item):
+         """Click event."""
+         if isinstance(item, FileMatchItem):
+             if item.isExpanded():
+@@ -248,7 +248,7 @@ def clicked(self, item):
+             else:
+                 self.expandItem(item)
+         else:
+-            self.activated(item)
++            self.on_item_activated(item)
+ 
+     def clear_title(self, search_text):
+         self.font = self.get_font(SpyderFontType.MonospaceInterface)
+diff --git a/spyder/plugins/help/widgets.py b/spyder/plugins/help/widgets.py
+index 7a164907029..68ecca7ad74 100644
+--- a/spyder/plugins/help/widgets.py
++++ b/spyder/plugins/help/widgets.py
+@@ -14,7 +14,7 @@
+ import sys
+ 
+ # Third party imports
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.QtCore import Qt, QUrl, Signal, Slot, QPoint
+ from qtpy.QtGui import QColor
+ from qtpy.QtWidgets import (QActionGroup, QLabel, QLineEdit,
+@@ -156,7 +156,7 @@ class RichText(QWidget, SpyderWidgetMixin):
+     sig_link_clicked = Signal(QUrl)
+ 
+     def __init__(self, parent):
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent, class_parent=parent)
+         else:
+             QWidget.__init__(self, parent)
+diff --git a/spyder/plugins/ipythonconsole/widgets/control.py b/spyder/plugins/ipythonconsole/widgets/control.py
+index ffa7b39f478..367dc475a76 100644
+--- a/spyder/plugins/ipythonconsole/widgets/control.py
++++ b/spyder/plugins/ipythonconsole/widgets/control.py
+@@ -8,7 +8,7 @@
+ 
+ # Third-party imports
+ from qtpy.QtCore import Qt, Signal
+-from qtpy.QtGui import QColor, QTextFrameFormat
++from qtpy.QtGui import QColor, QTextFrameFormat, QTextCursor
+ from qtpy.QtWidgets import QTextEdit
+ 
+ # Local imports
+@@ -67,7 +67,7 @@ def insert_horizontal_ruler(self):
+         ruler.setWidth(10000)
+         ruler.setBackground(QColor(SpyderPalette.COLOR_TEXT_1))
+         cursor = self.textCursor()
+-        cursor.movePosition(cursor.End)
++        cursor.movePosition(QTextCursor.MoveOperation.End)
+         cursor.insertFrame(ruler)
+ 
+     # ---- Private methods
+diff --git a/spyder/plugins/outlineexplorer/widgets.py b/spyder/plugins/outlineexplorer/widgets.py
+index d31fb682a2d..9604a4ccbb9 100644
+--- a/spyder/plugins/outlineexplorer/widgets.py
++++ b/spyder/plugins/outlineexplorer/widgets.py
+@@ -771,7 +771,7 @@ def get_visible_items(self):
+             iterator += 1
+         return items
+ 
+-    def activated(self, item):
++    def on_item_activated(self, item):
+         """Double-click event"""
+         editor_root = self.editor_items.get(
+             self.editor_ids.get(self.current_editor))
+@@ -800,11 +800,11 @@ def activated(self, item):
+                     break
+             break
+ 
+-    def clicked(self, item):
++    def on_item_clicked(self, item):
+         """Click event"""
+         if isinstance(item, FileRootItem):
+             self.root_item_selected(item)
+-        self.activated(item)
++        self.on_item_activated(item)
+ 
+     def selection_switched(self, current_item, previous_item):
+         if current_item is not None:
+diff --git a/spyder/plugins/plots/widgets/figurebrowser.py b/spyder/plugins/plots/widgets/figurebrowser.py
+index db305a4240c..f725b66a0e7 100644
+--- a/spyder/plugins/plots/widgets/figurebrowser.py
++++ b/spyder/plugins/plots/widgets/figurebrowser.py
+@@ -18,7 +18,7 @@
+ 
+ # Third library imports
+ from qtconsole.svg import svg_to_clipboard, svg_to_image
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.compat import getexistingdirectory, getsavefilename
+ from qtpy.QtCore import (
+     QEvent,
+@@ -147,7 +147,7 @@ class FigureBrowser(QWidget, SpyderWidgetMixin):
+     """
+ 
+     def __init__(self, parent=None, background_color=None):
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent=parent, class_parent=parent)
+         else:
+             QWidget.__init__(self, parent)
+@@ -375,7 +375,7 @@ class FigureViewer(QScrollArea, SpyderWidgetMixin):
+     """This signal is emitted when a new figure is loaded."""
+ 
+     def __init__(self, parent=None, background_color=None):
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent, class_parent=parent)
+         else:
+             QScrollArea.__init__(self, parent)
+diff --git a/spyder/plugins/profiler/widgets/main_widget.py b/spyder/plugins/profiler/widgets/main_widget.py
+index a499bc447b1..b4b8fedc68d 100644
+--- a/spyder/plugins/profiler/widgets/main_widget.py
++++ b/spyder/plugins/profiler/widgets/main_widget.py
+@@ -23,7 +23,7 @@
+ from itertools import islice
+ 
+ # Third party imports
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.compat import getopenfilename, getsavefilename
+ from qtpy.QtCore import QByteArray, QProcess, QProcessEnvironment, Qt, Signal
+ from qtpy.QtGui import QColor
+@@ -672,7 +672,7 @@ class ProfilerDataTree(QTreeWidget, SpyderWidgetMixin):
+     sig_edit_goto_requested = Signal(str, int, str)
+ 
+     def __init__(self, parent=None):
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent, class_parent=parent)
+         else:
+             QTreeWidget.__init__(self, parent)
+@@ -944,7 +944,9 @@ def populate_tree(self, parentItem, children_list):
+                 if self.item_depth < 3:
+                     self.populate_tree(child_item, callees)
+                 elif callees:
+-                    child_item.setChildIndicatorPolicy(child_item.ShowIndicator)
++                    child_item.setChildIndicatorPolicy(
++                        QTreeWidgetItem.ChildIndicatorPolicy.ShowIndicator
++                    )
+                     self.items_to_be_shown[id(child_item)] = callees
+             self.item_depth -= 1
+ 
+diff --git a/spyder/plugins/pylint/main_widget.py b/spyder/plugins/pylint/main_widget.py
+index d88bbafc922..f46f1905aff 100644
+--- a/spyder/plugins/pylint/main_widget.py
++++ b/spyder/plugins/pylint/main_widget.py
+@@ -160,14 +160,14 @@ def __init__(self, parent):
+         self.data = None
+         self.set_title("")
+ 
+-    def activated(self, item):
++    def on_item_activated(self, item):
+         """Double-click event"""
+         data = self.data.get(id(item))
+         if data is not None:
+             fname, lineno = data
+             self.sig_edit_goto_requested.emit(fname, lineno, "")
+ 
+-    def clicked(self, item):
++    def on_item_clicked(self, item):
+         """Click event."""
+         if isinstance(item, CategoryItem):
+             if item.isExpanded():
+@@ -175,7 +175,7 @@ def clicked(self, item):
+             else:
+                 self.expandItem(item)
+         else:
+-            self.activated(item)
++            self.on_item_activated(item)
+ 
+     def clear_results(self):
+         self.clear()
+diff --git a/spyder/plugins/pythonpath/widgets/pathmanager.py b/spyder/plugins/pythonpath/widgets/pathmanager.py
+index 97464a2fc71..f1ecc517734 100644
+--- a/spyder/plugins/pythonpath/widgets/pathmanager.py
++++ b/spyder/plugins/pythonpath/widgets/pathmanager.py
+@@ -13,7 +13,7 @@
+ import sys
+ 
+ # Third party imports
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.compat import getexistingdirectory
+ from qtpy.QtCore import QSize, Qt, Signal, Slot
+ from qtpy.QtGui import QFontMetrics
+@@ -59,7 +59,7 @@ class PathManager(QDialog, SpyderWidgetMixin):
+ 
+     def __init__(self, parent, sync=True):
+         """Path manager dialog."""
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent, class_parent=parent)
+         else:
+             QDialog.__init__(self, parent)
+diff --git a/spyder/plugins/switcher/widgets/switcher.py b/spyder/plugins/switcher/widgets/switcher.py
+index 963fd877e24..7afb9cf9df8 100644
+--- a/spyder/plugins/switcher/widgets/switcher.py
++++ b/spyder/plugins/switcher/widgets/switcher.py
+@@ -8,7 +8,15 @@
+ 
+ 
+ # Third party imports
+-from qtpy.QtCore import QEvent, QObject, Qt, Signal, Slot, QModelIndex
++from qtpy.QtCore import (
++    QEvent,
++    QItemSelectionModel,
++    QModelIndex,
++    QObject,
++    Qt,
++    Signal,
++    Slot,
++)
+ from qtpy.QtGui import QStandardItemModel
+ from qtpy.QtWidgets import (QAbstractItemView, QDialog, QLineEdit,
+                             QListView, QListWidgetItem, QStyle,
+@@ -220,9 +228,7 @@ def _add_item(self, item, last_item=True):
+     def clear(self):
+         """Remove all items from the list and clear the search text."""
+         self.set_placeholder_text('')
+-        self.model.beginResetModel()
+         self.model.clear()
+-        self.model.endResetModel()
+         self.setMinimumHeight(self._MIN_HEIGHT)
+ 
+     def set_placeholder_text(self, text):
+@@ -530,7 +536,7 @@ def set_current_row(self, row):
+ 
+         # https://doc.qt.io/qt-5/qitemselectionmodel.html#SelectionFlag-enum
+         selection_model.setCurrentIndex(
+-            proxy_index, selection_model.ClearAndSelect
++            proxy_index, QItemSelectionModel.SelectionFlag.ClearAndSelect
+         )
+ 
+         # Ensure that the selected item is visible
+diff --git a/spyder/plugins/toolbar/container.py b/spyder/plugins/toolbar/container.py
+index c9a248dd611..b00d726f664 100644
+--- a/spyder/plugins/toolbar/container.py
++++ b/spyder/plugins/toolbar/container.py
+@@ -16,7 +16,7 @@
+ # Third party imports
+ from qtpy.QtCore import QSize, Slot
+ from qtpy.QtWidgets import QAction, QWidget
+-from qtpy import PYSIDE2
++from qtpy import PYSIDE2, PYSIDE6
+ 
+ # Local imports
+ from spyder.api.exceptions import SpyderAPIError
+@@ -469,7 +469,7 @@ def create_toolbars_menu(self):
+                 # MainWindow and EditorMainWindow.
+                 action.triggered.connect(self.save_last_visible_toolbars)
+ 
+-                if not PYSIDE2:
++                if not (PYSIDE2 or PYSIDE6):
+                     # Modifying __class__ of a QObject created by C++ [1] seems
+                     # to invalidate the corresponding Python object when PySide
+                     # is used (changing __class__ of a QObject created in
+diff --git a/spyder/plugins/variableexplorer/widgets/namespacebrowser.py b/spyder/plugins/variableexplorer/widgets/namespacebrowser.py
+index cdc9dc5fc77..f6a211e0c6d 100644
+--- a/spyder/plugins/variableexplorer/widgets/namespacebrowser.py
++++ b/spyder/plugins/variableexplorer/widgets/namespacebrowser.py
+@@ -17,7 +17,7 @@
+ import tarfile
+ 
+ # Third library imports
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.compat import getopenfilenames, getsavefilename
+ from qtpy.QtCore import Qt, Signal, Slot
+ from qtpy.QtGui import QCursor
+@@ -74,7 +74,7 @@ class NamespaceBrowser(QWidget, SpyderWidgetMixin):
+     """
+ 
+     def __init__(self, parent):
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent=parent, class_parent=parent)
+         else:
+             QWidget.__init__(self, parent)
+diff --git a/spyder/plugins/workingdirectory/container.py b/spyder/plugins/workingdirectory/container.py
+index b3370e1fd66..303d654908b 100644
+--- a/spyder/plugins/workingdirectory/container.py
++++ b/spyder/plugins/workingdirectory/container.py
+@@ -280,7 +280,7 @@ def _get_init_workdir(self):
+         return workdir
+ 
+     @Slot()
+-    def _select_directory(self, directory=None):
++    def _select_directory(self):
+         """
+         Select working directory.
+ 
+@@ -293,14 +293,13 @@ def _select_directory(self, directory=None):
+         -----
+         If directory is None, a get directory dialog will be used.
+         """
+-        if directory is None:
+-            self.sig_redirect_stdio_requested.emit(False)
+-            directory = getexistingdirectory(
+-                self,
+-                _("Select directory"),
+-                getcwd_or_home(),
+-            )
+-            self.sig_redirect_stdio_requested.emit(True)
++        self.sig_redirect_stdio_requested.emit(False)
++        directory = getexistingdirectory(
++            self,
++            _("Select directory"),
++            getcwd_or_home(),
++        )
++        self.sig_redirect_stdio_requested.emit(True)
+ 
+         if directory:
+             self.chdir(directory)
+diff --git a/spyder/widgets/browser.py b/spyder/widgets/browser.py
+index a53cfeaccc6..11414d40c4e 100644
+--- a/spyder/widgets/browser.py
++++ b/spyder/widgets/browser.py
+@@ -12,7 +12,7 @@
+ 
+ # Third party imports
+ import qstylizer.style
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.QtCore import QEvent, Qt, QUrl, Signal, Slot
+ from qtpy.QtGui import QFontInfo
+ from qtpy.QtWebEngineWidgets import (WEBENGINE, QWebEnginePage,
+@@ -98,7 +98,7 @@ class WebView(QWebEngineView, SpyderWidgetMixin):
+ 
+     def __init__(self, parent, handle_links=True, class_parent=None):
+         class_parent = parent if class_parent is None else class_parent
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent, class_parent=class_parent)
+         else:
+             QWebEngineView.__init__(self, parent)
+diff --git a/spyder/widgets/comboboxes.py b/spyder/widgets/comboboxes.py
+index 2a5b9944469..14aefdedad5 100644
+--- a/spyder/widgets/comboboxes.py
++++ b/spyder/widgets/comboboxes.py
+@@ -18,6 +18,7 @@
+ import os.path as osp
+ 
+ # Third party imports
++from qtpy import PYSIDE2
+ from qtpy.QtCore import QEvent, Qt, QTimer, QUrl, Signal, QSize
+ from qtpy.QtGui import QFont
+ from qtpy.QtWidgets import (
+@@ -152,7 +153,10 @@ class PatternComboBox(BaseComboBox):
+ 
+     def __init__(self, parent, items=None, tip=None,
+                  adjust_to_minimum=True, id_=None):
+-        BaseComboBox.__init__(self, parent)
++        if not PYSIDE2:
++            super().__init__(parent)
++        else:
++            BaseComboBox.__init__(self, parent)
+ 
+         if adjust_to_minimum:
+             self.setSizeAdjustPolicy(
+@@ -180,7 +184,11 @@ class EditableComboBox(BaseComboBox):
+     """
+ 
+     def __init__(self, parent):
+-        BaseComboBox.__init__(self, parent)
++        if not PYSIDE2:
++            super().__init__(parent)
++        else:
++            BaseComboBox.__init__(self, parent)
++
+         self.font = QFont()
+         self.selected_text = self.currentText()
+ 
+@@ -225,7 +233,10 @@ class PathComboBox(EditableComboBox):
+ 
+     def __init__(self, parent, adjust_to_contents=False, id_=None,
+                  elide_text=False, ellipsis_place=Qt.ElideLeft):
+-        EditableComboBox.__init__(self, parent)
++        if not PYSIDE2:
++            super().__init__(parent)
++        else:
++            EditableComboBox.__init__(self, parent)
+ 
+         # Replace the default lineedit with a custom one with icon display
+         # and elided text
+@@ -346,7 +357,11 @@ class UrlComboBox(PathComboBox):
+     QComboBox handling urls
+     """
+     def __init__(self, parent, adjust_to_contents=False, id_=None):
+-        PathComboBox.__init__(self, parent, adjust_to_contents)
++        if not PYSIDE2:
++            super().__init__(parent, adjust_to_contents)
++        else:
++            PathComboBox.__init__(self, parent, adjust_to_contents)
++
+         line_edit = QLineEdit(self)
+         self.setLineEdit(line_edit)
+         self.editTextChanged.disconnect(self.validate)
+@@ -367,7 +382,10 @@ class FileComboBox(PathComboBox):
+     """
+     def __init__(self, parent=None, adjust_to_contents=False,
+                  default_line_edit=False):
+-        PathComboBox.__init__(self, parent, adjust_to_contents)
++        if not PYSIDE2:
++            super().__init__(parent, adjust_to_contents)
++        else:
++            PathComboBox.__init__(self, parent, adjust_to_contents)
+ 
+         if default_line_edit:
+             line_edit = QLineEdit(self)
+@@ -430,7 +448,11 @@ class PythonModulesComboBox(PathComboBox):
+     (i.e. .py, .pyw files *and* directories containing __init__.py)
+     """
+     def __init__(self, parent, adjust_to_contents=False, id_=None):
+-        PathComboBox.__init__(self, parent, adjust_to_contents)
++        if not PYSIDE2:
++            super().__init__(parent, adjust_to_contents)
++        else:
++            PathComboBox.__init__(self, parent, adjust_to_contents)
++
+         if id_ is not None:
+             self.ID = id_
+ 
+diff --git a/spyder/widgets/findreplace.py b/spyder/widgets/findreplace.py
+index 98ae2934014..19002c34be3 100644
+--- a/spyder/widgets/findreplace.py
++++ b/spyder/widgets/findreplace.py
+@@ -16,6 +16,7 @@
+ import sys
+ 
+ # Third party imports
++from qtpy import PYSIDE2
+ from qtpy.QtCore import QEvent, QSize, Qt, QTimer, Signal, Slot
+ from qtpy.QtGui import QPixmap, QTextCursor
+ from qtpy.QtWidgets import (QAction, QGridLayout, QHBoxLayout, QLabel,
+@@ -71,7 +72,10 @@ class FindReplace(QWidget, SpyderShortcutsMixin):
+     return_pressed = Signal()
+ 
+     def __init__(self, parent, enable_replace=False):
+-        QWidget.__init__(self, parent)
++        if not PYSIDE2:
++            super().__init__(parent)
++        else:
++            QWidget.__init__(self, parent)
+         SpyderShortcutsMixin.__init__(self)
+         self.enable_replace = enable_replace
+         self.editor = None
+diff --git a/spyder/widgets/onecolumntree.py b/spyder/widgets/onecolumntree.py
+index 8f5091529f5..b3b2c760e30 100644
+--- a/spyder/widgets/onecolumntree.py
++++ b/spyder/widgets/onecolumntree.py
+@@ -5,7 +5,7 @@
+ # (see spyder/__init__.py for details)
+ 
+ # Third party imports
+-from qtpy import PYQT5, PYQT6
++from qtpy import PYSIDE2
+ from qtpy.QtCore import Qt, Slot
+ from qtpy.QtWidgets import QAbstractItemView, QHeaderView, QTreeWidget
+ 
+@@ -37,7 +37,7 @@ class OneColumnTree(QTreeWidget, SpyderWidgetMixin):
+     """
+ 
+     def __init__(self, parent):
+-        if PYQT5 or PYQT6:
++        if not PYSIDE2:
+             super().__init__(parent, class_parent=parent)
+         else:
+             QTreeWidget.__init__(self, parent)
+@@ -58,9 +58,9 @@ def __init__(self, parent):
+         self.common_actions = self.setup_common_actions()
+ 
+         # Signals
+-        self.itemActivated.connect(self.activated)
+-        self.itemClicked.connect(self.clicked)
+-        self.itemSelectionChanged.connect(self.item_selection_changed)
++        self.itemActivated.connect(self.on_item_activated)
++        self.itemClicked.connect(self.on_item_clicked)
++        self.itemSelectionChanged.connect(self.on_item_selection_changed)
+ 
+         # To use mouseMoveEvent
+         self.setMouseTracking(True)
+@@ -70,7 +70,7 @@ def __init__(self, parent):
+         self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+         self.header().setStretchLastSection(False)
+ 
+-        self.item_selection_changed()
++        self.on_item_selection_changed()
+ 
+     # ---- SpyderWidgetMixin API
+     # -------------------------------------------------------------------------
+@@ -139,11 +139,11 @@ def update_actions(self):
+ 
+     # ---- Public API
+     # -------------------------------------------------------------------------
+-    def activated(self, item):
++    def on_item_activated(self, item):
+         """Double-click event"""
+         raise NotImplementedError
+ 
+-    def clicked(self, item):
++    def on_item_clicked(self, item):
+         pass
+ 
+     def set_title(self, title):
+@@ -213,7 +213,7 @@ def collapse_selection(self):
+         if items:
+             self.scrollToItem(items[0])
+ 
+-    def item_selection_changed(self):
++    def on_item_selection_changed(self):
+         """Item selection has changed"""
+         is_selection = len(self.selectedItems()) > 0
+         self.expand_selection_action.setEnabled(is_selection)

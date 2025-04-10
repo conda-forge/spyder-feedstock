@@ -1,6 +1,6 @@
 {% set version = "6.0.5" %}
 {% set python_min = "3.8" %}
-{% set build = 1 %}
+{% set build = 2 %}
 
 package:
   name: spyder-base
@@ -12,6 +12,9 @@ source:
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
+    # Needed until 6.1 lands:
+    # https://github.com/spyder-ide/spyder/pull/23732
+    - 23732_fixes_to_make_the_app_work_with_pyside6.patch
     # https://github.com/spyder-ide/spyder/pull/24156
     # https://github.com/spyder-ide/spyder/pull/24095
     # https://github.com/spyder-ide/spyder/pull/23703
