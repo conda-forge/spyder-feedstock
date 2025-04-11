@@ -54,7 +54,7 @@ ulimit -n 1024
 # "recipe/yum_requirements.txt" file. After updating that file,
 # run "conda smithy rerender" and this line will be updated
 # automatically.
-/usr/bin/sudo -n yum install -y xorg-x11-server-Xvfb
+/usr/bin/sudo -n yum install -y mesa-libGL mesa-libEGL mesa-dri-drivers libglvnd-glx xorg-x11-server-Xvfb xorg-x11-server-Xorg xcb-util xcb-util-image xcb-util-keysyms xcb-util-renderutil xcb-util-wm libxcb
 )
 
 # make the build number clobber

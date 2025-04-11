@@ -9,6 +9,10 @@ conda_forge_output_validation: true
 github:
   branch_name: main
   tooling_branch_name: main
+# We have to set this otherwise we get an error when trying to actually spin up the GUI,
+# probably related to how pyqt-feedstock is built on cos7. PySide6 is also built on cos7.
+os_version:
+  linux_64: cos7
 provider:
   linux_aarch64: default
   win: azure
