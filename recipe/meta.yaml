@@ -53,7 +53,6 @@ requirements:
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
-    - fcitx-qt5 >=1.2.7  # [linux]
     - fzf >=0.42.0
     - importlib-metadata >=4.6.0
     - intervaltree >=3.0.2
@@ -103,11 +102,15 @@ requirements:
     - spyder =={{ version }}=*{{ build }}
 
 test:
+  files:
+    - test_gui.sh
   requires:
     - pip
+    - pyside6
   commands:
     - spyder -h
     - python -m pip check
+    - bash test_gui.sh
   imports:
     - spyder
 
@@ -128,6 +131,8 @@ outputs:
         - pyqt >=5.15,<5.16
         - pyqtwebengine >=5.15,<5.16
         - qtconsole >=5.6.1,<5.7.0
+        # https://github.com/conda-forge/fcitx-qt5-feedstock/issues/7
+        - fcitx-qt5 >=1.2.7  # [linux]
     test:
       requires:
         - pip
