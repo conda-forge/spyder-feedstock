@@ -10,7 +10,6 @@ else
     export EXTRA=
 fi
 set +x
-which spyder
 $EXTRA timeout $TO spyder
 set -x
 RESULT=$?

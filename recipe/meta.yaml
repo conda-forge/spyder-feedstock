@@ -132,11 +132,11 @@ outputs:
         - test_gui.sh
       requires:
         - pip
-        - coreutils  # [osx]
+        - coreutils  # [osx and win]
       commands:
         - spyder -h
         - python -m pip check
-        - bash test_gui.sh
+        - bash test_gui.sh  # [win]
       imports:
         - spyder
 
