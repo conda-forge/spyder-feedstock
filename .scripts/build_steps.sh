@@ -43,7 +43,19 @@ setup_conda_rc "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
 
 source run_conda_forge_build_setup
 
+(
+# Due to https://bugzilla.redhat.com/show_bug.cgi?id=1537564 old versions of rpm
+# are drastically slowed down when the number of file descriptors is very high.
+# This can be visible during a `yum install` step of a feedstock build.
+# => Set a lower limit in a subshell for the `yum install`s only.
+ulimit -n 1024
 
+# Install the yum requirements defined canonically in the
+# "recipe/yum_requirements.txt" file. After updating that file,
+# run "conda smithy rerender" and this line will be updated
+# automatically.
+/usr/bin/sudo -n yum install -y mesa-libGL mesa-libEGL mesa-dri-drivers libglvnd-glx xorg-x11-server-Xvfb xorg-x11-server-Xorg xcb-util xcb-util-image xcb-util-keysyms xcb-util-renderutil xcb-util-wm libxcb
+)
 
 # make the build number clobber
 make_build_number "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"

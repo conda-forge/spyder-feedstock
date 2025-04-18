@@ -1,6 +1,6 @@
 {% set version = "6.0.5" %}
 {% set python_min = "3.8" %}
-{% set build = 2 %}
+{% set build = 3 %}
 
 package:
   name: spyder-base
@@ -12,6 +12,7 @@ source:
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
+    # Needed until 6.1 lands:
     # https://github.com/spyder-ide/spyder/pull/24156
     # https://github.com/spyder-ide/spyder/pull/24095
     # https://github.com/spyder-ide/spyder/pull/23703
@@ -125,12 +126,18 @@ outputs:
         - pyqt >=5.15,<5.16
         - pyqtwebengine >=5.15,<5.16
         - qtconsole >=5.6.1,<5.7.0
+        # https://github.com/conda-forge/fcitx-qt5-feedstock/issues/7
+        - fcitx-qt5 >=1.2.7  # [linux]
     test:
+      files:
+        - test_gui.sh
       requires:
         - pip
+        - coreutils  # [osx]
       commands:
         - spyder -h
         - python -m pip check
+        - bash test_gui.sh
       imports:
         - spyder
 
