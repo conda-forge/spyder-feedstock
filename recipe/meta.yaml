@@ -1,6 +1,6 @@
-{% set version = "6.1.0a1" %}
+{% set version = "6.1.0a2" %}
 {% set python_min = "3.8" %}
-{% set build = 2 %}
+{% set build = 0 %}
 
 package:
   name: spyder-base
@@ -8,10 +8,15 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 6238a2d5852675676bad22dededac0a004c95edd9b7e3734257e4204c54812af
+  sha256: 29b19f1bd4f75e46179ed210c77db99986f4061f1cd2275bfb6e5ac059560fdb
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
+    # https://github.com/spyder-ide/spyder/pull/24156
+    # https://github.com/spyder-ide/spyder/pull/24095
+    # https://github.com/spyder-ide/spyder/pull/23703
+    # https://github.com/conda-forge/spyder-feedstock/issues/175
+    - 24095_24156_qtwebengine_optional.patch
 
 build:
   number: {{ build }}
@@ -41,11 +46,11 @@ requirements:
     - applaunchservices >=0.3.0  # [osx]
     - asyncssh >=2.14.0,<3.0.0
     - atomicwrites >=1.2.0
+    - bcrypt >=4.3.0
     - chardet >=2.0.0
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
-    - fcitx-qt5 >=1.2.7  # [linux]
     - fzf >=0.42.0
     - importlib-metadata >=4.6.0
     - intervaltree >=3.0.2
@@ -118,6 +123,7 @@ outputs:
     requirements:
       run:
         - spyder-base =={{ version }}=*{{ build }}
+        - fcitx-qt5 >=1.2.7  # [linux]
         - pyqt >=5.15,<5.16
         - pyqtwebengine >=5.15,<5.16
         - qtconsole >=5.6.1,<5.7.0
