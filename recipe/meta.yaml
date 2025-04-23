@@ -1,6 +1,6 @@
 {% set version = "6.0.5" %}
 {% set python_min = "3.8" %}
-{% set build = 2 %}
+{% set build = 3 %}
 
 package:
   name: spyder-base
@@ -118,6 +118,7 @@ outputs:
   - name: spyder
     build:
       noarch: python
+      string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
     requirements:
       run:
         - spyder-base =={{ version }}=*{{ build }}
@@ -125,6 +126,7 @@ outputs:
         - pyqt >=5.15,<5.16
         - pyqtwebengine >=5.15,<5.16
         - qtconsole >=5.6.1,<5.7.0
+        - __linux  # [linux]
     test:
       requires:
         - pip
