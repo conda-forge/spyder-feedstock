@@ -1,4 +1,4 @@
-{% set version = "6.0.6rc1" %}
+{% set version = "6.0.7rc1" %}
 {% set python_min = "3.8" %}
 {% set build = 0 %}
 
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 639c3c3f63dc33d264b8555941f0db83692c23658c129def603cbfa97f97c80d
+  sha256: 86c3c14139cf9b5ac920fdd226db86f86743b8fbdc50e1ddfe9a47955bb19181
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -81,7 +81,7 @@ requirements:
     - rtree >=0.9.7
     - setuptools >=49.6.0
     - sphinx >=0.6.6
-    - spyder-kernels >=3.0.4,<3.1.0
+    - spyder-kernels >=3.0.5,<3.1.0
     - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
