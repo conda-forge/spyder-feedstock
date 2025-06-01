@@ -158,6 +158,7 @@ about:
 extra:
   feedstock-name: spyder
   recipe-maintainers:
+    - CAM-Gerlach
     - ccordoba12
     - dalthviz
     - mrclary
