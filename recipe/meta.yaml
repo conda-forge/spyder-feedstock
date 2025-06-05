@@ -1,6 +1,6 @@
-{% set version = "6.1.0a2" %}
+{% set version = "6.1.0a3" %}
 {% set python_min = "3.9" %}
-{% set build = 2 %}
+{% set build = 0 %}
 
 package:
   name: spyder-base
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 29b19f1bd4f75e46179ed210c77db99986f4061f1cd2275bfb6e5ac059560fdb
+  sha256: 6d2052a9e95f6d0c68a2c714efa6020d63258cd0f3b7ef3cac7b34271ac523cf
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -37,7 +37,7 @@ requirements:
   run:
     - python >={{ python_min }}  # [unix]
     - python                     # [win]
-    - aiohttp >=3.9.3
+    - aiohttp >=3.11.2
     - applaunchservices >=0.3.0  # [osx]
     - asyncssh >=2.14.0,<3.0.0
     - atomicwrites >=1.2.0
@@ -82,7 +82,7 @@ requirements:
     - qtpy >=2.4.0
     - rtree >=0.9.7
     - sphinx >=0.6.6
-    - spyder-kernels >=3.1.0a1,<3.2.0
+    - spyder-kernels >=3.1.0a2,<3.2.0
     - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
@@ -159,6 +159,7 @@ about:
 extra:
   feedstock-name: spyder
   recipe-maintainers:
+    - CAM-Gerlach
     - ccordoba12
     - dalthviz
     - mrclary
