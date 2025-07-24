@@ -15,6 +15,17 @@ if exist "%menudir%\conda-based-app" (
     rem  Abridge shortcut name
     call :patch " ^({{ ENV_NAME }}^)=" %menu%
 
+    rem  Prevent using user site-packages
+    rem  See https://github.com/spyder-ide/spyder/issues/24773
+    set site=%PREFIX%\envs\spyder-runtime\Lib\site.py
+    set site_tmp=%PREFIX%\envs\spyder-runtime\Lib\site.py.bak
+    (for /f "delims=" %%i in ('type "%site%" ^| findstr /n "^"') do (
+        set "s=%%i"
+        set "s=!s:*:=!"
+        if "!s!"=="ENABLE_USER_SITE = None" set s=!s:None=False!
+        echo.!s!
+    )) > %site_tmp% && move /y %site_tmp% %site% >nul
+
     rem  Nothing more to do for conda-based install
     goto :exit
 )
@@ -39,11 +50,11 @@ for /F "tokens=*" %%i in (
 :patch
     set tmpmenu=%menudir%\tmp.json
     set findreplace=%~1
-    for /f "delims=" %%a in (%~2) do (
-        set s=%%a
-        echo !s:%findreplace%!>> "%tmpmenu%"
-    )
-    move /y "%tmpmenu%" "%~2"
+    (for /f "delims=" %%a in ('type "%~2" ^| findstr /n "^"') do (
+        set "s=%%a"
+        set "s=!s:*:=!"
+        echo !s:%findreplace%!
+    )) > "%tmpmenu%" && move /y "%tmpmenu%" "%~2" >nul
     goto :eof
 
 :use_menu_v1
