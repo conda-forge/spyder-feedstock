@@ -1,6 +1,6 @@
 {% set version = "6.1.0a4" %}
 {% set python_min = "3.9" %}
-{% set build = 1 %}
+{% set build = 2 %}
 
 package:
   name: spyder-base
@@ -9,9 +9,6 @@ package:
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
   sha256: 4521131da4e6f1007f96efa3cc728dcd90de858446814808f74c03d69d1bd715
-  patches:
-    # See spyder-ide/spyder#8316
-    - osx-zmq.patch
 
 build:
   number: {{ build }}
