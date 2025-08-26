@@ -1,6 +1,6 @@
-{% set version = "6.0.7" %}
+{% set version = "6.0.8" %}
 {% set python_min = "3.8" %}
-{% set build = 2 %}
+{% set build = 0 %}
 
 package:
   name: spyder-base
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 431a0c46a34a6490664763d47b1e48f3be03e75e7e43c37adb239022e8b062cf
+  sha256: be62114d10c4339b1c0b22e702ea90597fbb19f269a8d6c700b4693a9eb12b63
   patches:
     # See spyder-ide/spyder#8316
     - osx-zmq.patch
@@ -20,7 +20,7 @@ build:
   osx_is_app: true
   # https://github.com/conda/conda-build/issues/5385
   noarch: python  # [unix]
-  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
+  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [osx]
   string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
 
 requirements:
