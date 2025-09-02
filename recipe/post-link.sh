@@ -3,9 +3,12 @@ set -e
 
 [[ $(sed --version 2>/dev/null) ]] && opts=("-i" "-E") || opts=("-i" "" "-E")
 menu="${PREFIX}/Menu/spyder-menu.json"
+umenu="${PREFIX}/Menu/spyder-uninstall-menu.json"
 
 if [[ -f "${PREFIX}/Menu/conda-based-app" ]]; then
-    # Installed in installer environment, abridge shortcut name
+    # Installed using our installer...
+
+    # Abridge shortcut name
     sed "${opts[@]}" "s/ \(\{\{ ENV_NAME \}\}\)//g" $menu
     sed "${opts[@]}" "s/-__CFBID_ENV__//g" $menu
 
@@ -18,6 +21,12 @@ if [[ -f "${PREFIX}/Menu/conda-based-app" ]]; then
     exit
 fi
 
+# Not using our installer...
+
+# Do not create uninstall shortcut
+rm -f $umenu || true
+
+# Use environment name in shortcut name
 env_name=$(basename ${PREFIX//_/-})
 sed "${opts[@]}" "s/__CFBID_ENV__/${env_name}/g" $menu
 

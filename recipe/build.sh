@@ -11,7 +11,11 @@ rm -rf $SP_DIR/Sphinx-*
 mkdir -p "${PREFIX}/Menu"
 
 # Copy menu.json template, replacing version
-sed -e "s/__PKG_VERSION__/${PKG_VERSION}/g" -e "s/__PKG_MAJOR_VER__/${PKG_VERSION%%.*}/g" "${RECIPE_DIR}/spyder-menu-unix.json" > "${PREFIX}/Menu/spyder-menu.json"
+function replace(){
+    sed -e "s/__PKG_VERSION__/${PKG_VERSION}/g" -e "s/__PKG_MAJOR_VER__/${PKG_VERSION%%.*}/g" "$1" > "$2"
+}
+replace "${RECIPE_DIR}/spyder-menu-unix.json" "${PREFIX}/Menu/spyder-menu.json"
+replace "${RECIPE_DIR}/spyder-uninstall-menu.json" "${PREFIX}/Menu/spyder-uninstall-menu.json"
 
 # Copy application icons
 if [[ $OSTYPE == "darwin"* ]]; then
