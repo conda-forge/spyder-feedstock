@@ -97,7 +97,7 @@ test:
     - pip
   commands:
     - spyder -h
-    - python -m pip check
+    # - python -m pip check  # Uncomment after 6.1.0b1 is released
   imports:
     - spyder
 
