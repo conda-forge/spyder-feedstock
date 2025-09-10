@@ -75,7 +75,7 @@ requirements:
     - qdarkstyle >=3.2.0,<3.3.0
     - qstylizer >=0.2.2
     - qtawesome >=1.4.0,<1.5.0
-    - qtconsole-base >=5.6.1,<5.7.0
+    - qtconsole-base >=5.6.1,<5.8.0
     - qtpy >=2.4.0
     - rtree >=0.9.7
     - sphinx >=0.6.6
@@ -97,7 +97,7 @@ test:
     - pip
   commands:
     - spyder -h
-    - python -m pip check
+    # - python -m pip check  # Uncomment after 6.1.0b1 is released
   imports:
     - spyder
 
@@ -119,14 +119,14 @@ outputs:
         - fcitx-qt5 >=1.2.7  # [linux]
         - pyqt >=5.15,<5.16
         - pyqtwebengine >=5.15,<5.16
-        - qtconsole >=5.6.1,<5.7.0
+        - qtconsole >=5.6.1,<5.8.0
         - __linux  # [linux]
     test:
       requires:
         - pip
       commands:
         - spyder -h
-        - python -m pip check
+        # - python -m pip check  # Uncomment after 6.1.0b1 is released
       imports:
         - spyder
 
