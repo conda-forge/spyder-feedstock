@@ -79,7 +79,8 @@ requirements:
     - qtpy >=2.4.0
     - rtree >=0.9.7
     - sphinx >=0.6.6
-    - spyder-kernels >=3.1.0b1,<3.2.0
+    - spyder-kernels ==3.1.0b1=*unix*  # [unix]
+    - spyder-kernels ==3.1.0b1=*win*  # [win]
     - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
