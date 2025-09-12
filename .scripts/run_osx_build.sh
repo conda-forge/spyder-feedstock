@@ -37,7 +37,8 @@ rm -rf "${MAMBA_ROOT_PREFIX}" "${micromamba_exe}" || true
 echo "Activating environment"
 source "${MINIFORGE_HOME}/etc/profile.d/conda.sh"
 conda activate base
-export CONDA_SOLVER="classic"
+export CONDA_SOLVER="libmamba"
+export CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1
 
 
 

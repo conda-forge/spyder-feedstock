@@ -44,8 +44,9 @@ call :start_group "Configuring conda"
 echo Activating environment
 call "%MINIFORGE_HOME%\Scripts\activate.bat"
 :: Configure the solver
-set "CONDA_SOLVER=classic"
+set "CONDA_SOLVER=libmamba"
 if !errorlevel! neq 0 exit /b !errorlevel!
+set "CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1"
 
 :: Set basic configuration
 echo Setting up configuration
