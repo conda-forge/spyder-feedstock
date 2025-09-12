@@ -7,8 +7,9 @@ if errorlevel 1 exit 1
 set MENU_DIR=%PREFIX%\Menu
 IF NOT EXIST (%MENU_DIR%) mkdir %MENU_DIR%
 
-rem  Copy Spyder's icon
+rem  Copy Spyder's icons
 copy %RECIPE_DIR%\spyder.ico %MENU_DIR%\spyder.ico
+copy %RECIPE_DIR%\reset_preferences.ico %MENU_DIR%\reset_preferences.ico
 
 rem  Replace variables in menu files
 for /F "delims=. tokens=1" %%i in ("%PKG_VERSION%") do set PKG_MAJOR_VER=%%i
