@@ -9,6 +9,11 @@ if [[ -f "${PREFIX}/Menu/conda-based-app" ]]; then
     sed "${opts[@]}" "s/ \(\{\{ ENV_NAME \}\}\)//g" $menu
     sed "${opts[@]}" "s/-__CFBID_ENV__//g" $menu
 
+    # Prevent using user site-packages
+    # See https://github.com/spyder-ide/spyder/issues/24773
+    site=$(find ${PREFIX}/lib/python* -name "site.py")
+    sed "${opts[@]}" 's/^ENABLE_USER_SITE = None/ENABLE_USER_SITE = False/g' "${site}"
+
     # Nothing more to do for conda-based-installers
     exit
 fi
