@@ -1,5 +1,5 @@
 channel_sources:
-- conda-forge,conda-forge/label/spyder_kernels_rc
+- conda-forge/label/spyder_kernels_rc,conda-forge
 channel_targets:
 - conda-forge spyder_rc
 pin_run_as_build:
