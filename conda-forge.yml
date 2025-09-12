@@ -18,4 +18,3 @@ noarch_platforms:
   - osx_64
 azure:
   store_build_artifacts: True
-conda_solver: classic
