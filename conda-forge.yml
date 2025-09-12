@@ -18,3 +18,4 @@ noarch_platforms:
   - osx_64
 azure:
   store_build_artifacts: True
+conda_build_tool: mambabuild
