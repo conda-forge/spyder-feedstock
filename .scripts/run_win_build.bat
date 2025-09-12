@@ -31,7 +31,7 @@ if !errorlevel! neq 0 exit /b !errorlevel!
 echo Creating environment
 call "%MICROMAMBA_EXE%" create --yes --root-prefix "%MAMBA_ROOT_PREFIX%" --prefix "%MINIFORGE_HOME%" ^
     --channel conda-forge ^
-    pip python=3.12 conda-build boa conda-forge-ci-setup=4 "conda-build>=24.1"
+    pip python=3.12 conda-build conda-forge-ci-setup=4 "conda-build>=24.1"
 if !errorlevel! neq 0 exit /b !errorlevel!
 echo Removing %MAMBA_ROOT_PREFIX%
 del /S /Q "%MAMBA_ROOT_PREFIX%" >nul
@@ -44,9 +44,8 @@ call :start_group "Configuring conda"
 echo Activating environment
 call "%MINIFORGE_HOME%\Scripts\activate.bat"
 :: Configure the solver
-set "CONDA_SOLVER=libmamba"
+set "CONDA_SOLVER=classic"
 if !errorlevel! neq 0 exit /b !errorlevel!
-set "CONDA_LIBMAMBA_SOLVER_NO_CHANNELS_FROM_INSTALLED=1"
 
 :: Set basic configuration
 echo Setting up configuration
@@ -76,7 +75,7 @@ call :end_group
 
 :: Build the recipe
 echo Building recipe
-conda-mambabuild.exe "recipe" -m .ci_support\%CONFIG%.yaml --suppress-variables %EXTRA_CB_OPTIONS%
+conda-build.exe "recipe" -m .ci_support\%CONFIG%.yaml --suppress-variables %EXTRA_CB_OPTIONS%
 if !errorlevel! neq 0 exit /b !errorlevel!
 
 call :start_group "Inspecting artifacts"
