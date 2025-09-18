@@ -1,4 +1,4 @@
-{% set version = "6.1.0b1" %}
+{% set version = "6.1.0b2" %}
 {% set python_min = "3.9" %}
 {% set build = 0 %}
 
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: aaa5b51f3b6b028365255c9bdef62d05aa2d23075f9baeb6111142ed959cf8ab
+  sha256: a0fafe8b240b73b2963299d3cfc4d75698889f9b9f6cae9dbd9b0c40bd69224c
 
 build:
   number: {{ build }}
