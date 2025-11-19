@@ -90,7 +90,6 @@ requirements:
     - __linux  # [linux]
     - __osx    # [osx]
   run_constrained:
-    - menuinst >=2.1.2
     - spyder =={{ version }}=*{{ build }}
 
 test:

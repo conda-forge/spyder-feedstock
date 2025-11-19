@@ -35,6 +35,10 @@
                     "CFBundleName": "Spyder __PKG_MAJOR_VER__",
                     "CFBundleIdentifier": "org.spyder-ide.Spyder-__PKG_MAJOR_VER__-__CFBID_ENV__",
                     "CFBundleVersion": "__PKG_VERSION__",
+                    "NSAudioCaptureUsageDescription": "A Python process requires audio capture",
+                    "NSMainCameraUsageDescription": "A Python process requires the camera",
+                    "NSCameraUsageDescription": "A Python process requires the camera",
+                    "NSMicrophoneUsageDescription": "A Python process requires the microphone",
                     "CFBundleDocumentTypes": [
                         {
                             "CFBundleTypeName": "text document",
