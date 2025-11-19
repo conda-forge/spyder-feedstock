@@ -1,4 +1,4 @@
-{% set version = "6.1.0rc2" %}
+{% set version = "6.1.1rc1" %}
 {% set python_min = "3.9" %}
 {% set build = 0 %}
 
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: dbf1f9b6f7a53fecbba1d446c225b068ab9db50963cecaf4186d770033071c0d
+  sha256: 6025ed0a24a82509d83a8bd9afc49fb55fcb50468cd0c7ff08a6fdb05ab3b2f2
 
 build:
   number: {{ build }}
@@ -69,7 +69,7 @@ requirements:
     - python.app  # [osx]
     - python-lsp-black >=2.0.0,<3.0.0
     - python-lsp-ruff >=2.3.0,<3.0.0
-    - python-lsp-server >=1.13.0,<1.14.0
+    - python-lsp-server >=1.13.2,<1.14.0
     - pyuca >=1.2
     - pyxdg >=0.26  # [linux]
     - pyzmq >=24.0.0
@@ -80,7 +80,7 @@ requirements:
     - qtpy >=2.4.0
     - rtree >=0.9.7
     - sphinx >=0.6.6
-    - spyder-kernels >=3.1.0,<3.2.0
+    - spyder-kernels >=3.1.2,<3.2.0
     - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
