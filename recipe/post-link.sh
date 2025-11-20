@@ -22,7 +22,7 @@ env_name=$(basename ${PREFIX//_/-})
 sed "${opts[@]}" "s/__CFBID_ENV__/${env_name}/g" $menu
 
 # Do not create shortcut for menuinst version less than min version
-menuinst_min_version = "2.4.0"
+menuinst_min_version="2.4.0"
 menuinst_version=$($CONDA_PYTHON_EXE -c "import menuinst; print(menuinst.__version__)" 2>/dev/null || echo "0.0.0")
 if [[ "$menuinst_version" < ${menuinst_min_version} ]]; then
     mv -f ${menu} ${menu}.bak
