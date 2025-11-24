@@ -223,6 +223,3 @@ Feedstock Maintainers
 * [@dalthviz](https://github.com/dalthviz/)
 * [@mrclary](https://github.com/mrclary/)
 
-
-<!-- dummy commit to enable rerendering -->
-
