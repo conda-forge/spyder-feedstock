@@ -37,11 +37,12 @@
             "icon": "{{ MENU_DIR }}/reset_preferences.{{ ICON_EXT }}",
             "activate": false,
             "terminal": false,
-            "desktop": true,
-            "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}.Reset",
             "command": ["{{ PREFIX }}/Scripts/spyder.exe", "--reset"],
             "platforms": {
-                "win": {}
+                "win": {
+                    "desktop": true,
+                    "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}.Reset"
+                }
             }
         }
     ]
