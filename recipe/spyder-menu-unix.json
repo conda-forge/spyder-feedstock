@@ -1,6 +1,5 @@
 {
-    "$schema": "https://json-schema.org/draft-07/schema",
-    "$id": "https://schemas.conda.io/menuinst-1.schema.json",
+    "$schema": "https://schemas.conda.org/menuinst/menuinst-1-1-2.schema.json",
     "menu_name": "{{ DISTRIBUTION_NAME }} spyder",
     "menu_items": [
         {
