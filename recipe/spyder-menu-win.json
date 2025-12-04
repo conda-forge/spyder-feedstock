@@ -11,19 +11,20 @@
             "icon": "{{ MENU_DIR }}/spyder.{{ ICON_EXT }}",
             "activate": false,
             "terminal": false,
-            "desktop": true,
-            "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}",
             "command": ["{{ PREFIX }}/Scripts/spyder.exe", "%1 "],
-            "file_extensions": [
-                ".enaml",
-                ".ipy",
-                ".py",
-                ".pyi",
-                ".pyw",
-                ".pyx"
-            ],
             "platforms": {
-                "win": {}
+                "win": {
+                    "desktop": true,
+                    "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}",
+                    "file_extensions": [
+                        ".enaml",
+                        ".ipy",
+                        ".py",
+                        ".pyi",
+                        ".pyw",
+                        ".pyx"
+                    ]
+                }
             }
         },
         {
@@ -35,11 +36,12 @@
             "icon": "{{ MENU_DIR }}/reset_preferences.{{ ICON_EXT }}",
             "activate": false,
             "terminal": false,
-            "desktop": true,
-            "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}.Reset",
             "command": ["{{ PREFIX }}/Scripts/spyder.exe", "--reset"],
             "platforms": {
-                "win": {}
+                "win": {
+                    "desktop": true,
+                    "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}.Reset"
+                }
             }
         }
     ]
