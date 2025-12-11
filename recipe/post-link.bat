@@ -28,8 +28,8 @@ call :not_conda_based_install
 
     rem  Prevent using user site-packages
     rem  See https://github.com/spyder-ide/spyder/issues/24773
-    set site=%PREFIX%\envs\spyder-runtime\Lib\site.py
-    set site_tmp=%PREFIX%\envs\spyder-runtime\Lib\site.py.bak
+    set site=%PREFIX%\Lib\site.py
+    set site_tmp=%PREFIX%\Lib\site.py.bak
     (for /f "delims=" %%i in ('type "%site%" ^| findstr /n "^"') do (
         set "s=%%i"
         set "s=!s:*:=!"
