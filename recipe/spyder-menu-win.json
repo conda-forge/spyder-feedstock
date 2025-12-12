@@ -15,7 +15,7 @@
             "platforms": {
                 "win": {
                     "desktop": true,
-                    "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}",
+                    "app_user_model_id": "SpyderIDE.Spyder__PKG_MAJOR_VER__.__AUMID_ENV__",
                     "file_extensions": [
                         ".enaml",
                         ".ipy",
@@ -40,7 +40,7 @@
             "platforms": {
                 "win": {
                     "desktop": true,
-                    "app_user_model_id": "spyder-ide.Spyder-__PKG_MAJOR_VER__.{{ ENV_NAME }}.Reset"
+                    "app_user_model_id": "SpyderIDE.Spyder__PKG_MAJOR_VER__.__AUMID_ENV__.Reset"
                 }
             }
         }

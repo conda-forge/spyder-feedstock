@@ -25,6 +25,7 @@ call :not_conda_based_install
 :conda_based_install
     rem  Abridge shortcut name
     call :patch " ^({{ ENV_NAME }}^)=" %menu%
+    call :patch ".__AUMID_ENV__=" %menu%
 
     rem  Prevent using user site-packages
     rem  See https://github.com/spyder-ide/spyder/issues/24773
@@ -51,8 +52,19 @@ call :not_conda_based_install
     for /F "tokens=*" %%i in (
         '%conda_python_exe% -c "import menuinst; print(menuinst.__version__)"'
     ) do (
-        if "%%~i" lss "2.1.2" call :use_menu_v1
+        if "%%~i" lss "2.1.2" (
+            call :use_menu_v1
+            goto :exit
+        )
     )
+
+    rem  Patch AppUserModelID; remove _ and - from env name
+    for /f "delims=" %%i in ("%PREFIX%") do set aumid_env=%%~ni
+    set aumid_env=%aumid_env:-=%
+    set aumid_env=%aumid_env:_=%
+    call :patch "__AUMID_ENV__=%aumid_env%" %menu%
+
+    goto :eof
 
 :patch
     set tmpmenu=%menudir%\tmp.json
