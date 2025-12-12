@@ -36,7 +36,6 @@ call :not_conda_based_install
         if "!s!"=="ENABLE_USER_SITE = None" set s=!s:None=False!
         echo.!s!
     )) > %site_tmp% && move /y %site_tmp% %site% >nul
-
     goto :eof
 
 :not_conda_based_install
@@ -48,11 +47,18 @@ call :not_conda_based_install
     )
 
     rem  Check menuinst version
+    set menuinst_min_ver=2.1.2
     for /F "tokens=*" %%i in (
         '%conda_python_exe% -c "import menuinst; print(menuinst.__version__)"'
     ) do (
-        if "%%~i" lss "2.1.2" call :use_menu_v1
+        set menuinst_ver=%%~i
     )
+    for /f "delims=" %%i in (
+        'powershell -Command "[version]'%menuinst_ver%' -lt [version]'%menuinst_min_ver%'"'
+    ) do (
+        if "%%~i" == "True" call :use_menu_v1
+    )
+    goto :eof
 
 :patch
     set tmpmenu=%menudir%\tmp.json
