@@ -1,5 +1,5 @@
-{% set version = "6.1.1rc1" %}
-{% set python_min = "3.9" %}
+{% set version = "6.1.2rc1" %}
+{% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
 {% set build = 0 %}
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 6025ed0a24a82509d83a8bd9afc49fb55fcb50468cd0c7ff08a6fdb05ab3b2f2
+  sha256: 8d5dac4a8606fcac0d377a525f7d1abea59829aaeb5bd254c9d463c97c4c3301
 
 build:
   number: {{ build }}
@@ -63,13 +63,13 @@ requirements:
     - ptyprocess >=0.5  # [win]
     - pygithub >=2.3.0
     - pygments >=2.0
-    - pylint >=3.1,<4
+    - pylint >=3.1,<5
     - pylint-venv >=3.0.2
     - pyls-spyder >=0.4.0
     - python.app  # [osx]
     - python-lsp-black >=2.0.0,<3.0.0
     - python-lsp-ruff >=2.3.0,<3.0.0
-    - python-lsp-server >=1.13.2,<1.14.0
+    - python-lsp-server >=1.14.0,<1.15.0
     - pyuca >=1.2
     - pyxdg >=0.26  # [linux]
     - pyzmq >=24.0.0
@@ -90,6 +90,7 @@ requirements:
     - __linux  # [linux]
     - __osx    # [osx]
   run_constrained:
+    - menuinst >=2.1.2
     - spyder =={{ version }}=*{{ build }}
 
 test:
