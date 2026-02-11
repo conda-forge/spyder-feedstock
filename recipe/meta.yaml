@@ -1,4 +1,4 @@
-{% set version = "6.1.2rc1" %}
+{% set version = "6.1.3rc1" %}
 {% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
 {% set build = 0 %}
 
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 8d5dac4a8606fcac0d377a525f7d1abea59829aaeb5bd254c9d463c97c4c3301
+  sha256: 844931ecad67fed46af08e76e8f629d3ff2c8515522187cab47665eb5c93644b
 
 build:
   number: {{ build }}
@@ -52,6 +52,7 @@ requirements:
     - jellyfish >=0.7
     - jsonschema >=3.2.0
     - keyring >=17.0.0
+    - markdown-it-py >=3.0.0
     - nbconvert >=4.0
     - numpydoc >=0.6.0
     - packaging >=20.0
@@ -75,12 +76,12 @@ requirements:
     - pyzmq >=24.0.0
     - qdarkstyle >=3.2.0,<3.3.0
     - qstylizer >=0.2.2
-    - qtawesome >=1.4.0,<1.5.0
-    - qtconsole-base >=5.7.0,<5.8.0
+    - qtawesome >=1.4.1,<1.5.0
+    - qtconsole-base >=5.7.1,<5.8.0
     - qtpy >=2.4.0
     - rtree >=0.9.7
     - sphinx >=0.6.6
-    - spyder-kernels >=3.1.2,<3.2.0
+    - spyder-kernels >=3.1.3,<3.2.0
     - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
@@ -120,7 +121,7 @@ outputs:
         - fcitx-qt5 >=1.2.7  # [linux]
         - pyqt >=5.15,<5.16
         - pyqtwebengine >=5.15,<5.16
-        - qtconsole >=5.7.0,<5.8.0
+        - qtconsole >=5.7.1,<5.8.0
         - __linux  # [linux]
     test:
       requires:
