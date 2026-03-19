@@ -22,7 +22,7 @@ build:
 
 requirements:
   build:
-    - python >={{ python_min }}           # [(build_platform != target_platform)]
+    - python >={{ python_min }}
   host:
     - python {{ python_min }}
     - pip
