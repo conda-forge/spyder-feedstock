@@ -1,4 +1,4 @@
-{% set version = "6.1.3rc2" %}
+{% set version = "6.1.4rc1" %}
 {% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
 {% set build = 0 %}
 
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 5f72fa05e5ab5ca48bad0e6a726ad60ff3a9fc35a1601291b75f7c31407cbe37
+  sha256: 252046454e4d306c3ed7b6d45df4b0be3efa118ff7e81234532043260bbc9d4a
 
 build:
   number: {{ build }}
@@ -33,9 +33,8 @@ requirements:
     - aiohttp >=3.11.2
     - applaunchservices >=0.3.0  # [osx]
     - asyncssh >=2.14.0,<3.0.0
-    - atomicwrites >=1.2.0
     - bcrypt >=4.3.0
-    - chardet >=2.0.0
+    - chardet >=5.2.0,<8.0.0
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
@@ -73,11 +72,11 @@ requirements:
     - qdarkstyle >=3.2.0,<3.3.0
     - qstylizer >=0.2.2
     - qtawesome >=1.4.1,<1.5.0
-    - qtconsole-base >=5.7.1,<5.8.0
+    - qtconsole-base >=5.7.2,<5.8.0
     - qtpy >=2.4.0
     - rtree >=0.9.7
     - sphinx >=0.6.6
-    - spyder-kernels >=3.1.3,<3.2.0
+    - spyder-kernels >=3.1.4,<3.2.0
     - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
@@ -117,7 +116,7 @@ outputs:
         - fcitx-qt5 >=1.2.7  # [linux]
         - pyqt >=5.15,<5.16
         - pyqtwebengine >=5.15,<5.16
-        - qtconsole >=5.7.1,<5.8.0
+        - qtconsole >=5.7.2,<5.8.0
         - __linux  # [linux]
     test:
       requires:
