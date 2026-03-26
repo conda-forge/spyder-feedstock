@@ -95,8 +95,7 @@ requirements:
 
 test:
   requires:
-    - python {{ python_min }}  # [unix]
-    - python                   # [win]
+    - python {{ python_min }}
     - pip
   commands:
     - spyder -h
@@ -126,8 +125,7 @@ outputs:
         - __linux  # [linux]
     test:
       requires:
-        - python {{ python_min }}  # [unix]
-        - python                   # [win]
+        - python {{ python_min }}
         - pip
       commands:
         - spyder -h
