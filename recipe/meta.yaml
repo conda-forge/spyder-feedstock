@@ -15,11 +15,10 @@ build:
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
-  # https://github.com/conda/conda-build/issues/5385
   noarch: python
   string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
   string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
-  string: "win_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [win]
+  string: "win_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [win]
 
 requirements:
   build:
