@@ -1,6 +1,6 @@
 {% set version = "6.1.4rc1" %}
 {% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
-{% set build = 0 %}
+{% set build = 1 %}
 
 package:
   name: spyder-base
