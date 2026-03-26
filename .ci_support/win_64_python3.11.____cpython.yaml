@@ -2,6 +2,12 @@ channel_sources:
 - conda-forge,conda-forge/label/spyder_kernels_rc
 channel_targets:
 - conda-forge spyder_rc
+pin_run_as_build:
+  python:
+    min_pin: x.x
+    max_pin: x.x
+python:
+- 3.11.* *_cpython
 python_min:
 - '3.10'
 target_platform:
