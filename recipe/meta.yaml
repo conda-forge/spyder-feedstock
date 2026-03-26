@@ -1,6 +1,6 @@
 {% set version = "6.1.4rc1" %}
 {% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
-{% set build = 1 %}
+{% set build = 2 %}
 
 package:
   name: spyder-base
@@ -16,7 +16,7 @@ build:
     - spyder = spyder.app.start:main
   osx_is_app: true
   # https://github.com/conda/conda-build/issues/5385
-  noarch: python  # [unix]
+  noarch: python
   string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
   string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
   string: "win_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [win]
