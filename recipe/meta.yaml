@@ -1,6 +1,6 @@
 {% set version = "6.1.4rc1" %}
 {% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
-{% set build = 0 %}
+{% set build = 1 %}
 
 package:
   name: spyder-base
@@ -19,6 +19,7 @@ build:
   noarch: python  # [unix]
   string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
   string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
+  string: "win_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [win]
 
 requirements:
   build:
@@ -85,6 +86,7 @@ requirements:
     # https://conda-forge.org/docs/maintainer/knowledge_base/#noarch-python
     - __linux  # [linux]
     - __osx    # [osx]
+    - __win    # [win]
   run_constrained:
     - spyder {{ version }} *{{ build }}
 
