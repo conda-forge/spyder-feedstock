@@ -24,9 +24,12 @@ build:
 
 requirements:
   build:
-    - python >={{ python_min }}
+    - python >={{ python_min }}  # [unix]
+    # Needed to provide a package for each Python version supported by conda-forge on Windows
+    - python  # [win]
   host:
-    - python {{ python_min }}
+    - python {{ python_min }}  # [unix]
+    - python                   # [win]
     - pip
     - setuptools
     - packaging
@@ -92,7 +95,8 @@ requirements:
 
 test:
   requires:
-    - python {{ python_min }}
+    - python {{ python_min }}  # [unix]
+    - python                   # [win]
     - pip
   commands:
     - spyder -h
@@ -122,7 +126,8 @@ outputs:
         - __linux  # [linux]
     test:
       requires:
-        - python {{ python_min }}
+        - python {{ python_min }}  # [unix]
+        - python                   # [win]
         - pip
       commands:
         - spyder -h
