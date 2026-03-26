@@ -1,5 +1,4 @@
 @echo off
-setlocal ENABLEDELAYEDEXPANSION
 
 set menudir=%PREFIX%\Menu
 set menu=%menudir%\spyder-menu.json
@@ -30,12 +29,19 @@ call :not_conda_based_install
     rem  See https://github.com/spyder-ide/spyder/issues/24773
     set site=%PREFIX%\Lib\site.py
     set site_tmp=%PREFIX%\Lib\site.py.bak
-    (for /f "delims=" %%i in ('type "%site%" ^| findstr /n "^"') do (
-        set "s=%%i"
-        set "s=!s:*:=!"
-        if "!s!"=="ENABLE_USER_SITE = None" set s=!s:None=False!
-        echo.!s!
-    )) > %site_tmp% && move /y %site_tmp% %site% >nul
+
+    rem delayed expansion must be disabled because site.py has ! characters
+    (for /f "delims=" %%A in ('findstr /n "^" "%site%"') do (
+        rem Split line number and content
+        for /f "tokens=1* delims=:" %%N in ("%%A") do (
+            if "%%O"=="ENABLE_USER_SITE = None" (
+                echo ENABLE_USER_SITE = False
+            ) else (
+                echo.%%O
+            )
+        )
+    )) > "%site_tmp%" && move /y %site_tmp% %site% >nul
+
     goto :eof
 
 :not_conda_based_install
@@ -63,11 +69,13 @@ call :not_conda_based_install
 :patch
     set tmpmenu=%menudir%\tmp.json
     set findreplace=%~1
-    (for /f "delims=" %%a in ('type "%~2" ^| findstr /n "^"') do (
+    setlocal ENABLEDELAYEDEXPANSION
+    (for /f "delims=" %%a in ('findstr /n "^" "%~2"') do (
         set "s=%%a"
         set "s=!s:*:=!"
         echo !s:%findreplace%!
     )) > "%tmpmenu%" && move /y "%tmpmenu%" "%~2" >nul
+    endlocal
     goto :eof
 
 :use_menu_v1
