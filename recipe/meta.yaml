@@ -1,6 +1,6 @@
 {% set version = "6.1.4rc1" %}
 {% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
-{% set build = 1 %}
+{% set build = 2 %}
 
 package:
   name: spyder-base
@@ -15,17 +15,21 @@ build:
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
+  # noarch on Windows fails due to spyder.ico
+  # conda_build.exceptions.CondaBuildUserError: Noarch package contains binary script: spyder.ico
   # https://github.com/conda/conda-build/issues/5385
   noarch: python  # [unix]
   string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
   string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
-  string: "win_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [win]
 
 requirements:
   build:
-    - python >={{ python_min }}
+    - python >={{ python_min }}           # [unix and (build_platform != target_platform)]
+    # Needed to provide a package for each Python version supported by conda-forge on Windows
+    - python                              # [win  and (build_platform != target_platform)]
   host:
-    - python {{ python_min }}
+    - python {{ python_min }}  # [unix]
+    - python                   # [win]
     - pip
     - setuptools
     - packaging
@@ -86,13 +90,13 @@ requirements:
     # https://conda-forge.org/docs/maintainer/knowledge_base/#noarch-python
     - __linux  # [linux]
     - __osx    # [osx]
-    - __win    # [win]
   run_constrained:
     - spyder {{ version }} *{{ build }}
 
 test:
   requires:
-    - python {{ python_min }}
+    - python {{ python_min }}  # [unix]
+    - python                   # [win]
     - pip
   commands:
     - spyder -h
@@ -122,7 +126,8 @@ outputs:
         - __linux  # [linux]
     test:
       requires:
-        - python {{ python_min }}
+        - python {{ python_min }}  # [unix]
+        - python                   # [win]
         - pip
       commands:
         - spyder -h
