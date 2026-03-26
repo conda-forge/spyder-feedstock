@@ -125,7 +125,8 @@ outputs:
         - __linux  # [linux]
     test:
       requires:
-        - python {{ python_min }}
+        - python {{ python_min }}  # [unix]
+        - python                   # [win]
         - pip
       commands:
         - spyder -h
