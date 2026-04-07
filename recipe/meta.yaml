@@ -1,4 +1,4 @@
-{% set version = "6.1.3" %}
+{% set version = "6.1.4" %}
 {% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
 {% set build = 0 %}
 
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: c770116328b74d6e6c82b304946fd2e0f9ef7da0af125e9816e399dfda523f16
+  sha256: 1c6139710af071053fc3149181f8604e5f3a3a4fa1054073a649b969fef2de32
 
 build:
   number: {{ build }}
