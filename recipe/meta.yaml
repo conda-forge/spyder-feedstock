@@ -1,6 +1,6 @@
 {% set version = "6.1.4" %}
 {% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
-{% set build = 0 %}
+{% set build = 1 %}
 
 package:
   name: spyder-base
@@ -43,6 +43,8 @@ requirements:
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
+    # Version 2.18 makes Spyder segfault at startup
+    - fontconfig >=2.17,<2.18  # [linux]
     - fzf >=0.42.0
     - importlib-metadata >=4.6.0
     - intervaltree >=3.0.2
