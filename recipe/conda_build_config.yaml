@@ -2,3 +2,5 @@ channel_sources:
   - conda-forge/label/spyder_kernels_dev,conda-forge/label/spyder_kernels_rc,conda-forge
 channel_targets:
   - conda-forge spyder_dev
+python_min:
+  - "3.11"

@@ -26,7 +26,7 @@ requirements:
   build:
     - python >={{ python_min }}           # [unix and (build_platform != target_platform)]
     # Needed to provide a package for each Python version supported by conda-forge on Windows
-    - python                              # [win  and (build_platform != target_platform)]
+    - python                              # [win  and (build_platform != target_platform) and py!=3.10]
   host:
     - python {{ python_min }}  # [unix]
     - python                   # [win]
