@@ -21,10 +21,15 @@ fi
 env_name=$(basename ${PREFIX//_/-})
 sed "${opts[@]}" "s/__CFBID_ENV__/${env_name}/g" $menu
 
-# Do not create shortcut for menuinst version <2.1.2
+# Do not create shortcut for menuinst version less than min version
+menuinst_min_version="2.1.2"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    menuinst_min_version="2.4.0"
+fi
 menuinst_version=$($CONDA_PYTHON_EXE -c "import menuinst; print(menuinst.__version__)" 2>/dev/null || echo "0.0.0")
-if [[ "$menuinst_version" < "2.1.2" ]]; then
+last_version=$(echo -e "${menuinst_version}\n${menuinst_min_version}" | sort -V | tail -n1)
+if [[ "${menuinst_version}" != "${last_version}" ]]; then
     mv -f ${menu} ${menu}.bak
     echo "Warning: Spyder shortcut will not be created." >> ${PREFIX}/.message.txt
-    echo "Please update to menuinst >=2.1.2 in the base environment and reinstall Spyder." >> ${PREFIX}/.message.txt
+    echo "Please update to menuinst >=${menuinst_min_version} in the base environment and reinstall Spyder." >> ${PREFIX}/.message.txt
 fi
