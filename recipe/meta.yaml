@@ -1,4 +1,4 @@
-{% set version = "6.1.5" %}
+{% set version = "6.1.6" %}
 {% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
 {% set build = 0 %}
 
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 5d2f8b20007865b416c029b1a3f327ab2ff93c0af5e2b9c18bf86d3d883e322b
+  sha256: 7986ed030ab80478974bcb81b5c8c882f50ca7366ca9d566ce019866ad6b0583
 
 build:
   number: {{ build }}
@@ -19,7 +19,7 @@ build:
   # conda_build.exceptions.CondaBuildUserError: Noarch package contains binary script: spyder.ico
   # https://github.com/conda/conda-build/issues/5385
   noarch: python  # [unix]
-  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
+  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [osx]
   string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
 
 requirements:
