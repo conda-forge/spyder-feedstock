@@ -1,4 +1,5 @@
 @echo off
+setlocal DISABLEDELAYEDEXPANSION
 
 set menudir=%PREFIX%\Menu
 set menu=%menudir%\spyder-menu.json
