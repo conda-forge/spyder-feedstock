@@ -22,10 +22,14 @@ for /F "tokens=*" %%i in (
 ) do (
     set exe_path=%%i
 )
-copy /y /b %exe_path% %SCRIPTS%
+rem  gui-64.exe will be moved to Scripts in post-link.bat for full noarch
+copy /y /b %exe_path% %MENU_DIR%
 
 rem  Copy launch script
 copy /y %RECIPE_DIR%\spyder-script.pyw %SCRIPTS%
+
+rem  Remove spyder.ico from Scripts for full noarch; replaced in post-link.bat
+del /q %SCRIPTS%\spyder.ico
 
 :exit
     exit /b %errorlevel%
