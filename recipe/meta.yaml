@@ -21,8 +21,8 @@ build:
   # conda_build.exceptions.CondaBuildUserError: Noarch package contains binary script: spyder.ico
   # https://github.com/conda/conda-build/issues/5385
   noarch: python
-  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
   string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
+  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
   string: "win_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [win]
 
 requirements:
@@ -118,6 +118,8 @@ outputs:
     build:
       noarch: python
       string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
+      string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
+      string: "win_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [win]
     requirements:
       run:
         - spyder-base {{ version }} *{{ build }}
@@ -126,6 +128,8 @@ outputs:
         - pyqtwebengine >=5.15,<5.16
         - qtconsole >=5.7.2,<5.8.0
         - __linux  # [linux]
+        - __osx    # [osx]
+        - __win    # [win]
     test:
       requires:
         - python {{ python_min }}
