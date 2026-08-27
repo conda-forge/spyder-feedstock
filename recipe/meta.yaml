@@ -1,6 +1,6 @@
-{% set version = "6.1.6rc1" %}
+{% set version = "6.1.7rc1" %}
 {% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
-{% set build = 1 %}
+{% set build = 0 %}
 
 package:
   name: spyder-base
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: f7db16fa2a6e0493cb791620fef1c9281319d2f3824aa372a03d8d64980da78b
+  sha256: 27e6ba8b50df0d3e30139e418fe845352e24c74af1658de973280b13e1382a62
 
 build:
   number: {{ build }}
@@ -43,8 +43,6 @@ requirements:
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
-    # Version 2.18 makes Spyder segfault at startup
-    - fontconfig >=2.17,<2.18  # [linux]
     - fzf >=0.42.0
     - importlib-metadata >=4.6.0
     - intervaltree >=3.0.2
@@ -82,8 +80,8 @@ requirements:
     - qtconsole-base >=5.7.2,<5.8.0
     - qtpy >=2.4.0
     - rtree >=0.9.7
-    - sphinx >=0.6.6
-    - spyder-kernels >=3.1.5,<3.2.0
+    - sphinx >=7.2.0
+    - spyder-kernels >=3.1.6,<3.2.0
     - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
