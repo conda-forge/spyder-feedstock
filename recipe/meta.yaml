@@ -1,6 +1,6 @@
-{% set version = "6.2.0a2" %}
+{% set version = "6.2.0a3" %}
 {% set python_min = "3.11" %}  # DO NOT REMOVE! This is necessary to build our installers
-{% set build = 1 %}
+{% set build = 0 %}
 
 package:
   name: spyder-base
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: 40c718edea3dedbdd4d4a1564338e861df53cb50599000c9b32229a260172e36
+  sha256: 84564c6a69c637c8a73a0c750f9551c6f4a748f591f6907864e8f4a379ec5c6b
 
 build:
   number: {{ build }}
@@ -84,8 +84,8 @@ requirements:
     - rtfunicode >=2.2,<3
     - rtree >=0.9.7
     - sphinx >=7.2.0
-    - spyder-kernels >=3.2.0a1,<3.2.0a2
-    - spyder-themes >=1.0.9,<1.1.0
+    - spyder-kernels >=3.2.0a2,<3.2.0a3
+    - spyder-themes >=1.0.16,<1.1.0
     - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
