@@ -20,18 +20,16 @@ build:
   # noarch on Windows fails due to spyder.ico
   # conda_build.exceptions.CondaBuildUserError: Noarch package contains binary script: spyder.ico
   # https://github.com/conda/conda-build/issues/5385
-  noarch: python  # [unix]
-  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
+  noarch: python
   string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
+  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
+  string: "win_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [win]
 
 requirements:
   build:
-    - python >={{ python_min }}           # [unix and (build_platform != target_platform)]
-    # Needed to provide a package for each Python version supported by conda-forge on Windows
-    - python                              # [win  and (build_platform != target_platform) and py!=3.10]
+    - python >={{ python_min }}
   host:
-    - python {{ python_min }}  # [unix]
-    - python                   # [win]
+    - python {{ python_min }}
     - pip
     - setuptools
     - packaging
@@ -94,13 +92,13 @@ requirements:
     # https://conda-forge.org/docs/maintainer/knowledge_base/#noarch-python
     - __linux  # [linux]
     - __osx    # [osx]
+    - __win    # [win]
   run_constrained:
     - spyder {{ version }} *{{ build }}
 
 test:
   requires:
-    - python {{ python_min }}  # [unix]
-    - python                   # [win]
+    - python {{ python_min }}
     - pip
   commands:
     - spyder -h
@@ -120,6 +118,8 @@ outputs:
     build:
       noarch: python
       string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
+      string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
+      string: "win_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [win]
     requirements:
       run:
         - spyder-base {{ version }} *{{ build }}
@@ -128,10 +128,11 @@ outputs:
         - pyqtwebengine >=5.15,<5.16
         - qtconsole >=5.7.2,<5.8.0
         - __linux  # [linux]
+        - __osx    # [osx]
+        - __win    # [win]
     test:
       requires:
-        - python {{ python_min }}  # [unix]
-        - python                   # [win]
+        - python {{ python_min }}
         - pip
       commands:
         - spyder -h
