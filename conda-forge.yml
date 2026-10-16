@@ -21,5 +21,5 @@ noarch_platforms:
 azure:
   store_build_artifacts: True
 remote_ci_setup:
-  - conda-forge-ci-setup =4
-  - conda-build <26.9
+  - 'conda-forge-ci-setup=4'
+  - 'conda-build<26.9'
