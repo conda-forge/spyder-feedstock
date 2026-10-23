@@ -19,4 +19,7 @@ noarch_platforms:
   - linux_64
   - osx_64
 azure:
-  store_build_artifacts: True
+  store_build_artifacts: False
+remote_ci_setup:
+  - 'conda-forge-ci-setup=4'
+  - 'conda-build<26.9'
