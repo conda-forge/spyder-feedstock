@@ -19,7 +19,7 @@ build:
   # conda_build.exceptions.CondaBuildUserError: Noarch package contains binary script: spyder.ico
   # https://github.com/conda/conda-build/issues/5385
   noarch: python  # [unix]
-  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [osx]
+  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
   string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
 
 requirements:
@@ -43,8 +43,6 @@ requirements:
     - cloudpickle >=0.5.0
     - cookiecutter >=1.6.0
     - diff-match-patch >=20181111
-    # Version 2.18 makes Spyder segfault at startup
-    - fontconfig >=2.17,<2.18  # [linux]
     - fzf >=0.42.0
     - importlib-metadata >=4.6.0
     - intervaltree >=3.0.2
@@ -82,6 +80,7 @@ requirements:
     - qtconsole-base >=5.7.2,<5.8.0
     - qtpy >=2.4.0
     - rtree >=0.9.7
+    - ruff <0.17.0
     - sphinx >=7.2.0
     - spyder-kernels >=3.1.6,<3.2.0
     - superqt >=0.6.2,<1.0.0
