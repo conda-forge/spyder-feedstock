@@ -23,3 +23,6 @@ azure:
 linter:
   skip:
     - lint_noarch_selectors
+remote_ci_setup:
+  - 'conda-forge-ci-setup=4'
+  - 'mamba<2.10.0'
