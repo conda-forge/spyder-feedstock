@@ -22,4 +22,4 @@ azure:
   store_build_artifacts: True
 remote_ci_setup:
   - 'conda-forge-ci-setup=4'
-  - 'conda-build<26.9'
+  - 'mamba<2.10.0'
