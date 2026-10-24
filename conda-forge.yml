@@ -19,7 +19,10 @@ noarch_platforms:
   - linux_64
   - osx_64
 azure:
-  store_build_artifacts: True
+  store_build_artifacts: False  # https://github.com/conda-forge/conda-smithy/issues/2733
 linter:
   skip:
     - lint_noarch_selectors
+remote_ci_setup:
+  - 'conda-forge-ci-setup=4'
+  - 'mamba<2.10.0'  # https://github.com/conda-forge/conda-libmamba-solver-feedstock/issues/63
