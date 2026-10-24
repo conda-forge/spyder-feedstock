@@ -20,3 +20,6 @@ noarch_platforms:
   - osx_64
 azure:
   store_build_artifacts: True
+remote_ci_setup:
+  - 'conda-forge-ci-setup=4'
+  - 'mamba<2.10.0'
