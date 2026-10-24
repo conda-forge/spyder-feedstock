@@ -19,7 +19,7 @@ noarch_platforms:
   - linux_64
   - osx_64
 azure:
-  store_build_artifacts: True
+  store_build_artifacts: False  # https://github.com/conda-forge/conda-smithy/issues/2733
 linter:
   skip:
     - lint_noarch_selectors
