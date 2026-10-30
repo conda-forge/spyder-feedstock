@@ -125,9 +125,8 @@ outputs:
       run:
         - spyder-base {{ version }} *{{ build }}
         - fcitx-qt5 >=1.2.7  # [linux]
-        - pyqt >=5.15,<5.16
-        - pyqtwebengine >=5.15,<5.16
-        - qtconsole >=5.7.2,<5.8.0
+        - pyqt6 >=6.7,<7
+        - pyqt6-webengine >=6.7,<7
         - __linux  # [linux]
     test:
       requires:
