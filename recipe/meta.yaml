@@ -120,14 +120,18 @@ outputs:
   - name: spyder
     build:
       noarch: python
+      string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
       string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
     requirements:
       run:
         - spyder-base {{ version }} *{{ build }}
         - fcitx-qt5 >=1.2.7  # [linux]
-        - pyqt6 >=6.7,<7
-        - pyqt6-webengine >=6.7,<7
+        - pyqt6 >=6.7,<7  # [win or linux]
+        - pyqt6-webengine >=6.7,<7  # [win or linux]
+        - pyqt >=5.15,<5.16  # [osx]
+        - pyqtwebengine >=5.15,<5.16  # [osx]
         - __linux  # [linux]
+        - __osx    # [osx]
     test:
       requires:
         - python {{ python_min }}  # [unix]
