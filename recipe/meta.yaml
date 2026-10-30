@@ -13,7 +13,8 @@ source:
 build:
   number: {{ build }}
   # skip Python 3.10 build on Windows and macOS Intel
-  skip: true  # [py<311 or osx64]
+  skip: true  # [py<311]
+  skip: true  # [osx and x86_64]
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
@@ -119,14 +120,11 @@ outputs:
   - name: spyder
     build:
       noarch: python
-      string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
     requirements:
       run:
         - spyder-base {{ version }} *{{ build }}
-        - fcitx-qt5 >=1.2.7  # [linux]
-        - pyqt6 >=6.7,<7
-        - pyqt6-webengine >=6.7,<7
-        - __linux  # [linux]
+        - pyqt6 >=6.9,<7
+        - pyqt6-webengine >=6.9,<7
     test:
       requires:
         - python {{ python_min }}  # [unix]
