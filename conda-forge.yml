@@ -2,7 +2,7 @@ bot:
   inspection: disabled
 build_platform:
   linux_aarch64: linux_64
-  osx_arm64: osx_64
+  osx_arm64: osx_arm64
 conda_build:
   pkg_format: '2'
 conda_forge_output_validation: true
@@ -17,7 +17,6 @@ provider:
 test: native_and_emulated
 noarch_platforms:
   - linux_64
-  - osx_64
 azure:
   store_build_artifacts: False  # https://github.com/conda-forge/conda-smithy/issues/2733
 linter:

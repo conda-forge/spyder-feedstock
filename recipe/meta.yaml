@@ -12,16 +12,15 @@ source:
 
 build:
   number: {{ build }}
-  # skip Python 3.10 build on Windows
-  skip: true  # [py<311]
+  # skip Python 3.10 build on Windows and macOS Intel
+  skip: true  # [py<311 or osx64]
   entry_points:
     - spyder = spyder.app.start:main
   osx_is_app: true
   # noarch on Windows fails due to spyder.ico
   # conda_build.exceptions.CondaBuildUserError: Noarch package contains binary script: spyder.ico
   # https://github.com/conda/conda-build/issues/5385
-  noarch: python  # [unix]
-  string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
+  noarch: python  # [linux]
   string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
 
 requirements:
@@ -120,18 +119,14 @@ outputs:
   - name: spyder
     build:
       noarch: python
-      string: "osx_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"    # [osx]
       string: "linux_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [linux]
     requirements:
       run:
         - spyder-base {{ version }} *{{ build }}
         - fcitx-qt5 >=1.2.7  # [linux]
-        - pyqt6 >=6.7,<7  # [win or linux]
-        - pyqt6-webengine >=6.7,<7  # [win or linux]
-        - pyqt >=5.15,<5.16  # [osx]
-        - pyqtwebengine >=5.15,<5.16  # [osx]
+        - pyqt6 >=6.7,<7
+        - pyqt6-webengine >=6.7,<7
         - __linux  # [linux]
-        - __osx    # [osx]
     test:
       requires:
         - python {{ python_min }}  # [unix]
