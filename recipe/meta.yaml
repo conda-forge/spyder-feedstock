@@ -101,8 +101,9 @@ requirements:
 
 test:
   requires:
-    - python {{ python_min }}  # [unix]
+    - python {{ python_min }}  # [linux]
     - python                   # [win]
+    - python                   # [osx]
     - pip
   commands:
     - spyder -h
@@ -128,8 +129,9 @@ outputs:
         - pyqt6-webengine >=6.9,<7
     test:
       requires:
-        - python {{ python_min }}  # [unix]
+        - python {{ python_min }}  # [linux]
         - python                   # [win]
+        - python                   # [osx]
         - pip
       commands:
         - spyder -h
