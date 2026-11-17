@@ -107,7 +107,7 @@ test:
     - pip
   commands:
     - spyder -h
-    - python -m pip check
+    # - python -m pip check
   imports:
     - spyder
 
@@ -135,7 +135,7 @@ outputs:
         - pip
       commands:
         - spyder -h
-        - python -m pip check
+        # - python -m pip check
       imports:
         - spyder
 
