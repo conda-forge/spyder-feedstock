@@ -1,4 +1,4 @@
-{% set version = "6.1.8rc1" %}
+{% set version = "6.1.9rc1" %}
 {% set python_min = "3.10" %}  # DO NOT REMOVE! This is necessary to build our installers
 {% set build = 0 %}
 
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/spyder/spyder-{{ version }}.tar.gz
-  sha256: df7f86f6845897905afda38a41b01266877a0b5e95f244ed18ebccf0eff59d5a
+  sha256: e386d7a2f93aa16c000f25e23b45958fa278dafeb29ff75323ea6ca665b106c4
 
 build:
   number: {{ build }}
@@ -82,7 +82,7 @@ requirements:
     - rtree >=0.9.7
     - ruff <0.17.0
     - sphinx >=7.2.0
-    - spyder-kernels >=3.1.6,<3.2.0
+    - spyder-kernels >=3.1.7,<3.2.0
     - superqt >=0.6.2,<1.0.0
     - textdistance >=4.2.0
     - three-merge >=0.1.1
